@@ -1,0 +1,62 @@
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - mood_great
+  - mood_unhappy
+  - bot_challenge
+  - book_appt
+
+actions:
+  - action_fetch_slots
+
+entities:
+  - slot
+
+slots:
+  slot:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: slot
+
+responses:
+  utter_greet:
+    - text:
+        Welcome to Dr Strange's Clinic!
+        Pick an option below.
+      buttons:
+        - title: "Book Appointment"
+          payload: "/book_appt"
+        - title: "Cancel"
+          payload: "/cancel"
+
+  utter_cheer_up:
+  - text: "Here is something to cheer you up:"
+    image: "https://i.imgur.com/nGF1K8f.jpg"
+
+  utter_did_that_help:
+  - text: "Did that help you?"
+
+  utter_happy:
+  - text: "Great, carry on!"
+
+  utter_goodbye:
+  - text: "Bye"
+
+  utter_iamabot:
+  - text: "I am a bot, powered by Rasa."
+
+  utter_slots:
+  - text: "Please pick a slot below"
+
+  utter_ask_name:
+  - text: "May I know your name?"
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

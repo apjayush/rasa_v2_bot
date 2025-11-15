@@ -1,0 +1,25 @@
+version: "3.1"
+
+rules:
+
+- rule: Say goodbye anytime the user says goodbye
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye
+
+- rule: Say 'I am a bot' anytime the user challenges
+  steps:
+  - intent: bot_challenge
+  - action: utter_iamabot
+
+- rule: Fetch slots after booking intent
+  steps:
+    - intent: book_appt
+    - action: action_fetch_slots
+
+- rule: Ask user name after selecting a slot
+  steps:
+    - intent: slot_selected
+    - action: utter_ask_name
+
+
