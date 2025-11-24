@@ -9,20 +9,30 @@ intents:
   - mood_unhappy
   - bot_challenge
   - book_appt
+  - slot_selected
 
 actions:
   - action_fetch_slots
+  - action_store_slot
+  - action_store_name
+  - action_book_appointment
 
-entities:
-  - slot
+# entities:
+#   - slot
 
 slots:
-  slot:
+  chosen_slot:
     type: text
     influence_conversation: true
     mappings:
-      - type: from_entity
-        entity: slot
+      - type: custom      # We fill this manually in action_store_slot
+
+  user_name:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: custom      # We fill this manually in action_store_name
+
 
 responses:
   utter_greet:

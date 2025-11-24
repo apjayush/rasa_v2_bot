@@ -97,3 +97,26 @@ nlu:
       - I want to book
       - book
       - appointment
+
+
+- intent: slot_selected
+  examples: |
+    - slot_10_00AM
+    - slot_10_15AM
+    - slot_11_00AM
+    - slot_11_30AM
+    - slot_12_00PM
+    - slot_12_30PM
+
+- intent: user_name
+  examples: |
+    - My name is Ayush
+    - Harsh
+    - Rahul
+    - Karan
+    - Rishav
+    - Ankur
+    - I am Ayush
+    - Ayush
+    - It's Ayush
+    - Call me Ayush

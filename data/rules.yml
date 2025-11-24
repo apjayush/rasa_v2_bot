@@ -20,6 +20,14 @@ rules:
 - rule: Ask user name after selecting a slot
   steps:
     - intent: slot_selected
+    - action: action_store_slot
     - action: utter_ask_name
+
+- rule: Capture user name after asking
+  steps:
+    - intent: user_name
+    - action: action_store_name
+    - action: action_book_appointment
+
 
 
