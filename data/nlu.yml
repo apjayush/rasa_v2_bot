@@ -97,6 +97,44 @@ nlu:
       - I want to book
       - book
       - appointment
+      - book test ride
+      - test ride
+      - I want a test ride
+
+
+- intent: vehicle_availability
+  examples: |
+    - vehicle availability
+    - show me vehicles
+    - what bikes are available
+    - available vehicles
+    - show bikes
+    - which vehicles do you have
+    - check availability
+    - vehicle stock
+
+
+- intent: brochure_request
+  examples: |
+    - brochure
+    - send brochure
+    - I want a brochure
+    - brochure request
+    - can I get a brochure
+    - show me brochure
+    - send me details
+    - product brochure
+    - vehicle brochure
+    - download brochure
+    - get brochure
+
+
+- intent: vehicle_selected
+  examples: |
+    - apache_rtr_160
+    - apache_200_4v
+    - tvs_jupiter
+    - tvs_ronin
 
 
 - intent: slot_selected

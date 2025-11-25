@@ -10,12 +10,18 @@ intents:
   - bot_challenge
   - book_appt
   - slot_selected
+  - vehicle_availability
+  - brochure_request
+  - vehicle_selected
 
 actions:
   - action_fetch_slots
   - action_store_slot
   - action_store_name
   - action_book_appointment
+  - action_show_vehicle_availability
+  - action_store_vehicle_choice
+  - action_send_brochure
 
 # entities:
 #   - slot
@@ -33,17 +39,26 @@ slots:
     mappings:
       - type: custom      # We fill this manually in action_store_name
 
+  chosen_vehicle:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: custom      # We fill this manually in action_store_vehicle_choice
+
 
 responses:
   utter_greet:
-    - text:
-        Welcome to Dr Strange's Clinic!
-        Pick an option below.
+    - text: |
+        BLR TVS MOTORS
+        Welcome to BLR TVS MOTORS!
+        How can we assist you today? Please select an option below:
       buttons:
-        - title: "Book Appointment"
+        - title: "Vehicle Availability"
+          payload: "/vehicle_availability"
+        - title: "Book Test Ride"
           payload: "/book_appt"
-        - title: "Cancel"
-          payload: "/cancel"
+        - title: "Brochure Request"
+          payload: "/brochure_request"
 
   utter_cheer_up:
   - text: "Here is something to cheer you up:"

@@ -12,6 +12,21 @@ rules:
   - intent: bot_challenge
   - action: utter_iamabot
 
+- rule: Show vehicle availability when requested
+  steps:
+    - intent: vehicle_availability
+    - action: action_show_vehicle_availability
+
+- rule: Store vehicle choice when selected
+  steps:
+    - intent: vehicle_selected
+    - action: action_store_vehicle_choice
+
+- rule: Send brochure when requested
+  steps:
+    - intent: brochure_request
+    - action: action_send_brochure
+
 - rule: Fetch slots after booking intent
   steps:
     - intent: book_appt

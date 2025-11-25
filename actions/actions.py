@@ -6,6 +6,8 @@ import httpx
 
 BACKEND_SLOT_URL = "http://localhost:8000/available-slots"
 BACKEND_BOOK_URL = "http://localhost:8000/book-slot"
+BACKEND_SEND_LIST_URL = "http://localhost:8000/send-list"
+BACKEND_SEND_BROCHURE_URL = "http://localhost:8000/send-brochure"
 
 class ActionFetchSlots(Action):
     def name(self) -> Text:
@@ -111,3 +113,240 @@ class ActionBookAppointment(Action):
 
         return []
 
+
+class ActionShowVehicleAvailability(Action):
+    def name(self) -> Text:
+        return "action_show_vehicle_availability"
+
+    async def run(self,
+                  dispatcher: CollectingDispatcher,
+                  tracker: Tracker,
+                  domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        # Get user's phone number from sender_id
+        phone_number = tracker.sender_id
+        
+        # Prepare vehicle list sections
+        sections = [
+            {
+                "title": "🏍️ Available Bikes",
+                "rows": [
+                    {
+                        "id": "apache_rtr_160",
+                        "title": "Apache RTR 160",
+                        
+                    },
+                    {
+                        "id": "apache_200_4v",
+                        "title": "Apache 200 4V",
+                        
+                    },
+                    {
+                        "id": "tvs_jupiter",
+                        "title": "TVS Jupiter"
+                    },
+                    {
+                        "id": "tvs_ronin",
+                        "title": "TVS Ronin"
+                    }
+                ]
+            }
+        ]
+        
+        # Prepare payload for backend
+        payload = {
+            "to": phone_number,
+            "header": "🏍️ Vehicle Availability",
+            "body": "Choose a vehicle to check availability and book:",
+            "button_text": "View Vehicles",
+            "sections": sections
+        }
+        
+        try:
+            # Call Backend API to send list message
+            print("🚀 Sending vehicle list via backend...")
+            print(f"Payload: {payload}")
+            async with httpx.AsyncClient() as client:
+                response = await client.post(BACKEND_SEND_LIST_URL, json=payload)
+                response.raise_for_status()
+            
+            print("✅ Vehicle list sent successfully via backend")
+        
+        except Exception as e:
+            print(f"❌ Error sending vehicle list: {e}")
+            dispatcher.utter_message(text="Sorry, I couldn't fetch vehicle availability at the moment.")
+        
+        return []
+
+
+class ActionStoreVehicleChoice(Action):
+    def name(self) -> Text:
+        return "action_store_vehicle_choice"
+
+    def run(self,
+            dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        # Get the vehicle ID from the user's selection
+        vehicle_id = tracker.latest_message.get("text")
+        
+        # Detailed vehicle information
+        vehicle_details = {
+            "apache_rtr_160": {
+                "name": "Apache RTR 160",
+                "price": "₹1,12,000",
+                "engine": "160cc, Single Cylinder",
+                "mileage": "45-50 km/l",
+                "power": "17.55 PS @ 9250 rpm",
+                "features": "Race-tuned Fuel Injection, ABS, SmartXonnect",
+                "colors": "Racing Red, Matte Black, Pearl White"
+            },
+            "apache_200_4v": {
+                "name": "Apache 200 4V",
+                "price": "₹1,42,000",
+                "engine": "200cc, 4-Valve",
+                "mileage": "35-40 km/l",
+                "power": "20.8 PS @ 9000 rpm",
+                "features": "4-Valve Engine, Dual Channel ABS, Riding Modes",
+                "colors": "Knight Black, Racing Red, White"
+            },
+            "tvs_jupiter": {
+                "name": "TVS Jupiter",
+                "price": "₹73,400",
+                "engine": "110cc, CVTi Engine",
+                "mileage": "62 km/l",
+                "power": "7.88 PS @ 7500 rpm",
+                "features": "Econometer, LED Headlamp, USB Charger, 33L Storage",
+                "colors": "Titanium Grey, Starlight Blue, Volcano Red"
+            },
+            "tvs_ronin": {
+                "name": "TVS Ronin",
+                "price": "₹1,49,000",
+                "engine": "225.9cc, Single Cylinder",
+                "mileage": "35-38 km/l",
+                "power": "20.4 PS @ 7750 rpm",
+                "features": "3 Riding Modes, Dual Channel ABS, TFT Display, Cruise Control",
+                "colors": "Stargaze Black, Canyon Copper, Tornado Grey"
+            }
+        }
+        
+        # Get vehicle details
+        vehicle = vehicle_details.get(vehicle_id)
+        
+        if vehicle:
+            # Create detailed message
+            message = f"""
+🏍️ *{vehicle['name']}*
+
+💰 *Price:* {vehicle['price']}
+⚙️ *Engine:* {vehicle['engine']}
+⛽ *Mileage:* {vehicle['mileage']}
+🔥 *Power:* {vehicle['power']}
+
+✨ *Key Features:*
+{vehicle['features']}
+
+🎨 *Available Colors:*
+{vehicle['colors']}
+
+📍 *Available at BLR TVS MOTORS*
+
+What would you like to do next?
+            """
+            
+            # Send message with buttons for next actions
+            buttons = [
+                {"title": "Book Test Ride", "payload": "/book_appt"},
+                {"title": "Get Brochure", "payload": "/brochure_request"},
+                {"title": "View Other Vehicles", "payload": "/vehicle_availability"}
+            ]
+            
+            dispatcher.utter_message(text=message.strip(), buttons=buttons)
+        else:
+            dispatcher.utter_message(text="Sorry, I couldn't find details for that vehicle.")
+        
+        # Store in slot
+        return [SlotSet("chosen_vehicle", vehicle.get("name", vehicle_id) if vehicle else vehicle_id)]
+
+
+class ActionSendBrochure(Action):
+    def name(self) -> Text:
+        return "action_send_brochure"
+
+    async def run(self,
+                  dispatcher: CollectingDispatcher,
+                  tracker: Tracker,
+                  domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        # Get user's phone number
+        phone_number = tracker.sender_id
+        
+        # Check if user has selected a vehicle
+        chosen_vehicle = tracker.get_slot("chosen_vehicle")
+
+        print("chosen vehicle:", chosen_vehicle)
+
+        # Brochure URLs (You need to host these PDFs on a public server or cloud storage)
+        brochure_data = {
+            "Apache RTR 160": {
+                "pdf_url": "https://www.tvsmotor.com/tvs-apache/-/media/Brand-Pages/Apache/Brochure/TVS-Apache-RTR-160-Brochure_V4.pdf",
+                "filename": "TVS_Apache_RTR_160_Brochure.pdf",
+                "caption": "📄 TVS Apache RTR 160 - Complete Brochure"
+            },
+            "Apache 200 4V": {
+                "pdf_url": "https://www.tvsmotor.com/tvs-apache/-/media/Brand-Pages/Apache/Brochure/TVS-Apache-200-4V-Brochure_V4.pdf",
+                "filename": "TVS_Apache_200_4V_Brochure.pdf",
+                "caption": "📄 TVS Apache 200 4V - Complete Brochure"
+            },
+            "TVS Jupiter": {
+                "pdf_url": "https://www.tvsmotor.com/tvs-jupiter/-/media/Brand-Pages/Jupiter/Brochure/TVS-Jupiter-Brochure_V4.pdf",
+                "filename": "TVS_Jupiter_Brochure.pdf",
+                "caption": "📄 TVS Jupiter - Complete Brochure"
+            },
+            "TVS Ronin": {
+                "pdf_url": "https://www.tvsmotor.com/tvs-ronin/-/media/Brand-Pages/Ronin/Brochure/TVS-Ronin-Brochure_V4.pdf",
+                "filename": "TVS_Ronin_Brochure.pdf",
+                "caption": "📄 TVS Ronin - Complete Brochure"
+            }
+        }
+        
+        # If user has selected a specific vehicle, send that brochure
+        if chosen_vehicle and chosen_vehicle in brochure_data:
+            brochure = brochure_data[chosen_vehicle]
+            
+            payload = {
+                "to": phone_number,
+                "pdf_url": brochure["pdf_url"],
+                "filename": brochure["filename"],
+                "caption": brochure["caption"]
+            }
+            
+            try:
+                print("Reached brochure sending part")
+                async with httpx.AsyncClient() as client:
+                    response = await client.post(BACKEND_SEND_BROCHURE_URL, json=payload)
+                    response.raise_for_status()
+                
+                dispatcher.utter_message(
+                    text=f"✅ {chosen_vehicle} brochure has been sent! Check your messages."
+                )
+            except Exception as e:
+                print(f"❌ Error sending brochure: {e}")
+                dispatcher.utter_message(
+                    text="Sorry, I couldn't send the brochure at the moment. Please try again later."
+                )
+        
+        else:
+            # If no vehicle selected, show all brochures as options
+            dispatcher.utter_message(
+                text="📚 Please select a vehicle to receive its brochure:",
+                buttons=[
+                    {"title": "Apache RTR 160", "payload": "/vehicle_selected{\"vehicle\":\"apache_rtr_160\"}"},
+                    {"title": "Apache 200 4V", "payload": "/vehicle_selected{\"vehicle\":\"apache_200_4v\"}"},
+                    {"title": "TVS Jupiter", "payload": "/vehicle_selected{\"vehicle\":\"tvs_jupiter\"}"},
+                    {"title": "TVS Ronin", "payload": "/vehicle_selected{\"vehicle\":\"tvs_ronin\"}"}
+                ]
+            )
+        
+        return []
