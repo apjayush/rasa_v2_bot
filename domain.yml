@@ -9,6 +9,7 @@ intents:
   - mood_unhappy
   - bot_challenge
   - book_appt
+  - book_test_ride
   - slot_selected
   - vehicle_availability
   - brochure_request
@@ -20,7 +21,9 @@ actions:
   - action_store_name
   - action_book_appointment
   - action_show_vehicle_availability
+  - action_show_vehicle_list_for_test_ride
   - action_store_vehicle_choice
+  - action_store_vehicle_choice_for_test_ride
   - action_send_brochure
 
 # entities:
@@ -56,7 +59,7 @@ responses:
         - title: "Vehicle Availability"
           payload: "/vehicle_availability"
         - title: "Book Test Ride"
-          payload: "/book_appt"
+          payload: "/book_test_ride"
         - title: "Brochure Request"
           payload: "/brochure_request"
 

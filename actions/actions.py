@@ -8,6 +8,7 @@ BACKEND_SLOT_URL = "http://localhost:8000/available-slots"
 BACKEND_BOOK_URL = "http://localhost:8000/book-slot"
 BACKEND_SEND_LIST_URL = "http://localhost:8000/send-list"
 BACKEND_SEND_BROCHURE_URL = "http://localhost:8000/send-brochure"
+BACKEND_BOOK_TEST_RIDE_URL = "http://localhost:8000/book-test-ride"
 
 class ActionFetchSlots(Action):
     def name(self) -> Text:
@@ -94,22 +95,30 @@ class ActionBookAppointment(Action):
 
     async def run(self, dispatcher, tracker, domain):
         name = tracker.get_slot("user_name")
-        slot = tracker.get_slot("chosen_slot")
+        vehicle = tracker.get_slot("chosen_vehicle")
         phone = tracker.sender_id
 
         payload = {
             "name": name,
-            "slot": slot,
+            "vehicle": vehicle if vehicle else "Not specified",
             "phone": phone
         }
 
-        async with httpx.AsyncClient() as client:
-            response = await client.post(BACKEND_BOOK_URL, json=payload)
+        try:
+            async with httpx.AsyncClient() as client:
+                response = await client.post(BACKEND_BOOK_TEST_RIDE_URL, json=payload)
+                response.raise_for_status()
 
-        # Confirmation to user
-        dispatcher.utter_message(
-            text=f"Thanks {name}! Your appointment is booked for {slot}."
-        )
+            # Confirmation to user
+            vehicle_text = f" for {vehicle}" if vehicle else ""
+            dispatcher.utter_message(
+                text=f"🎉 Thanks {name}! Your test ride{vehicle_text} booking request has been received.\n\n📍 Location: BLR TVS MOTORS\n📞 Our team will contact you shortly to confirm the time.\n\nWe look forward to seeing you!"
+            )
+        except Exception as e:
+            print(f"❌ Error booking test ride: {e}")
+            dispatcher.utter_message(
+                text="Sorry, there was an issue booking your test ride. Please try again or contact us directly."
+            )
 
         return []
 
@@ -166,15 +175,86 @@ class ActionShowVehicleAvailability(Action):
             # Call Backend API to send list message
             print("🚀 Sending vehicle list via backend...")
             print(f"Payload: {payload}")
-            async with httpx.AsyncClient() as client:
+            async with httpx.AsyncClient(timeout=10.0) as client:
                 response = await client.post(BACKEND_SEND_LIST_URL, json=payload)
                 response.raise_for_status()
             
             print("✅ Vehicle list sent successfully via backend")
         
+        except httpx.HTTPStatusError as e:
+            print(f"❌ HTTP Error sending vehicle list: {e.response.status_code} - {e.response.text}")
+            dispatcher.utter_message(text="Sorry, I couldn't fetch vehicle availability at the moment. Please try again.")
         except Exception as e:
             print(f"❌ Error sending vehicle list: {e}")
-            dispatcher.utter_message(text="Sorry, I couldn't fetch vehicle availability at the moment.")
+            dispatcher.utter_message(text="Sorry, I couldn't fetch vehicle availability at the moment. Please try again.")
+        
+        return []
+
+
+class ActionShowVehicleListForTestRide(Action):
+    def name(self) -> Text:
+        return "action_show_vehicle_list_for_test_ride"
+
+    async def run(self,
+                  dispatcher: CollectingDispatcher,
+                  tracker: Tracker,
+                  domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        # Get user's phone number from sender_id
+        phone_number = tracker.sender_id
+        
+        # Prepare vehicle list sections (same as vehicle availability)
+        sections = [
+            {
+                "title": "🏍️ Available Vehicles",
+                "rows": [
+                    {
+                        "id": "apache_rtr_160",
+                        "title": "Apache RTR 160",
+                        
+                    },
+                    {
+                        "id": "apache_200_4v",
+                        "title": "Apache 200 4V",
+                        
+                    },
+                    {
+                        "id": "tvs_jupiter",
+                        "title": "TVS Jupiter"
+                    },
+                    {
+                        "id": "tvs_ronin",
+                        "title": "TVS Ronin"
+                    }
+                ]
+            }
+        ]
+        
+        # Prepare payload for backend
+        payload = {
+            "to": phone_number,
+            "header": "🏍️ Select Vehicle for Test Ride",
+            "body": "Which bike would you like to test ride?",
+            "button_text": "Select Vehicle",
+            "sections": sections
+        }
+        
+        try:
+            # Call Backend API to send list message
+            print("🚀 Sending test ride vehicle list via backend...")
+            print(f"Payload: {payload}")
+            async with httpx.AsyncClient(timeout=10.0) as client:
+                response = await client.post(BACKEND_SEND_LIST_URL, json=payload)
+                response.raise_for_status()
+            
+            print("✅ Test ride vehicle list sent successfully via backend")
+        
+        except httpx.HTTPStatusError as e:
+            print(f"❌ HTTP Error sending test ride vehicle list: {e.response.status_code} - {e.response.text}")
+            dispatcher.utter_message(text="Sorry, I couldn't show vehicle list at the moment. Please try again.")
+        except Exception as e:
+            print(f"❌ Error sending test ride vehicle list: {e}")
+            dispatcher.utter_message(text="Sorry, I couldn't show vehicle list at the moment. Please try again.")
         
         return []
 
@@ -257,7 +337,7 @@ What would you like to do next?
             
             # Send message with buttons for next actions
             buttons = [
-                {"title": "Book Test Ride", "payload": "/book_appt"},
+                {"title": "Book Test Ride", "payload": "/book_test_ride"},
                 {"title": "Get Brochure", "payload": "/brochure_request"},
                 {"title": "View Other Vehicles", "payload": "/vehicle_availability"}
             ]
@@ -268,6 +348,34 @@ What would you like to do next?
         
         # Store in slot
         return [SlotSet("chosen_vehicle", vehicle.get("name", vehicle_id) if vehicle else vehicle_id)]
+
+
+class ActionStoreVehicleChoiceForTestRide(Action):
+    def name(self) -> Text:
+        return "action_store_vehicle_choice_for_test_ride"
+
+    def run(self,
+            dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        # Get the vehicle ID from the user's selection
+        vehicle_id = tracker.latest_message.get("text")
+        
+        # Map vehicle IDs to readable names
+        vehicle_map = {
+            "apache_rtr_160": "Apache RTR 160",
+            "apache_200_4v": "Apache 200 4V",
+            "tvs_jupiter": "TVS Jupiter",
+            "tvs_ronin": "TVS Ronin"
+        }
+        
+        vehicle_name = vehicle_map.get(vehicle_id, vehicle_id)
+        
+        # Store in slot and ask for name
+        dispatcher.utter_message(text=f"Great! You selected {vehicle_name} for test ride. May I know your name?")
+        
+        return [SlotSet("chosen_vehicle", vehicle_name)]
 
 
 class ActionSendBrochure(Action):

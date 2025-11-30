@@ -17,28 +17,22 @@ rules:
     - intent: vehicle_availability
     - action: action_show_vehicle_availability
 
-- rule: Store vehicle choice when selected
-  steps:
-    - intent: vehicle_selected
-    - action: action_store_vehicle_choice
-
 - rule: Send brochure when requested
   steps:
     - intent: brochure_request
     - action: action_send_brochure
 
-- rule: Fetch slots after booking intent
+- rule: Show vehicle list when test ride is requested
   steps:
-    - intent: book_appt
-    - action: action_fetch_slots
+    - intent: book_test_ride
+    - action: action_show_vehicle_list_for_test_ride
 
-- rule: Ask user name after selecting a slot
+- rule: Ask name after vehicle selection for test ride
   steps:
-    - intent: slot_selected
-    - action: action_store_slot
-    - action: utter_ask_name
+    - intent: vehicle_selected
+    - action: action_store_vehicle_choice_for_test_ride
 
-- rule: Capture user name after asking
+- rule: Book test ride after getting name
   steps:
     - intent: user_name
     - action: action_store_name
