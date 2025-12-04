@@ -17,6 +17,16 @@ nlu:
     - goodevening
     - good afternoon
 
+- intent: talk_to_agent
+  examples: |
+      - talk to agent
+      - connect me to agent
+      - speak to human
+      - I want to talk to someone
+      - customer service
+      - contact support
+      - need help from agent
+
 - intent: goodbye
   examples: |
     - cu

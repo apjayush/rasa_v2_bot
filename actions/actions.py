@@ -9,6 +9,8 @@ BACKEND_BOOK_URL = "http://localhost:8000/book-slot"
 BACKEND_SEND_LIST_URL = "http://localhost:8000/send-list"
 BACKEND_SEND_BROCHURE_URL = "http://localhost:8000/send-brochure"
 BACKEND_BOOK_TEST_RIDE_URL = "http://localhost:8000/book-test-ride"
+BACKEND_SEND_MESSAGE_URL = "http://localhost:8000/send-message"
+BACKEND_NOTIFY_AGENT_URL = "http://localhost:8000/notify-agent"
 
 class ActionFetchSlots(Action):
     def name(self) -> Text:
@@ -455,6 +457,150 @@ class ActionSendBrochure(Action):
                     {"title": "TVS Jupiter", "payload": "/vehicle_selected{\"vehicle\":\"tvs_jupiter\"}"},
                     {"title": "TVS Ronin", "payload": "/vehicle_selected{\"vehicle\":\"tvs_ronin\"}"}
                 ]
+            )
+        
+        return []
+    
+
+class ActionGreetWithMenu(Action):
+    def name(self) -> Text:
+        return "action_greet_with_menu"
+
+    async def run(self,
+                  dispatcher: CollectingDispatcher,
+                  tracker: Tracker,
+                  domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        phone_number = tracker.sender_id
+        
+        # Prepare menu sections with 4 options
+        sections = [
+            {
+                "title": "🏍️ How can we help?",
+                "rows": [
+                    {
+                        "id": "vehicle_availability",
+                        "title": "Vehicle Availability",
+                        "description": "Check available bikes"
+                    },
+                    {
+                        "id": "book_test_ride",
+                        "title": "Book Test Ride",
+                        "description": "Schedule a test ride"
+                    },
+                    {
+                        "id": "brochure_request",
+                        "title": "Get Brochure",
+                        "description": "Download bike brochures"
+                    },
+                    {
+                        "id": "talk_to_agent",
+                        "title": "Talk to Agent",
+                        "description": "Connect with our team"
+                    }
+                ]
+            }
+        ]
+        
+        payload = {
+            "to": phone_number,
+            "header": "Welcome to TVS MOTORS! 🏍️",
+            "body": "We're here to help you find your perfect ride. What would you like to do today?",
+            "button_text": "View Options",
+            "sections": sections
+        }
+        
+        try:
+            print("🚀 Sending greeting menu via backend...")
+            async with httpx.AsyncClient(timeout=10.0) as client:
+                response = await client.post(BACKEND_SEND_LIST_URL, json=payload)
+                response.raise_for_status()
+            
+            print("✅ Greeting menu sent successfully")
+        
+        except Exception as e:
+            print(f"❌ Error sending greeting menu: {e}")
+            # Fallback to text message
+            dispatcher.utter_message(
+                text="Welcome to TVS MOTORS! 🏍️\nHow can we assist you today?"
+            )
+        
+        return []
+
+
+class ActionTalkToAgent(Action):
+    def name(self) -> Text:
+        return "action_talk_to_agent"
+
+    async def run(self,
+            dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        # Get customer details
+        customer_phone = tracker.sender_id
+        customer_name = tracker.get_slot("user_name") or "Customer"
+        
+        # Agent phone number
+        agent_phone = "918292253230"
+        
+        # WhatsApp link
+        whatsapp_link = f"https://wa.me/{agent_phone}?text=Hi,%20I%20need%20assistance%20with%20TVS%20bikes"
+        
+        # Message to send to customer
+        customer_message = f"""
+        *Connecting you to our sales team...*
+
+        📞 *Contact Us:*
+        • Phone: +91-9962949643
+        • WhatsApp: Click here 👇
+        {whatsapp_link}
+        • Email: support@blrtvsmotors.com
+
+        📍 *Visit Us:*
+        BLR TVS MOTORS
+        [Your Showroom Address]
+        Bangalore, Karnataka
+
+        ⏰ *Working Hours:*
+        Mon-Sat: 9:00 AM - 7:00 PM
+        Sunday: 10:00 AM - 6:00 PM
+
+        Our team will respond shortly! 🚀
+        """.strip()
+        
+        # Payload for customer message
+        customer_payload = {
+            "to": customer_phone,
+            "message": customer_message
+        }
+        
+        # Payload for agent notification
+        agent_payload = {
+            "agent_phone": agent_phone,
+            "customer_name": customer_name,
+            "customer_phone": customer_phone
+        }
+        
+        try:
+            # Send message to customer via FastAPI
+            print("📤 Sending contact info to customer via FastAPI...")
+            async with httpx.AsyncClient(timeout=10.0) as client:
+                response = await client.post(BACKEND_SEND_MESSAGE_URL, json=customer_payload)
+                response.raise_for_status()
+            print("✅ Contact info sent to customer")
+            
+            # Notify agent via FastAPI
+            print("📢 Notifying agent via FastAPI...")
+            async with httpx.AsyncClient(timeout=10.0) as client:
+                response = await client.post(BACKEND_NOTIFY_AGENT_URL, json=agent_payload)
+                response.raise_for_status()
+            print("✅ Agent notified successfully")
+        
+        except Exception as e:
+            print(f"❌ Error in talk to agent action: {e}")
+            dispatcher.utter_message(
+                text="Sorry, couldn't connect to agent at the moment. Please try again."
             )
         
         return []

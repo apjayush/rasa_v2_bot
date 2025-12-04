@@ -16,6 +16,7 @@ intents:
   - vehicle_selected
 
 actions:
+  - action_greet_with_menu
   - action_fetch_slots
   - action_store_slot
   - action_store_name
@@ -25,6 +26,7 @@ actions:
   - action_store_vehicle_choice
   - action_store_vehicle_choice_for_test_ride
   - action_send_brochure
+  - action_talk_to_agent
 
 # entities:
 #   - slot
@@ -50,18 +52,17 @@ slots:
 
 
 responses:
-  utter_greet:
-    - text: |
-        BLR TVS MOTORS
-        Welcome to BLR TVS MOTORS!
-        How can we assist you today? Please select an option below:
-      buttons:
-        - title: "Vehicle Availability"
-          payload: "/vehicle_availability"
-        - title: "Book Test Ride"
-          payload: "/book_test_ride"
-        - title: "Brochure Request"
-          payload: "/brochure_request"
+  # utter_greet:
+  #   - text: |
+  #       Welcome to TVS MOTORS!
+  #       How can we assist you today? Please select an option below:
+  #     buttons:
+  #       - title: "Vehicle Availability"
+  #         payload: "/vehicle_availability"
+  #       - title: "Book Test Ride"
+  #         payload: "/book_test_ride"
+  #       - title: "Brochure Request"
+  #         payload: "/brochure_request"
 
   utter_cheer_up:
   - text: "Here is something to cheer you up:"

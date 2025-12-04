@@ -2,6 +2,11 @@ version: "3.1"
 
 rules:
 
+- rule: Greet user with menu
+  steps:
+  - intent: greet
+  - action: action_greet_with_menu
+
 - rule: Say goodbye anytime the user says goodbye
   steps:
   - intent: goodbye
@@ -38,5 +43,7 @@ rules:
     - action: action_store_name
     - action: action_book_appointment
 
-
-
+- rule: Connect to agent when requested
+  steps:
+    - intent: talk_to_agent
+    - action: action_talk_to_agent
