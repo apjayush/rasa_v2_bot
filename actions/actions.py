@@ -12,68 +12,105 @@ BACKEND_BOOK_TEST_RIDE_URL = "http://localhost:8000/book-test-ride"
 BACKEND_SEND_MESSAGE_URL = "http://localhost:8000/send-message"
 BACKEND_NOTIFY_AGENT_URL = "http://localhost:8000/notify-agent"
 
-class ActionFetchSlots(Action):
-    def name(self) -> Text:
-        return "action_fetch_slots"
 
-    async def run(self,
-                  dispatcher: CollectingDispatcher,
-                  tracker: Tracker,
-                  domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+VEHICLE_DATA = {
+    "apache_rtr_160": {
+        "name": "Apache RTR 160",
+        "specs": """
+🏍️ *Apache RTR 160*
 
-        # Call backend to get slots
-        async with httpx.AsyncClient() as client:
-            response = await client.get(BACKEND_SLOT_URL)
-            slots = response.json().get("slots", [])
+⚙️ *Engine:* 159.7cc, Oil-cooled
+💪 *Power:* 17.55 PS @ 9250 rpm
+⚡ *Torque:* 14.73 Nm @ 7250 rpm
+📊 *Mileage:* 45-50 km/l
+⚖️ *Weight:* 139 kg
+💰 *Price:* ₹1,15,000 onwards
 
-        # Convert slots to WhatsApp-compatible button IDs
-        buttons = []
-        for slot in slots:
-            slot_id = slot.replace(" ", "").replace(":", "_")   # "10:00 AM" -> "10_00AM"
-            slot_id = f"slot_{slot_id}"                        # "slot_10_00AM"
+✨ *Key Features:*
+• Race-tuned Fuel Injection
+• SmartXonnect Bluetooth
+• LED Headlamp with DRL
+• Single Channel ABS
 
-            buttons.append({
-                "title": slot, 
-                "payload": slot_id     # CLEAN payload for WhatsApp
-            })
+🎨 *Available Colors:*
+Racing Red, Matte Black, Pearl White
+        """,
+        "brochure_url": "https://www.tvsmotor.com/tvs-apache/-/media/Brand-Pages/Apache/Brochure/TVS-Apache-RTR-160-Brochure_V4.pdf"
+    },
+    "apache_200_4v": {
+        "name": "Apache 200 4V",
+        "specs": """
+🏍️ *Apache 200 4V*
 
-        # Send message back to user
-        dispatcher.utter_message(
-            text="Available slots for today:",
-            buttons=buttons
-        )
+⚙️ *Engine:* 197.75cc, Oil-cooled
+💪 *Power:* 20.82 PS @ 9000 rpm
+⚡ *Torque:* 17.25 Nm @ 7250 rpm
+📊 *Mileage:* 38-42 km/l
+⚖️ *Weight:* 152 kg
+💰 *Price:* ₹1,42,000 onwards
 
-        return []
-    
+✨ *Key Features:*
+• 4-Valve Engine Technology
+• Dual Channel ABS
+• 3 Riding Modes (Sport, Urban, Rain)
+• GTT (Glide Through Traffic)
+• Smartphone Connectivity
 
-class ActionStoreSlot(Action):
-    def name(self):
-        return "action_store_slot"
+🎨 *Available Colors:*
+Knight Black, Racing Red, Pearl White
+        """,
+        "brochure_url": "https://www.tvsmotor.com/tvs-apache/-/media/Brand-Pages/Apache/Brochure/TVS-Apache-200-4V-Brochure_V4.pdf"
+    },
+    "tvs_jupiter": {
+        "name": "TVS Jupiter",
+        "specs": """
+🛵 *TVS Jupiter*
 
-    def run(self, dispatcher, tracker, domain):
-        # Example: "slot_10_00AM"
-        raw = tracker.latest_message.get("text")
+⚙️ *Engine:* 109.7cc, Air-cooled
+💪 *Power:* 7.88 PS @ 7500 rpm
+⚡ *Torque:* 8.8 Nm @ 5500 rpm
+📊 *Mileage:* 62 km/l
+⚖️ *Weight:* 108 kg
+💰 *Price:* ₹73,000 onwards
 
-        if not raw:
-            return []
+✨ *Key Features:*
+• Econometer for fuel efficiency
+• LED Headlamp
+• USB Charger
+• 33L Under Seat Storage
+• External Fuel Filler Cap
 
-        # Remove "slot_" prefix
-        raw = raw.replace("slot_", "")     # "10_00AM"
+🎨 *Available Colors:*
+Titanium Grey, Starlight Blue, Volcano Red
+        """,
+        "brochure_url": "https://www.tvsmotor.com/tvs-jupiter/-/media/Brand-Pages/Jupiter/Brochure/TVS-Jupiter-Brochure_V4.pdf"
+    },
+    "tvs_ronin": {
+        "name": "TVS Ronin",
+        "specs": """
+🏍️ *TVS Ronin*
 
-        # Extract AM/PM
-        ampm = raw[-2:]                    # "AM" or "PM"
+⚙️ *Engine:* 225.9cc, Oil-cooled
+💪 *Power:* 20.4 PS @ 7750 rpm
+⚡ *Torque:* 19.93 Nm @ 3750 rpm
+📊 *Mileage:* 35-38 km/l
+⚖️ *Weight:* 159 kg
+💰 *Price:* ₹1,49,000 onwards
 
-        # Extract time part
-        time_part = raw[:-2]               # "10_00"
+✨ *Key Features:*
+• 3 Riding Modes (Urban, Roll, Rain)
+• Dual Channel ABS
+• TFT Display with Bluetooth
+• Cruise Control
+• LED Lighting
+• Inverted Front Suspension
 
-        # Convert "10_00" → "10:00"
-        time_part = time_part.replace("_", ":")
-
-        # Make final readable time: "10:00 AM"
-        readable_time = f"{time_part} {ampm}"
-
-        # Save to Rasa slot
-        return [SlotSet("chosen_slot", readable_time)]
+🎨 *Available Colors:*
+Stargaze Black, Canyon Copper, Tornado Grey
+        """,
+        "brochure_url": "https://www.tvsmotor.com/tvs-ronin/-/media/Brand-Pages/Ronin/Brochure/TVS-Ronin-Brochure_V4.pdf"
+    }
+}
 
 
 class ActionStoreName(Action):
@@ -89,295 +126,67 @@ class ActionStoreName(Action):
 
         return [SlotSet("user_name", name)]
     
-
-
-class ActionBookAppointment(Action):
-    def name(self):
-        return "action_book_appointment"
-
-    async def run(self, dispatcher, tracker, domain):
-        name = tracker.get_slot("user_name")
-        vehicle = tracker.get_slot("chosen_vehicle")
-        phone = tracker.sender_id
-
-        payload = {
-            "name": name,
-            "vehicle": vehicle if vehicle else "Not specified",
-            "phone": phone
-        }
-
-        try:
-            async with httpx.AsyncClient() as client:
-                response = await client.post(BACKEND_BOOK_TEST_RIDE_URL, json=payload)
-                response.raise_for_status()
-
-            # Confirmation to user
-            vehicle_text = f" for {vehicle}" if vehicle else ""
-            dispatcher.utter_message(
-                text=f"🎉 Thanks {name}! Your test ride{vehicle_text} booking request has been received.\n\n📍 Location: BLR TVS MOTORS\n📞 Our team will contact you shortly to confirm the time.\n\nWe look forward to seeing you!"
-            )
-        except Exception as e:
-            print(f"❌ Error booking test ride: {e}")
-            dispatcher.utter_message(
-                text="Sorry, there was an issue booking your test ride. Please try again or contact us directly."
-            )
-
-        return []
-
-
-class ActionShowVehicleAvailability(Action):
+class ActionShowVehicleList(Action):
     def name(self) -> Text:
-        return "action_show_vehicle_availability"
+        return "action_show_vehicle_list"
 
     async def run(self,
                   dispatcher: CollectingDispatcher,
                   tracker: Tracker,
                   domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         
-        # Get user's phone number from sender_id
         phone_number = tracker.sender_id
         
-        # Prepare vehicle list sections
         sections = [
             {
-                "title": "🏍️ Available Bikes",
+                "title": "🏍️ Our Vehicle Collection",
                 "rows": [
                     {
                         "id": "apache_rtr_160",
                         "title": "Apache RTR 160",
-                        
+                        "description": "₹1,15,000 • 159.7cc • 17.55 PS"
                     },
                     {
                         "id": "apache_200_4v",
                         "title": "Apache 200 4V",
-                        
+                        "description": "₹1,42,000 • 197.75cc • 20.82 PS"
                     },
                     {
                         "id": "tvs_jupiter",
-                        "title": "TVS Jupiter"
+                        "title": "TVS Jupiter",
+                        "description": "₹73,000 • 109.7cc • 7.88 PS"
                     },
                     {
                         "id": "tvs_ronin",
-                        "title": "TVS Ronin"
+                        "title": "TVS Ronin",
+                        "description": "₹1,49,000 • 225.9cc • 20.4 PS"
                     }
                 ]
             }
         ]
         
-        # Prepare payload for backend
         payload = {
             "to": phone_number,
-            "header": "🏍️ Vehicle Availability",
-            "body": "Choose a vehicle to check availability and book:",
-            "button_text": "View Vehicles",
-            "sections": sections
-        }
-        
-        try:
-            # Call Backend API to send list message
-            print("🚀 Sending vehicle list via backend...")
-            print(f"Payload: {payload}")
-            async with httpx.AsyncClient(timeout=10.0) as client:
-                response = await client.post(BACKEND_SEND_LIST_URL, json=payload)
-                response.raise_for_status()
-            
-            print("✅ Vehicle list sent successfully via backend")
-        
-        except httpx.HTTPStatusError as e:
-            print(f"❌ HTTP Error sending vehicle list: {e.response.status_code} - {e.response.text}")
-            dispatcher.utter_message(text="Sorry, I couldn't fetch vehicle availability at the moment. Please try again.")
-        except Exception as e:
-            print(f"❌ Error sending vehicle list: {e}")
-            dispatcher.utter_message(text="Sorry, I couldn't fetch vehicle availability at the moment. Please try again.")
-        
-        return []
-
-
-class ActionShowVehicleListForTestRide(Action):
-    def name(self) -> Text:
-        return "action_show_vehicle_list_for_test_ride"
-
-    async def run(self,
-                  dispatcher: CollectingDispatcher,
-                  tracker: Tracker,
-                  domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        
-        # Get user's phone number from sender_id
-        phone_number = tracker.sender_id
-        
-        # Prepare vehicle list sections (same as vehicle availability)
-        sections = [
-            {
-                "title": "🏍️ Available Vehicles",
-                "rows": [
-                    {
-                        "id": "apache_rtr_160",
-                        "title": "Apache RTR 160",
-                        
-                    },
-                    {
-                        "id": "apache_200_4v",
-                        "title": "Apache 200 4V",
-                        
-                    },
-                    {
-                        "id": "tvs_jupiter",
-                        "title": "TVS Jupiter"
-                    },
-                    {
-                        "id": "tvs_ronin",
-                        "title": "TVS Ronin"
-                    }
-                ]
-            }
-        ]
-        
-        # Prepare payload for backend
-        payload = {
-            "to": phone_number,
-            "header": "🏍️ Select Vehicle for Test Ride",
-            "body": "Which bike would you like to test ride?",
+            "header": "Our Vehicles 🏍️",
+            "body": "Select a vehicle to see detailed specifications:",
             "button_text": "Select Vehicle",
             "sections": sections
         }
         
         try:
-            # Call Backend API to send list message
-            print("🚀 Sending test ride vehicle list via backend...")
-            print(f"Payload: {payload}")
+            print("🚀 Sending vehicle list via backend...")
             async with httpx.AsyncClient(timeout=10.0) as client:
                 response = await client.post(BACKEND_SEND_LIST_URL, json=payload)
                 response.raise_for_status()
             
-            print("✅ Test ride vehicle list sent successfully via backend")
+            print("✅ Vehicle list sent successfully")
         
-        except httpx.HTTPStatusError as e:
-            print(f"❌ HTTP Error sending test ride vehicle list: {e.response.status_code} - {e.response.text}")
-            dispatcher.utter_message(text="Sorry, I couldn't show vehicle list at the moment. Please try again.")
         except Exception as e:
-            print(f"❌ Error sending test ride vehicle list: {e}")
-            dispatcher.utter_message(text="Sorry, I couldn't show vehicle list at the moment. Please try again.")
+            print(f"❌ Error sending vehicle list: {e}")
+            dispatcher.utter_message(text="Sorry, couldn't load vehicles.")
         
         return []
-
-
-class ActionStoreVehicleChoice(Action):
-    def name(self) -> Text:
-        return "action_store_vehicle_choice"
-
-    def run(self,
-            dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        
-        # Get the vehicle ID from the user's selection
-        vehicle_id = tracker.latest_message.get("text")
-        
-        # Detailed vehicle information
-        vehicle_details = {
-            "apache_rtr_160": {
-                "name": "Apache RTR 160",
-                "price": "₹1,12,000",
-                "engine": "160cc, Single Cylinder",
-                "mileage": "45-50 km/l",
-                "power": "17.55 PS @ 9250 rpm",
-                "features": "Race-tuned Fuel Injection, ABS, SmartXonnect",
-                "colors": "Racing Red, Matte Black, Pearl White"
-            },
-            "apache_200_4v": {
-                "name": "Apache 200 4V",
-                "price": "₹1,42,000",
-                "engine": "200cc, 4-Valve",
-                "mileage": "35-40 km/l",
-                "power": "20.8 PS @ 9000 rpm",
-                "features": "4-Valve Engine, Dual Channel ABS, Riding Modes",
-                "colors": "Knight Black, Racing Red, White"
-            },
-            "tvs_jupiter": {
-                "name": "TVS Jupiter",
-                "price": "₹73,400",
-                "engine": "110cc, CVTi Engine",
-                "mileage": "62 km/l",
-                "power": "7.88 PS @ 7500 rpm",
-                "features": "Econometer, LED Headlamp, USB Charger, 33L Storage",
-                "colors": "Titanium Grey, Starlight Blue, Volcano Red"
-            },
-            "tvs_ronin": {
-                "name": "TVS Ronin",
-                "price": "₹1,49,000",
-                "engine": "225.9cc, Single Cylinder",
-                "mileage": "35-38 km/l",
-                "power": "20.4 PS @ 7750 rpm",
-                "features": "3 Riding Modes, Dual Channel ABS, TFT Display, Cruise Control",
-                "colors": "Stargaze Black, Canyon Copper, Tornado Grey"
-            }
-        }
-        
-        # Get vehicle details
-        vehicle = vehicle_details.get(vehicle_id)
-        
-        if vehicle:
-            # Create detailed message
-            message = f"""
-🏍️ *{vehicle['name']}*
-
-💰 *Price:* {vehicle['price']}
-⚙️ *Engine:* {vehicle['engine']}
-⛽ *Mileage:* {vehicle['mileage']}
-🔥 *Power:* {vehicle['power']}
-
-✨ *Key Features:*
-{vehicle['features']}
-
-🎨 *Available Colors:*
-{vehicle['colors']}
-
-📍 *Available at BLR TVS MOTORS*
-
-What would you like to do next?
-            """
-            
-            # Send message with buttons for next actions
-            buttons = [
-                {"title": "Book Test Ride", "payload": "/book_test_ride"},
-                {"title": "Get Brochure", "payload": "/brochure_request"},
-                {"title": "View Other Vehicles", "payload": "/vehicle_availability"}
-            ]
-            
-            dispatcher.utter_message(text=message.strip(), buttons=buttons)
-        else:
-            dispatcher.utter_message(text="Sorry, I couldn't find details for that vehicle.")
-        
-        # Store in slot
-        return [SlotSet("chosen_vehicle", vehicle.get("name", vehicle_id) if vehicle else vehicle_id)]
-
-
-class ActionStoreVehicleChoiceForTestRide(Action):
-    def name(self) -> Text:
-        return "action_store_vehicle_choice_for_test_ride"
-
-    def run(self,
-            dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        
-        # Get the vehicle ID from the user's selection
-        vehicle_id = tracker.latest_message.get("text")
-        
-        # Map vehicle IDs to readable names
-        vehicle_map = {
-            "apache_rtr_160": "Apache RTR 160",
-            "apache_200_4v": "Apache 200 4V",
-            "tvs_jupiter": "TVS Jupiter",
-            "tvs_ronin": "TVS Ronin"
-        }
-        
-        vehicle_name = vehicle_map.get(vehicle_id, vehicle_id)
-        
-        # Store in slot and ask for name
-        dispatcher.utter_message(text=f"Great! You selected {vehicle_name} for test ride. May I know your name?")
-        
-        return [SlotSet("chosen_vehicle", vehicle_name)]
+    
 
 
 class ActionSendBrochure(Action):
@@ -460,7 +269,66 @@ class ActionSendBrochure(Action):
             )
         
         return []
-    
+
+
+
+class ActionStoreVehicleChoiceAndShowDetails(Action):
+    def name(self) -> Text:
+        return "action_store_vehicle_choice_and_show_details"
+
+    async def run(self,
+                  dispatcher: CollectingDispatcher,
+                  tracker: Tracker,
+                  domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        phone_number = tracker.sender_id
+        
+        # Get the vehicle ID from user message
+        user_message = tracker.latest_message.get('text', '').lower().strip()
+        
+        vehicle_id = None
+        for vid in VEHICLE_DATA.keys():
+            if vid in user_message:
+                vehicle_id = vid
+                break
+        
+        if not vehicle_id:
+            dispatcher.utter_message(text="Sorry, I couldn't identify the vehicle.")
+            return []
+        
+        vehicle = VEHICLE_DATA[vehicle_id]
+        vehicle_name = vehicle["name"]
+        specs = vehicle["specs"]
+        
+        # Send specs via FastAPI
+        message_payload = {
+            "to": phone_number,
+            "message": specs
+        }
+        
+        try:
+            async with httpx.AsyncClient(timeout=10.0) as client:
+                await client.post(BACKEND_SEND_MESSAGE_URL, json=message_payload)
+            print(f"✅ Sent specs for {vehicle_name}")
+        except Exception as e:
+            print(f"❌ Error sending specs: {e}")
+        
+        # Return buttons via dispatcher (FastAPI webhook will handle them)
+        dispatcher.utter_message(
+            text=f"What would you like to do with {vehicle_name}?",
+            buttons=[
+                {
+                    "title": "📄 Get Brochure",
+                    "payload": "brochure_request"
+                },
+                {
+                    "title": "🏍️ Book Test Ride",
+                    "payload": "book_test_ride"
+                }
+            ]
+        )
+        
+        return [SlotSet("chosen_vehicle", vehicle_name)] 
 
 class ActionGreetWithMenu(Action):
     def name(self) -> Text:
@@ -479,9 +347,9 @@ class ActionGreetWithMenu(Action):
                 "title": "🏍️ How can we help?",
                 "rows": [
                     {
-                        "id": "vehicle_availability",
-                        "title": "Vehicle Availability",
-                        "description": "Check available bikes"
+                        "id": "view_vehicles",
+                        "title": "View Vehicles",
+                        "description": "See our bike collection"
                     },
                     {
                         "id": "book_test_ride",
@@ -602,5 +470,96 @@ class ActionTalkToAgent(Action):
             dispatcher.utter_message(
                 text="Sorry, couldn't connect to agent at the moment. Please try again."
             )
+        
+        return []
+    
+
+class ActionAskNameForTestRide(Action):
+    def name(self) -> Text:
+        return "action_ask_name_for_test_ride"
+
+    async def run(self,
+                  dispatcher: CollectingDispatcher,
+                  tracker: Tracker,
+                  domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        phone_number = tracker.sender_id
+        chosen_vehicle = tracker.get_slot("chosen_vehicle")
+        
+        if not chosen_vehicle:
+            dispatcher.utter_message(text="Please select a vehicle first.")
+            return []
+        
+        message = f"Great! You're booking a test ride for *{chosen_vehicle}* 🏍️\n\nMay I know your name?"
+        
+        payload = {
+            "to": phone_number,
+            "message": message
+        }
+        
+        try:
+            async with httpx.AsyncClient(timeout=10.0) as client:
+                await client.post(BACKEND_SEND_MESSAGE_URL, json=payload)
+        except Exception as e:
+            print(f"❌ Error asking name: {e}")
+            dispatcher.utter_message(text="May I know your name?")
+        
+        return []
+    
+
+class ActionBookTestRide(Action):
+    def name(self) -> Text:
+        return "action_book_test_ride"
+
+    async def run(self,
+                  dispatcher: CollectingDispatcher,
+                  tracker: Tracker,
+                  domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        phone_number = tracker.sender_id
+        user_name = tracker.get_slot("user_name")
+        chosen_vehicle = tracker.get_slot("chosen_vehicle")
+        
+        if not user_name or not chosen_vehicle:
+            dispatcher.utter_message(text="Missing information. Please start again.")
+            return []
+        
+        payload = {
+            "phone": phone_number,
+            "name": user_name,
+            "vehicle": chosen_vehicle
+        }
+        
+        try:
+            async with httpx.AsyncClient(timeout=10.0) as client:
+                response = await client.post(BACKEND_BOOK_TEST_RIDE_URL, json=payload)
+                response.raise_for_status()
+            
+            confirmation_message = f"""
+✅ *Test Ride Booked Successfully!*
+
+👤 Name: {user_name}
+🏍️ Vehicle: {chosen_vehicle}
+📞 Phone: {phone_number}
+
+📍 Location: BLR TVS MOTORS
+⏰ Our team will contact you shortly to confirm the date and time.
+
+Thank you for choosing TVS Motors! 🚀
+            """.strip()
+            
+            message_payload = {
+                "to": phone_number,
+                "message": confirmation_message
+            }
+            
+            async with httpx.AsyncClient(timeout=10.0) as client:
+                await client.post(BACKEND_SEND_MESSAGE_URL, json=message_payload)
+            
+            print(f"✅ Test ride booked for {user_name} - {chosen_vehicle}")
+        
+        except Exception as e:
+            print(f"❌ Error booking test ride: {e}")
+            dispatcher.utter_message(text="Sorry, couldn't book the test ride. Please try again.")
         
         return []

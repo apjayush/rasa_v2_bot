@@ -130,16 +130,18 @@ nlu:
     - want to test drive
 
 
-- intent: vehicle_availability
+- intent: view_vehicles
   examples: |
-    - vehicle availability
+    - view vehicles
     - show me vehicles
-    - what bikes are available
-    - available vehicles
     - show bikes
-    - which vehicles do you have
-    - check availability
-    - vehicle stock
+    - see vehicles
+    - vehicle list
+    - what bikes do you have
+    - show me bikes
+    - display vehicles
+    - bikes available
+    - show all bikes
 
 
 - intent: brochure_request

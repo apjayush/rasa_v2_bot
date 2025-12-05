@@ -3,88 +3,43 @@ version: "3.1"
 intents:
   - greet
   - goodbye
-  - affirm
-  - deny
-  - mood_great
-  - mood_unhappy
   - bot_challenge
-  - book_appt
-  - book_test_ride
-  - slot_selected
-  - vehicle_availability
+  - view_vehicles
   - brochure_request
+  - book_test_ride
   - vehicle_selected
+  - user_name
+  - talk_to_agent
 
 actions:
   - action_greet_with_menu
-  - action_fetch_slots
-  - action_store_slot
-  - action_store_name
-  - action_book_appointment
-  - action_show_vehicle_availability
-  - action_show_vehicle_list_for_test_ride
-  - action_store_vehicle_choice
-  - action_store_vehicle_choice_for_test_ride
+  - action_show_vehicle_list
+  - action_store_vehicle_choice_and_show_details
   - action_send_brochure
+  - action_ask_name_for_test_ride
+  - action_store_name
+  - action_book_test_ride
   - action_talk_to_agent
 
-# entities:
-#   - slot
-
 slots:
-  chosen_slot:
+  chosen_vehicle:
     type: text
     influence_conversation: true
     mappings:
-      - type: custom      # We fill this manually in action_store_slot
+      - type: custom
 
   user_name:
     type: text
     influence_conversation: true
     mappings:
-      - type: custom      # We fill this manually in action_store_name
-
-  chosen_vehicle:
-    type: text
-    influence_conversation: true
-    mappings:
-      - type: custom      # We fill this manually in action_store_vehicle_choice
-
+      - type: custom
 
 responses:
-  # utter_greet:
-  #   - text: |
-  #       Welcome to TVS MOTORS!
-  #       How can we assist you today? Please select an option below:
-  #     buttons:
-  #       - title: "Vehicle Availability"
-  #         payload: "/vehicle_availability"
-  #       - title: "Book Test Ride"
-  #         payload: "/book_test_ride"
-  #       - title: "Brochure Request"
-  #         payload: "/brochure_request"
-
-  utter_cheer_up:
-  - text: "Here is something to cheer you up:"
-    image: "https://i.imgur.com/nGF1K8f.jpg"
-
-  utter_did_that_help:
-  - text: "Did that help you?"
-
-  utter_happy:
-  - text: "Great, carry on!"
-
   utter_goodbye:
-  - text: "Bye"
+    - text: "Bye! Thanks for visiting TVS Motors! 🏍️"
 
   utter_iamabot:
-  - text: "I am a bot, powered by Rasa."
-
-  utter_slots:
-  - text: "Please pick a slot below"
-
-  utter_ask_name:
-  - text: "May I know your name?"
+    - text: "I am a bot, powered by Rasa."
 
 session_config:
   session_expiration_time: 60

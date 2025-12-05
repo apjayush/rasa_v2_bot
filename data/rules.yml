@@ -17,31 +17,31 @@ rules:
   - intent: bot_challenge
   - action: utter_iamabot
 
-- rule: Show vehicle availability when requested
+- rule: Show vehicle list when requested
   steps:
-    - intent: vehicle_availability
-    - action: action_show_vehicle_availability
+    - intent: view_vehicles
+    - action: action_show_vehicle_list
 
-- rule: Send brochure when requested
+- rule: Show vehicle details with buttons after selection
+  steps:
+    - intent: vehicle_selected
+    - action: action_store_vehicle_choice_and_show_details
+
+- rule: Send brochure when requested from vehicle details
   steps:
     - intent: brochure_request
     - action: action_send_brochure
 
-- rule: Show vehicle list when test ride is requested
+- rule: Ask name when test ride requested from vehicle details
   steps:
     - intent: book_test_ride
-    - action: action_show_vehicle_list_for_test_ride
-
-- rule: Ask name after vehicle selection for test ride
-  steps:
-    - intent: vehicle_selected
-    - action: action_store_vehicle_choice_for_test_ride
+    - action: action_ask_name_for_test_ride
 
 - rule: Book test ride after getting name
   steps:
     - intent: user_name
     - action: action_store_name
-    - action: action_book_appointment
+    - action: action_book_test_ride
 
 - rule: Connect to agent when requested
   steps:
