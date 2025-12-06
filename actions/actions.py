@@ -124,6 +124,8 @@ class ActionStoreName(Action):
         # Clean name (optional)
         name = name.strip()
 
+        print("Storing user name:", name)
+
         return [SlotSet("user_name", name)]
     
 class ActionShowVehicleList(Action):
@@ -352,16 +354,6 @@ class ActionGreetWithMenu(Action):
                         "description": "See our bike collection"
                     },
                     {
-                        "id": "book_test_ride",
-                        "title": "Book Test Ride",
-                        "description": "Schedule a test ride"
-                    },
-                    {
-                        "id": "brochure_request",
-                        "title": "Get Brochure",
-                        "description": "Download bike brochures"
-                    },
-                    {
                         "id": "talk_to_agent",
                         "title": "Talk to Agent",
                         "description": "Connect with our team"
@@ -519,6 +511,8 @@ class ActionBookTestRide(Action):
         phone_number = tracker.sender_id
         user_name = tracker.get_slot("user_name")
         chosen_vehicle = tracker.get_slot("chosen_vehicle")
+
+        print("Booking test ride for:", user_name, chosen_vehicle)
         
         if not user_name or not chosen_vehicle:
             dispatcher.utter_message(text="Missing information. Please start again.")
@@ -535,22 +529,8 @@ class ActionBookTestRide(Action):
                 response = await client.post(BACKEND_BOOK_TEST_RIDE_URL, json=payload)
                 response.raise_for_status()
             
-            confirmation_message = f"""
-✅ *Test Ride Booked Successfully!*
-
-👤 Name: {user_name}
-🏍️ Vehicle: {chosen_vehicle}
-📞 Phone: {phone_number}
-
-📍 Location: BLR TVS MOTORS
-⏰ Our team will contact you shortly to confirm the date and time.
-
-Thank you for choosing TVS Motors! 🚀
-            """.strip()
-            
             message_payload = {
-                "to": phone_number,
-                "message": confirmation_message
+                "to": phone_number
             }
             
             async with httpx.AsyncClient(timeout=10.0) as client:

@@ -108,26 +108,9 @@ nlu:
       - book
       - appointment
 
-
 - intent: book_test_ride
   examples: |
-    - book test ride
-    - test ride
-    - I want a test ride
-    - schedule a test ride
-    - can I test ride a bike
-    - I want to try a bike
-    - schedule test drive
-    - book a test drive
-    - test drive
-    - want to test the bike
-    - can I get a test ride
-    - test ride booking
-    - arrange a test ride
-    - I'd like a test ride
-    - test ride please
-    - can I take it for a spin
-    - want to test drive
+    - book_test_ride
 
 
 - intent: view_vehicles
@@ -188,3 +171,19 @@ nlu:
     - Ayush
     - It's Ayush
     - Call me Ayush
+    - Rahul Sharma
+    - Mukesh Kumar
+    - Santosh Yadav
+    - Priya Singh
+    - Abdul Rahman
+    - Priyanka Gupta
+    - Saurabh
+    - Kanika
+    - Neha
+    - Vikram
+    - Sneha
+    - Chatainya
+    - Hemant
+    - Hiren
+    - Charitha
+    - Rishav
