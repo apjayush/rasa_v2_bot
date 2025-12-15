@@ -16,99 +16,19 @@ BACKEND_NOTIFY_AGENT_URL = "http://localhost:8000/notify-agent"
 VEHICLE_DATA = {
     "apache_rtr_160": {
         "name": "Apache RTR 160",
-        "specs": """
-🏍️ *Apache RTR 160*
-
-⚙️ *Engine:* 159.7cc, Oil-cooled
-💪 *Power:* 17.55 PS @ 9250 rpm
-⚡ *Torque:* 14.73 Nm @ 7250 rpm
-📊 *Mileage:* 45-50 km/l
-⚖️ *Weight:* 139 kg
-💰 *Price:* ₹1,15,000 onwards
-
-✨ *Key Features:*
-• Race-tuned Fuel Injection
-• SmartXonnect Bluetooth
-• LED Headlamp with DRL
-• Single Channel ABS
-
-🎨 *Available Colors:*
-Racing Red, Matte Black, Pearl White
-        """,
-        "brochure_url": "https://www.tvsmotor.com/tvs-apache/-/media/Brand-Pages/Apache/Brochure/TVS-Apache-RTR-160-Brochure_V4.pdf"
+        "specs": "🏍️ *Apache RTR 160*\n\n⚙️ *Engine:* 159.7cc, Oil-cooled\n💨 *Power:* 17.55 PS @ 8500 rpm\n🔧 *Torque:* 14.73 Nm @ 7000 rpm\n⚖️ *Weight:* 138 kg\n⛽ *Fuel Tank:* 12 Litres\n💰 *Price:* ₹1,15,000 (Ex-showroom)\n\nFor more details, visit: https://www.tvsmotor.com/tvs-apache/rtr-160"
     },
     "apache_200_4v": {
         "name": "Apache 200 4V",
-        "specs": """
-🏍️ *Apache 200 4V*
-
-⚙️ *Engine:* 197.75cc, Oil-cooled
-💪 *Power:* 20.82 PS @ 9000 rpm
-⚡ *Torque:* 17.25 Nm @ 7250 rpm
-📊 *Mileage:* 38-42 km/l
-⚖️ *Weight:* 152 kg
-💰 *Price:* ₹1,42,000 onwards
-
-✨ *Key Features:*
-• 4-Valve Engine Technology
-• Dual Channel ABS
-• 3 Riding Modes (Sport, Urban, Rain)
-• GTT (Glide Through Traffic)
-• Smartphone Connectivity
-
-🎨 *Available Colors:*
-Knight Black, Racing Red, Pearl White
-        """,
-        "brochure_url": "https://www.tvsmotor.com/tvs-apache/-/media/Brand-Pages/Apache/Brochure/TVS-Apache-200-4V-Brochure_V4.pdf"
+        "specs": "🏍️ *Apache 200 4V*\n\n⚙️ *Engine:* 197.75cc, Oil-cooled\n💨 *Power:* 20.82 PS @ 8500 rpm\n🔧 *Torque:* 16.8 Nm @ 7250 rpm\n⚖️ *Weight:* 153 kg\n⛽ *Fuel Tank:* 12 Litres\n💰 *Price:* ₹1,42,000 (Ex-showroom)\n\nFor more details, visit: https://www.tvsmotor.com/tvs-apache/apache-200-4v"
     },
     "tvs_jupiter": {
         "name": "TVS Jupiter",
-        "specs": """
-🛵 *TVS Jupiter*
-
-⚙️ *Engine:* 109.7cc, Air-cooled
-💪 *Power:* 7.88 PS @ 7500 rpm
-⚡ *Torque:* 8.8 Nm @ 5500 rpm
-📊 *Mileage:* 62 km/l
-⚖️ *Weight:* 108 kg
-💰 *Price:* ₹73,000 onwards
-
-✨ *Key Features:*
-• Econometer for fuel efficiency
-• LED Headlamp
-• USB Charger
-• 33L Under Seat Storage
-• External Fuel Filler Cap
-
-🎨 *Available Colors:*
-Titanium Grey, Starlight Blue, Volcano Red
-        """,
-        "brochure_url": "https://www.tvsmotor.com/tvs-jupiter/-/media/Brand-Pages/Jupiter/Brochure/TVS-Jupiter-Brochure_V4.pdf"
-    },
+        "specs": "🏍️ *TVS Jupiter*\n\n⚙️ *Engine:* 109.7cc, Air-cooled\n💨 *Power:* 7.88 PS @ 7500 rpm\n🔧 *Torque:* 8.4 Nm @ 5500 rpm\n⚖️ *Weight:* 108 kg\n⛽ *Fuel Tank:* 6.5 Litres\n💰 *Price:* ₹73,000 (Ex-showroom)\n\nFor more details, visit: https://www.tvsmotor.com/tvs-jupiter-125"
+    },  
     "tvs_ronin": {
         "name": "TVS Ronin",
-        "specs": """
-🏍️ *TVS Ronin*
-
-⚙️ *Engine:* 225.9cc, Oil-cooled
-💪 *Power:* 20.4 PS @ 7750 rpm
-⚡ *Torque:* 19.93 Nm @ 3750 rpm
-📊 *Mileage:* 35-38 km/l
-⚖️ *Weight:* 159 kg
-💰 *Price:* ₹1,49,000 onwards
-
-✨ *Key Features:*
-• 3 Riding Modes (Urban, Roll, Rain)
-• Dual Channel ABS
-• TFT Display with Bluetooth
-• Cruise Control
-• LED Lighting
-• Inverted Front Suspension
-
-🎨 *Available Colors:*
-Stargaze Black, Canyon Copper, Tornado Grey
-        """,
-        "brochure_url": "https://www.tvsmotor.com/tvs-ronin/-/media/Brand-Pages/Ronin/Brochure/TVS-Ronin-Brochure_V4.pdf"
+        "specs": "🏍️ *TVS Ronin*\n\n⚙️ *Engine:* 225.9cc, Oil-cooled\n💨 *Power:* 20.4 PS @ 7500 rpm\n🔧 *Torque:* 19.93 Nm @ 6000 rpm\n⚖️ *Weight:* 162 kg\n⛽ *Fuel Tank:* 12 Litres\n💰 *Price:* ₹1,49,000 (Ex-showroom)\n\nFor more details, visit: https://www.tvsmotor.com/tvs-ronin"
     }
 }
 
@@ -185,7 +105,16 @@ class ActionShowVehicleList(Action):
         
         except Exception as e:
             print(f"❌ Error sending vehicle list: {e}")
-            dispatcher.utter_message(text="Sorry, couldn't load vehicles.")
+            # Send error via API
+            error_payload = {
+                "to": phone_number,
+                "text": "Sorry, couldn't load vehicles."
+            }
+            try:
+                async with httpx.AsyncClient(timeout=10.0) as client:
+                    await client.post(BACKEND_SEND_MESSAGE_URL, json=error_payload)
+            except Exception as inner_e:
+                print(f"❌ Fallback error message also failed: {inner_e}")
         
         return []
     
@@ -216,17 +145,17 @@ class ActionSendBrochure(Action):
                 "caption": "📄 TVS Apache RTR 160 - Complete Brochure"
             },
             "Apache 200 4V": {
-                "pdf_url": "https://www.tvsmotor.com/tvs-apache/-/media/Brand-Pages/Apache/Brochure/TVS-Apache-200-4V-Brochure_V4.pdf",
+                "pdf_url": "https://www.tvsmotor.com/tvs-apache/-/media/Brand-Pages/Apache/Brochure/Apache-200-4V-BLUE-Leaflet.pdf",
                 "filename": "TVS_Apache_200_4V_Brochure.pdf",
                 "caption": "📄 TVS Apache 200 4V - Complete Brochure"
             },
             "TVS Jupiter": {
-                "pdf_url": "https://www.tvsmotor.com/tvs-jupiter/-/media/Brand-Pages/Jupiter/Brochure/TVS-Jupiter-Brochure_V4.pdf",
+                "pdf_url": "https://www.tvsmotor.com/tvs-jupiter-125/-/media/Brand-Pages/TVS-N282/TVS-Jupiter-125-Brochure.pdf",
                 "filename": "TVS_Jupiter_Brochure.pdf",
                 "caption": "📄 TVS Jupiter - Complete Brochure"
             },
             "TVS Ronin": {
-                "pdf_url": "https://www.tvsmotor.com/tvs-ronin/-/media/Brand-Pages/Ronin/Brochure/TVS-Ronin-Brochure_V4.pdf",
+                "pdf_url": "https://www.tvsmotor.com/-/media/Feature/AfterAprilPdf/TVS-Ronin.pdf",
                 "filename": "TVS_Ronin_Brochure.pdf",
                 "caption": "📄 TVS Ronin - Complete Brochure"
             }
@@ -249,26 +178,80 @@ class ActionSendBrochure(Action):
                     response = await client.post(BACKEND_SEND_BROCHURE_URL, json=payload)
                     response.raise_for_status()
                 
-                dispatcher.utter_message(
-                    text=f"✅ {chosen_vehicle} brochure has been sent! Check your messages."
-                )
+                # Send success message via API
+                success_payload = {
+                    "to": phone_number,
+                    "text": f"✅ {chosen_vehicle} brochure has been sent!"
+                }
+                async with httpx.AsyncClient() as client:
+                    await client.post(BACKEND_SEND_MESSAGE_URL, json=success_payload)
             except Exception as e:
                 print(f"❌ Error sending brochure: {e}")
-                dispatcher.utter_message(
-                    text="Sorry, I couldn't send the brochure at the moment. Please try again later."
-                )
+                # Send error via API
+                error_payload = {
+                    "to": phone_number,
+                    "text": "Sorry, I couldn't send the brochure at the moment. Please try again later."
+                }
+                try:
+                    async with httpx.AsyncClient() as client:
+                        await client.post(BACKEND_SEND_MESSAGE_URL, json=error_payload)
+                except Exception as inner_e:
+                    print(f"❌ Fallback error message also failed: {inner_e}")
         
         else:
             # If no vehicle selected, show all brochures as options
-            dispatcher.utter_message(
-                text="📚 Please select a vehicle to receive its brochure:",
-                buttons=[
-                    {"title": "Apache RTR 160", "payload": "/vehicle_selected{\"vehicle\":\"apache_rtr_160\"}"},
-                    {"title": "Apache 200 4V", "payload": "/vehicle_selected{\"vehicle\":\"apache_200_4v\"}"},
-                    {"title": "TVS Jupiter", "payload": "/vehicle_selected{\"vehicle\":\"tvs_jupiter\"}"},
-                    {"title": "TVS Ronin", "payload": "/vehicle_selected{\"vehicle\":\"tvs_ronin\"}"}
-                ]
-            )
+            sections = [
+                {
+                    "title": "📚 Select vehicle",
+                    "rows": [
+                        {
+                            "id": "apache_rtr_160",
+                            "title": "Apache RTR 160",
+                            "description": "Get the brochure"
+                        },
+                        {
+                            "id": "apache_200_4v",
+                            "title": "Apache 200 4V",
+                            "description": "Get the brochure"
+                        },
+                        {
+                            "id": "tvs_jupiter",
+                            "title": "TVS Jupiter",
+                            "description": "Get the brochure"
+                        },
+                        {
+                            "id": "tvs_ronin",
+                            "title": "TVS Ronin",
+                            "description": "Get the brochure"
+                        }
+                    ]
+                }
+            ]
+            
+            payload = {
+                "to": phone_number,
+                "header": "Select a Vehicle",
+                "body": "📚 Please select a vehicle to receive its brochure:",
+                "button_text": "Choose",
+                "sections": sections
+            }
+            
+            try:
+                async with httpx.AsyncClient(timeout=10.0) as client:
+                    response = await client.post(BACKEND_SEND_LIST_URL, json=payload)
+                    response.raise_for_status()
+            except Exception as e:
+                print(f"❌ Error sending brochure options: {e}")
+                # Send error via API
+                error_payload = {
+                    "to": phone_number,
+                    "text": "Sorry, couldn't load brochure options."
+                }
+                try:
+                    async with httpx.AsyncClient(timeout=10.0) as client:
+                        await client.post(BACKEND_SEND_MESSAGE_URL, json=error_payload)
+                except Exception as inner_e:
+                    print(f"❌ Fallback error message also failed: {inner_e}")
         
         return []
 
@@ -288,24 +271,30 @@ class ActionStoreVehicleChoiceAndShowDetails(Action):
         # Get the vehicle ID from user message
         user_message = tracker.latest_message.get('text', '').lower().strip()
         
-        vehicle_id = None
-        for vid in VEHICLE_DATA.keys():
-            if vid in user_message:
-                vehicle_id = vid
-                break
+        vehicle_id = user_message if user_message in VEHICLE_DATA else None
         
         if not vehicle_id:
-            dispatcher.utter_message(text="Sorry, I couldn't identify the vehicle.")
+            # Send error via API
+            error_payload = {
+                "to": phone_number,
+                "text": "Sorry, I couldn't identify the vehicle."
+            }
+            try:
+                async with httpx.AsyncClient(timeout=10.0) as client:
+                    await client.post(BACKEND_SEND_MESSAGE_URL, json=error_payload)
+            except Exception as inner_e:
+                print(f"❌ Fallback error message also failed: {inner_e}")
             return []
-        
-        vehicle = VEHICLE_DATA[vehicle_id]
-        vehicle_name = vehicle["name"]
-        specs = vehicle["specs"]
-        
+
+        vehicle_name, vehicle_spec = VEHICLE_DATA[vehicle_id]['name'], VEHICLE_DATA[vehicle_id]['specs']
+
+        print("Vehicle selected:", vehicle_name)
+        print("Vehicle specs:", vehicle_spec)
+
         # Send specs via FastAPI
         message_payload = {
             "to": phone_number,
-            "message": specs
+            "message": vehicle_spec
         }
         
         try:
@@ -315,22 +304,50 @@ class ActionStoreVehicleChoiceAndShowDetails(Action):
         except Exception as e:
             print(f"❌ Error sending specs: {e}")
         
-        # Return buttons via dispatcher (FastAPI webhook will handle them)
-        dispatcher.utter_message(
-            text=f"What would you like to do with {vehicle_name}?",
-            buttons=[
-                {
-                    "title": "📄 Get Brochure",
-                    "payload": "brochure_request"
-                },
-                {
-                    "title": "🏍️ Book Test Ride",
-                    "payload": "book_test_ride"
-                }
-            ]
-        )
+        sections = [
+            {
+                "title": f"{vehicle_name}?",
+                "rows": [
+                    {
+                        "id": "get_brochure",
+                        "title": "📄 Get Brochure",
+                        "description": "Receive the full brochure"
+                    },
+                    {
+                        "id": "book_test_ride",
+                        "title": "🏍️ Book Test Ride",
+                        "description": "Schedule a test ride"
+                    }
+                ]
+            }
+        ]
         
-        return [SlotSet("chosen_vehicle", vehicle_name)] 
+        button_payload = {
+            "to": phone_number,
+            "header": f"Options for {vehicle_name}",
+            "body": f"What would you like to do with {vehicle_name}?",
+            "button_text": "Choose Action",
+            "sections": sections
+        }
+        
+        try:
+            async with httpx.AsyncClient(timeout=10.0) as client:
+                response = await client.post(BACKEND_SEND_LIST_URL, json=button_payload)
+                response.raise_for_status()
+        except Exception as e:
+            print(f"❌ Error sending options: {e}")
+            # Send error via API
+            error_payload = {
+                "to": phone_number,
+                "text": f"Sorry, couldn't load options for {vehicle_name}."
+            }
+            try:
+                async with httpx.AsyncClient(timeout=10.0) as client:
+                    await client.post(BACKEND_SEND_MESSAGE_URL, json=error_payload)
+            except Exception as inner_e:
+                print(f"❌ Fallback error message also failed: {inner_e}")
+        
+        return [SlotSet("chosen_vehicle", vehicle_name)]
 
 class ActionGreetWithMenu(Action):
     def name(self) -> Text:
@@ -365,7 +382,7 @@ class ActionGreetWithMenu(Action):
         payload = {
             "to": phone_number,
             "header": "Welcome to TVS MOTORS! 🏍️",
-            "body": "We're here to help you find your perfect ride. What would you like to do today?",
+            "body": "How can I help you today?\nYou can ask about prices, test rides, vehicles, or offers.",
             "button_text": "View Options",
             "sections": sections
         }
@@ -380,10 +397,16 @@ class ActionGreetWithMenu(Action):
         
         except Exception as e:
             print(f"❌ Error sending greeting menu: {e}")
-            # Fallback to text message
-            dispatcher.utter_message(
-                text="Welcome to TVS MOTORS! 🏍️\nHow can we assist you today?"
-            )
+            # Send error message via API instead of dispatcher
+            error_payload = {
+                "to": phone_number,
+                "text": "Welcome to TVS MOTORS! 🏍️\nSorry, menu loading failed. How can I assist you?"
+            }
+            try:
+                async with httpx.AsyncClient(timeout=10.0) as client:
+                    await client.post(BACKEND_SEND_MESSAGE_URL, json=error_payload)
+            except Exception as inner_e:
+                print(f"❌ Fallback error message also failed: {inner_e}")
         
         return []
 
@@ -402,37 +425,12 @@ class ActionTalkToAgent(Action):
         customer_name = tracker.get_slot("user_name") or "Customer"
         
         # Agent phone number
-        agent_phone = "918292253230"
-        
-        # WhatsApp link
-        whatsapp_link = f"https://wa.me/{agent_phone}?text=Hi,%20I%20need%20assistance%20with%20TVS%20bikes"
-        
-        # Message to send to customer
-        customer_message = f"""
-        *Connecting you to our sales team...*
-
-        📞 *Contact Us:*
-        • Phone: +91-9962949643
-        • WhatsApp: Click here 👇
-        {whatsapp_link}
-        • Email: support@blrtvsmotors.com
-
-        📍 *Visit Us:*
-        BLR TVS MOTORS
-        [Your Showroom Address]
-        Bangalore, Karnataka
-
-        ⏰ *Working Hours:*
-        Mon-Sat: 9:00 AM - 7:00 PM
-        Sunday: 10:00 AM - 6:00 PM
-
-        Our team will respond shortly! 🚀
-        """.strip()
+        agent_phone = "918529750269"
         
         # Payload for customer message
         customer_payload = {
             "to": customer_phone,
-            "message": customer_message
+            "message": "Connecting you to our agent. Please hold on..."
         }
         
         # Payload for agent notification
@@ -459,9 +457,16 @@ class ActionTalkToAgent(Action):
         
         except Exception as e:
             print(f"❌ Error in talk to agent action: {e}")
-            dispatcher.utter_message(
-                text="Sorry, couldn't connect to agent at the moment. Please try again."
-            )
+            # Send error via API
+            error_payload = {
+                "to": customer_phone,
+                "text": "Sorry, couldn't connect to agent at the moment. Please try again."
+            }
+            try:
+                async with httpx.AsyncClient(timeout=10.0) as client:
+                    await client.post(BACKEND_SEND_MESSAGE_URL, json=error_payload)
+            except Exception as inner_e:
+                print(f"❌ Fallback error message also failed: {inner_e}")
         
         return []
     
@@ -479,14 +484,23 @@ class ActionAskNameForTestRide(Action):
         chosen_vehicle = tracker.get_slot("chosen_vehicle")
         
         if not chosen_vehicle:
-            dispatcher.utter_message(text="Please select a vehicle first.")
+            # Send error via API
+            error_payload = {
+                "to": phone_number,
+                "text": "Please select a vehicle first."
+            }
+            try:
+                async with httpx.AsyncClient(timeout=10.0) as client:
+                    await client.post(BACKEND_SEND_MESSAGE_URL, json=error_payload)
+            except Exception as inner_e:
+                print(f"❌ Fallback error message also failed: {inner_e}")
             return []
         
         message = f"Great! You're booking a test ride for *{chosen_vehicle}* 🏍️\n\nMay I know your name?"
         
         payload = {
             "to": phone_number,
-            "message": message
+            "text": message
         }
         
         try:
@@ -494,7 +508,16 @@ class ActionAskNameForTestRide(Action):
                 await client.post(BACKEND_SEND_MESSAGE_URL, json=payload)
         except Exception as e:
             print(f"❌ Error asking name: {e}")
-            dispatcher.utter_message(text="May I know your name?")
+            # Send error via API
+            error_payload = {
+                "to": phone_number,
+                "text": "May I know your name?"
+            }
+            try:
+                async with httpx.AsyncClient(timeout=10.0) as client:
+                    await client.post(BACKEND_SEND_MESSAGE_URL, json=error_payload)
+            except Exception as inner_e:
+                print(f"❌ Fallback error message also failed: {inner_e}")
         
         return []
     
@@ -515,7 +538,16 @@ class ActionBookTestRide(Action):
         print("Booking test ride for:", user_name, chosen_vehicle)
         
         if not user_name or not chosen_vehicle:
-            dispatcher.utter_message(text="Missing information. Please start again.")
+            # Send error via API
+            error_payload = {
+                "to": phone_number,
+                "text": "Missing information. Please start again."
+            }
+            try:
+                async with httpx.AsyncClient(timeout=10.0) as client:
+                    await client.post(BACKEND_SEND_MESSAGE_URL, json=error_payload)
+            except Exception as inner_e:
+                print(f"❌ Fallback error message also failed: {inner_e}")
             return []
         
         payload = {
@@ -530,7 +562,8 @@ class ActionBookTestRide(Action):
                 response.raise_for_status()
             
             message_payload = {
-                "to": phone_number
+                "to": phone_number,
+                "text": f"✅ Test ride booked for {user_name} on {chosen_vehicle}! We'll contact you soon."
             }
             
             async with httpx.AsyncClient(timeout=10.0) as client:
@@ -540,6 +573,15 @@ class ActionBookTestRide(Action):
         
         except Exception as e:
             print(f"❌ Error booking test ride: {e}")
-            dispatcher.utter_message(text="Sorry, couldn't book the test ride. Please try again.")
+            # Send error via API
+            error_payload = {
+                "to": phone_number,
+                "text": "Sorry, couldn't book the test ride. Please try again."
+            }
+            try:
+                async with httpx.AsyncClient(timeout=10.0) as client:
+                    await client.post(BACKEND_SEND_MESSAGE_URL, json=error_payload)
+            except Exception as inner_e:
+                print(f"❌ Fallback error message also failed: {inner_e}")
         
         return []
