@@ -142,48 +142,100 @@ nlu:
     - get brochure
 
 
+
 - intent: vehicle_selected
   examples: |
-    - apache_rtr_160
+    - apache_rtr_1604v
+    - apache_rtr_160_2v
+    - apache_rtr_310
+    - tvs_ntorq_125
     - apache_200_4v
     - tvs_jupiter
-    - tvs_ronin
-
-
-- intent: slot_selected
-  examples: |
-    - slot_10_00AM
-    - slot_10_15AM
-    - slot_11_00AM
-    - slot_11_30AM
-    - slot_12_00PM
-    - slot_12_30PM
+    - tvs_ntorq_125
+    - tvs_ronin_bike
 
 - intent: user_name
   examples: |
-    - My name is Ayush
-    - Harsh
-    - Rahul
-    - Karan
-    - Rishav
-    - Ankur
-    - I am Ayush
-    - Ayush
-    - It's Ayush
-    - Call me Ayush
-    - Rahul Sharma
-    - Mukesh Kumar
-    - Santosh Yadav
-    - Priya Singh
-    - Abdul Rahman
-    - Priyanka Gupta
-    - Saurabh
-    - Kanika
-    - Neha
-    - Vikram
-    - Sneha
-    - Chatainya
-    - Hemant
-    - Hiren
-    - Charitha
-    - Rishav
+    # Standard introductions
+    - My name is [Ayush](name)
+    - I am [Harsh](name)
+    - It's [Rahul](name)
+    - Call me [Karan](name)
+    - I'm [Rishav](name)
+    - You can call me [Ankur](name)
+    - They call me [Vikram](name)
+    - People know me as [Sneha](name)
+    - I go by [Rohan](name)
+    - My name's [Amit](name)
+    
+    # Very casual/short
+    - [Mukesh Kumar](name)
+    - [Santosh Yadav](name)
+    - [Priya Singh](name)
+    - [Abdul Rahman](name)
+    - [Priyanka Gupta](name)
+    - [Ravi](name)
+    - [Neha](name) here
+    - [Arjun](name) speaking
+    - This is [Pooja](name)
+    
+    # Multi-word names
+    - [Rajesh Kumar Singh](name)
+    - [Sita Devi Sharma](name)
+    - [Mohammed Ali Khan](name)
+    - [Lakshmi Narayan Patel](name)
+    - [Suresh Kumar Gupta](name)
+    - [Deepak Singh Rathore](name)
+    - [Anjali Kumari](name)
+    - [Manish Kumar Jha](name)
+    
+    # Variations
+    - The name is [Sanjay](name)
+    - Name's [Kavita](name)
+    - Hi, I'm [Simran](name)
+    - Hello, [Deepak](name)
+    - It is [Meera](name)
+    
+    # Edge cases
+    - [Dr. Sharma](name)
+    - [Mr. Patel](name)
+    - [A.K. Singh](name)
+    - [Raj](name)
+    
+    # Informal/typos
+    - my name [Anil](name)
+    - im [Sunita](name)
+    - name [Gopal](name)
+
+
+- intent: provide_pincode
+  examples: |
+    - My pincode is 560001
+    - It's 110011
+    - 400001
+    - The pincode is 700001
+    - Pincode 600001
+    - 500081
+    - It's 380001
+    - My area pincode is 121001
+    - 560100
+    - 560002
+    - 110002
+    - 400002
+    - 700002
+    - 600002
+    - 500082
+    - 380002
+    - 121002
+    - Pincode is 560003
+
+
+- intent: get_price_or_EMI
+  examples: |
+    - get price
+    - show emi
+    - price details
+    - get_price_or_EMI
+    - what's the price
+    - emi options
+    - on road price

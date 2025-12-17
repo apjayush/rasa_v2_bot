@@ -10,29 +10,53 @@ intents:
   - vehicle_selected
   - user_name
   - talk_to_agent
+  - provide_pincode
+  - get_price_or_EMI
 
-actions:
-  - action_greet_with_menu
-  - action_show_vehicle_list
-  - action_store_vehicle_choice_and_show_details
-  - action_send_brochure
-  - action_ask_name_for_test_ride
-  - action_store_name
-  - action_book_test_ride
-  - action_talk_to_agent
+entities:
+  - name
+  - pincode
 
 slots:
+  user_name:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: custom
+
   chosen_vehicle:
     type: text
     influence_conversation: true
     mappings:
       - type: custom
 
-  user_name:
+  phone:
     type: text
-    influence_conversation: true
+    influence_conversation: false
     mappings:
       - type: custom
+
+  pincode:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: custom
+
+
+actions:
+  - action_greet_user
+  - action_ask_name
+  - action_greet_with_menu
+  - action_show_vehicle_list
+  - action_store_vehicle_choice
+  - action_show_vehicle_details
+  - action_send_brochure
+  - action_ask_name_for_test_ride
+  - action_store_name
+  - action_book_test_ride
+  - action_talk_to_agent
+  - action_ask_pincode
+  - action_store_pincode_and_show_pricing
 
 responses:
   utter_goodbye:

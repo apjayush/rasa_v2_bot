@@ -2,9 +2,16 @@ version: "3.1"
 
 rules:
 
-- rule: Greet user with menu
+- rule: Greet user and ask for name
   steps:
   - intent: greet
+  - action: action_greet_user
+  - action: action_ask_name
+
+- rule: Store name and show menu after greeting
+  steps:
+  - intent: user_name
+  - action: action_store_name
   - action: action_greet_with_menu
 
 - rule: Say goodbye anytime the user says goodbye
@@ -25,25 +32,26 @@ rules:
 - rule: Show vehicle details with buttons after selection
   steps:
     - intent: vehicle_selected
-    - action: action_store_vehicle_choice_and_show_details
+    - action: action_store_vehicle_choice
+    - action: action_show_vehicle_details
 
 - rule: Send brochure when requested from vehicle details
   steps:
     - intent: brochure_request
     - action: action_send_brochure
 
-- rule: Ask name when test ride requested from vehicle details
-  steps:
-    - intent: book_test_ride
-    - action: action_ask_name_for_test_ride
-
-- rule: Book test ride after getting name
-  steps:
-    - intent: user_name
-    - action: action_store_name
-    - action: action_book_test_ride
 
 - rule: Connect to agent when requested
   steps:
     - intent: talk_to_agent
     - action: action_talk_to_agent
+
+- rule: Ask for pincode when user selects price/EMI
+  steps:
+  - intent: get_price_or_EMI
+  - action: action_ask_pincode
+
+- rule: Show pricing after pincode is provided
+  steps:
+  - intent: provide_pincode
+  - action: action_store_pincode_and_show_pricing
