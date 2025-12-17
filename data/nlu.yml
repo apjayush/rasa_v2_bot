@@ -207,6 +207,114 @@ nlu:
     - im [Sunita](name)
     - name [Gopal](name)
 
+    - [Sharma](name)
+    - [Patel](name)
+    - [Singh](name)
+    - [Kumar](name)
+    - [Gupta](name)
+    - [Yadav](name)
+    - [Jain](name)
+    - [Agarwal](name)
+    - [Verma](name)
+    - [Chauhan](name)
+    - [Mishra](name)
+    - [Tiwari](name)
+    - [Dubey](name)
+    - [Pandey](name)
+    - [Rao](name)
+    - [Nair](name)
+    - [Iyer](name)
+    - [Menon](name)
+    - [Pillai](name)
+    
+    # 🔥 PRODUCTION ADDITIONS - More casual single names
+    - [Rahul](name)
+    - [Priya](name)
+    - [Amit](name)
+    - [Sneha](name)
+    - [Vikram](name)
+    - [Kavita](name)
+    - [Rajesh](name)
+    - [Sunita](name)
+    - [Deepak](name)
+    - [Anjali](name)
+    - [Suresh](name)
+    - [Meera](name)
+    - [Arjun](name)
+    - [Pooja](name)
+    - [Ravi](name)
+    - [Neha](name)
+    - [Karan](name)
+    - [Simran](name)
+    - [Rohan](name)
+    - [Ankur](name)
+    
+    # 🔥 PRODUCTION ADDITIONS - WhatsApp style single names
+    - hi [amit](name)
+    - [rahul](name) here
+    - its [priya](name)
+    - [vikas](name) bol raha hu
+    - naam [sanjay](name)
+    - [kavita](name) hai
+    - [raj](name) speaking
+    - [neha](name) from delhi
+    - [arjun](name) here
+    - [pooja](name) calling
+    - [ravi](name) ji
+    - [meera](name) madam
+    - [karan](name) sir
+    - [simran](name) ka call
+    - [rohan](name) bol
+    - [ankur](name) hai
+    - [sneha](name) from mumbai
+    - [deepak](name) here
+    - [anjali](name) speaking
+    - [suresh](name) ji
+    
+    # 🔥 PRODUCTION ADDITIONS - Regional single names
+    - [Abdul](name)
+    - [Mohammed](name)
+    - [Ahmed](name)
+    - [Fatima](name)
+    - [Ayesha](name)
+    - [Salman](name)
+    - [Imran](name)
+    - [Zara](name)
+    - [Omar](name)
+    - [Noor](name)
+    - [Ali](name)
+    - [Hassan](name)
+    - [Sara](name)
+    - [Yusuf](name)
+    - [Aisha](name)
+    - [Bilal](name)
+    - [Huda](name)
+    - [Khalid](name)
+    - [Layla](name)
+    - [Mustafa](name)
+    
+    # 🔥 PRODUCTION ADDITIONS - South Indian single names
+    - [Venkatesh](name)
+    - [Lakshmi](name)
+    - [Subramanian](name)
+    - [Ramakrishnan](name)
+    - [Sundar](name)
+    - [Kavitha](name)
+    - [Rajagopal](name)
+    - [Padma](name)
+    - [Srinivasan](name)
+    - [Anand](name)
+    - [Meenakshi](name)
+    - [Krishnan](name)
+    - [Saravanan](name)
+    - [Vijayalakshmi](name)
+    - [Balaji](name)
+    - [Divya](name)
+    - [Mohan](name)
+    - [Rekha](name)
+    - [Suresh](name)
+    - [Uma](name)
+
 
 - intent: provide_pincode
   examples: |
@@ -232,10 +340,36 @@ nlu:
 
 - intent: get_price_or_EMI
   examples: |
-    - get price
     - show emi
     - price details
-    - get_price_or_EMI
     - what's the price
     - emi options
     - on road price
+    - financing options
+    - price info
+    - emi details
+    - financing details
+    - price quotation
+    - tell me the price
+    - how much does it cost
+    - what is the cost
+    - how much is the price
+    - give me the price
+    - what's the cost
+    
+    # 🔥 Add more specific examples to avoid ambiguity
+    - what is the price of the bike
+    - show me EMI options
+    - tell me the cost details
+    - how much does it cost on road
+    - what are the financing options
+    - give me price information
+    - show EMI details
+    - what is the financing cost
+    - price quotation please
+    - tell me about EMI
+    - what is the total cost
+    - how much for the vehicle
+    - give me pricing details
+    - what's the EMI amount
+    - cost breakdown please

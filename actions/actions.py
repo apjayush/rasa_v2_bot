@@ -16,6 +16,8 @@ BACKEND_SEND_MESSAGE_URL = "http://localhost:8000/send-message"
 BACKEND_NOTIFY_AGENT_URL = "http://localhost:8000/notify-agent"
 BACKEND_SEND_IMAGE_URL = "http://localhost:8000/send-image"
 BACKEND_LEAD_UPDATE_URL = "http://localhost:8000/update_lead"
+BACKEND_SEND_BUTTON_URL = "http://localhost:8000/send-buttons"
+
 
 VEHICLE_DATA = {
     # ---------------- APACHE SERIES ----------------
@@ -130,9 +132,32 @@ class ActionStoreName(Action):
         name = next(tracker.get_latest_entity_values("name"), None)
         print("📝 Extracted name:", name)
 
+        # 🔥 FALLBACK: If no entity but we just asked for name, treat ANY response as name
         if not name:
-            print("❌ Name entity missing, aborting store")
-            return []
+            # Check if the last action was asking for name
+            last_action = tracker.latest_action_name
+            print(f"🔍 Last action was: {last_action}")
+
+            if last_action == "action_ask_name":
+                # We asked for name, so ANY reasonable response could be a name
+                user_text = tracker.latest_message.get('text', '').strip()
+                print(f"💬 User said: '{user_text}'")
+
+                # Basic validation: ignore obvious non-names
+                ignore_patterns = ['yes', 'no', 'ok', 'hello', 'hi', 'bye', 'sure', 'okay']
+                if (len(user_text) > 1 and
+                    len(user_text) < 50 and
+                    user_text.lower() not in ignore_patterns and
+                    not user_text.isdigit()):  # Not just numbers
+
+                    name = user_text
+                    print(f"🔄 FALLBACK: Treating '{user_text}' as name (no entity detected)")
+                else:
+                    print(f"❌ Invalid name input: '{user_text}'")
+                    return []
+            else:
+                print("❌ Name entity missing and not in name collection context")
+                return []
 
         name = name.strip()
 
@@ -619,44 +644,35 @@ class ActionShowVehicleDetails(Action):
         except Exception as e:
             print(f"❌ Error sending specs: {e}")
         
-        # Send action options
-        sections = [
+        # Send action buttons (changed from sections to buttons)
+        buttons = [
             {
-                "title": f"{chosen_vehicle}?",
-                "rows": [
-                    {
-                        "id": "get_brochure",
-                        "title": "📄 Get Brochure",
-                        "description": "Get brochure"
-                    },
-                    {
-                        "id": "book_test_ride",
-                        "title": "🏍️ Book Test Ride",
-                        "description": "Book test ride"
-                    },
-                    {
-                        "id": "get_price_or_EMI",
-                        "title": "💰 Get Price/EMI",
-                        "description": "Know price/EMI"
-                    }
-                ]
+                "id": "get_brochure",
+                "title": "📄 Get Brochure"
+            },
+            {
+                "id": "book_test_ride",
+                "title": "🏍️ Book Test Ride"
+            },
+            {
+                "id": "get_price_or_EMI",
+                "title": "💰 Get Price/EMI"
             }
         ]
         
         button_payload = {
             "to": phone_number,
             "body": f"What would you like to do with {chosen_vehicle}?",
-            "button_text": "Choose Action",
-            "sections": sections
+            "buttons": buttons
         }
         
         try:
             async with httpx.AsyncClient(timeout=10.0) as client:
-                response = await client.post(BACKEND_SEND_LIST_URL, json=button_payload)
+                response = await client.post(BACKEND_SEND_BUTTON_URL, json=button_payload)
                 response.raise_for_status()
-            print(f"✅ Sent action options for {chosen_vehicle}")
+            print(f"✅ Sent action buttons for {chosen_vehicle}")
         except Exception as e:
-            print(f"❌ Error sending options: {e}")
+            print(f"❌ Error sending buttons: {e}")
         
         return []
     
@@ -823,8 +839,10 @@ class ActionStorePincodeAndShowPricing(Action):
 
         # 6️⃣ Send pricing message with dynamic price
         pricing_message = f"""
-        Thanks for sharing your pincode!
-        The ex-showroom price of **{chosen_vehicle}** starts from **{formatted_price}**.
+        📍 Thanks for sharing your pincode!
+
+        💰 The ex-showroom price of **{chosen_vehicle}** starts from **{formatted_price}**.
+
         Our TVS sales executive will contact you shortly with the **best on-road price & EMI options** available for your area.
         """.strip()
 
