@@ -48,6 +48,15 @@ nlu:
     - of course
     - that sounds good
     - correct
+    - yeah
+    - right
+    - that's right
+    - yes that's correct
+    - yup
+    - ok
+    - okay
+    - haan
+    - ha
 
 - intent: deny
   examples: |
@@ -58,6 +67,12 @@ nlu:
     - don't like that
     - no way
     - not really
+    - nope
+    - not correct
+    - wrong
+    - that's wrong
+    - no that's not right
+    - nahi
 
 - intent: mood_great
   examples: |

@@ -12,6 +12,8 @@ intents:
   - talk_to_agent
   - provide_pincode
   - get_price_or_EMI
+  - affirm
+  - deny
 
 entities:
   - name
@@ -24,7 +26,7 @@ slots:
     - type: from_entity
       entity: name
 
-  user_name:  # ✅ ADD THIS
+  user_name:
     type: text
     mappings:
     - type: custom
@@ -62,7 +64,8 @@ actions:
   - action_talk_to_agent
   - action_ask_pincode
   - action_store_pincode_and_show_pricing
-  - action_validate_slot_mappings  # ✅ ADD THIS
+  - action_validate_slot_mappings
+  - action_confirm_details
 
 responses:
   utter_goodbye:
@@ -71,13 +74,15 @@ responses:
   utter_iamabot:
     - text: "I am a bot, powered by Rasa."
   
-  # ✅ ADD THESE VALIDATION RESPONSES
   utter_invalid_name:
-    - text: "I didn't catch that properly. Please type your full name."
+    - text: "I didn't catch that properly. Please type your full name again."
   
   utter_invalid_pincode:
-    - text: "That doesn't look like a valid pincode. Please enter a 6-digit pincode."
+    - text: "That doesn't look like a valid 6-digit pincode. Please try again. Example: 560001"
+  
+  utter_default:
+    - text: "I didn't quite understand that. Would you like to talk to our sales executive?"
 
 session_config:
   session_expiration_time: 30
-  carry_over_slots_to_new_session: false
+  carry_over_slots_to_new_session: true

@@ -7,6 +7,33 @@ import asyncio
 import os
 from rasa_sdk.types import DomainDict
 import re
+import logging
+import logging.config
+from pathlib import Path
+import yaml 
+
+# Set up logging
+log_config_path = Path("logging.yml")
+if log_config_path.exists():
+    with open(log_config_path, 'r') as f:
+        config = yaml.safe_load(f.read())
+        logging.config.dictConfig(config)
+
+logger = logging.getLogger('actions')
+
+# Helper function for sending messages
+async def send_message(phone: str, message: str, dispatcher: CollectingDispatcher):
+    """Send message via backend in production, dispatcher in test"""
+    if IS_TEST_ENV:
+        dispatcher.utter_message(text=message)
+    else:
+        payload = {"to": phone, "message": message}
+        try:
+            async with httpx.AsyncClient(timeout=10.0) as client:
+                await client.post(BACKEND_SEND_MESSAGE_URL, json=payload)
+        except Exception as e:
+            logger.exception(f"Error sending message: {e}")
+
 # from vehicle_data.vehicle_info import VEHICLE_DATA
 # from ./ import VEHICLE_DATA
 
@@ -194,6 +221,38 @@ class ValidatePredefinedSlots(ValidationAction):
             dispatcher.utter_message(response="utter_invalid_pincode")
             return {"pincode": None}
         
+        # ✅ ADD SERVICEABILITY CHECK
+        serviceable_pincodes = [
+            # --- PREVIOUS ENTRIES ---
+
+            # --- BANGALORE URBAN (560xxx series) ---
+            "560001", "560002", "560003", "560004", "560005", "560006", "560007", "560008", 
+            "560009", "560010", "560011", "560012", "560013", "560014", "560015", "560016", 
+            "560017", "560018", "560019", "560020", "560021", "560022", "560023", "560024", 
+            "560025", "560026", "560027", "560029", "560030", "560032", "560033", "560034", 
+            "560035", "560036", "560037", "560038", "560039", "560040", "560041", "560042", 
+            "560043", "560044", "560045", "560046", "560047", "560048", "560049", "560050", 
+            "560051", "560052", "560053", "560054", "560055", "560056", "560057", "560058", 
+            "560059", "560060", "560061", "560062", "560063", "560064", "560065", "560066", 
+            "560067", "560068", "560069", "560070", "560071", "560072", "560073", "560074", 
+            "560075", "560076", "560077", "560078", "560079", "560080", "560081", "560082", 
+            "560083", "560084", "560085", "560086", "560087", "560088", "560089", "560090", 
+            "560091", "560092", "560093", "560094", "560095", "560096", "560097", "560098", 
+            "560099", "560100", "560102", "560103", "560104", "560105", "560106", "560107",
+            "560108", "560109", "560113", "560114", "560115", "560300",
+
+            # --- BANGALORE RURAL / SUBURBAN (562xxx series) ---
+            "562106", "562107", "562108", "562109", "562110", "562114", "562123", "562125", 
+            "562129", "562130", "562149", "562157", "562162", "562164"
+        ]
+        
+        if pincode not in serviceable_pincodes:
+            print(f"❌ Pincode {pincode} not serviceable")
+            dispatcher.utter_message(
+                text=f"Sorry, we don't service pincode {pincode} yet. We'll notify you when we expand to your area!"
+            )
+            return {"pincode": None}
+        
         # Validation succeeded
         print(f"✅ Pincode validation passed: {pincode}")
         return {"pincode": pincode}
@@ -242,11 +301,11 @@ class ActionStoreName(Action):
                     json=update_payload
                 )
                 if resp.status_code != 200:
-                    print("❌ Lead update failed:", resp.text)
+                    logger.error(f"Lead update failed: {resp.text}")
                 else:
                     print(f"✅ Name '{name}' stored in lead for {phone}")
         except Exception as e:
-            print("❌ Error updating lead:", e)
+            logger.exception(f"Error updating lead: {e}")
 
         # ✅ Send acknowledgment
         if IS_TEST_ENV:
@@ -376,10 +435,10 @@ class ActionSendBrochure(Action):
                 "filename": "TVS_Apache_RTR_160_Brochure.pdf",
                 "caption": "📄 TVS Apache RTR 160 - Complete Brochure"
             },
-            "Apache 200 4V": {
+            "Apache RTR 200 4V": {
                 "pdf_url": "https://www.tvsmotor.com/tvs-apache/-/media/Brand-Pages/Apache/Brochure/Apache-200-4V-BLUE-Leaflet.pdf",
-                "filename": "TVS_Apache_200_4V_Brochure.pdf",
-                "caption": "📄 TVS Apache 200 4V - Complete Brochure"
+                "filename": "TVS_Apache_RTR_200_4V_Brochure.pdf",
+                "caption": "📄 TVS Apache RTR 200 4V - Complete Brochure"
             },
             "TVS Jupiter": {
                 "pdf_url": "https://www.tvsmotor.com/tvs-jupiter-125/-/media/Brand-Pages/TVS-N282/TVS-Jupiter-125-Brochure.pdf",
@@ -738,7 +797,7 @@ class ActionShowVehicleDetails(Action):
         # Send action buttons
         buttons = [
             {
-                "id": "get_brochure",
+                "id": "brochure_request",
                 "title": "📄 Get Brochure"
             },
             {
@@ -1197,3 +1256,30 @@ class ActionSetPincodePurposeTestRide(Action):
 
         print("🎯 Setting pincode purpose to: test_ride")
         return [SlotSet("pincode_purpose", "test_ride")]
+
+
+class ActionConfirmDetails(Action):
+    def name(self) -> Text:
+        return "action_confirm_details"
+
+    async def run(self, dispatcher, tracker: Tracker, domain):
+        name = tracker.get_slot("user_name") or tracker.get_slot("name")
+        pincode = tracker.get_slot("pincode")
+        
+        phone = (
+            tracker.latest_message.get("metadata", {}).get("phone")
+            or tracker.get_slot("phone")
+            or tracker.sender_id
+        )
+        
+        confirmation_message = f"""
+Let me confirm your details:
+📝 Name: {name}
+📍 Pincode: {pincode}
+
+Is this correct? (Reply Yes/No)
+        """.strip()
+        
+        await send_message(phone, confirmation_message, dispatcher)
+        
+        return []
