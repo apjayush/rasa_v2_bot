@@ -1,10 +1,12 @@
 from typing import Any, Text, Dict, List
-from rasa_sdk import Action, Tracker
+from rasa_sdk import Action, Tracker, ValidationAction
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.events import SlotSet
 import httpx
 import asyncio
 import os
+from rasa_sdk.types import DomainDict
+import re
 # from vehicle_data.vehicle_info import VEHICLE_DATA
 # from ./ import VEHICLE_DATA
 
@@ -128,23 +130,91 @@ VEHICLE_DATA = {
 
 
 
+class ValidatePredefinedSlots(ValidationAction):
+    """Validates slots with predefined mappings."""
+    
+    def validate_name(
+        self,
+        slot_value: Any,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: DomainDict,
+    ) -> Dict[Text, Any]:
+        """Validate name value."""
+        
+        print(f"🔍 Validating name: {slot_value}")
+        
+        # Check if name exists and has minimum length
+        if not slot_value or not isinstance(slot_value, str):
+            print("❌ Name validation failed: empty or not string")
+            dispatcher.utter_message(response="utter_invalid_name")
+            return {"name": None}
+        
+        # Remove extra whitespace
+        name = slot_value.strip()
+        
+        # Check minimum length
+        if len(name) < 2:
+            print("❌ Name validation failed: too short")
+            dispatcher.utter_message(response="utter_invalid_name")
+            return {"name": None}
+        
+        # Check if contains at least some letters
+        if not re.search(r'[a-zA-Z]', name):
+            print("❌ Name validation failed: no letters")
+            dispatcher.utter_message(response="utter_invalid_name")
+            return {"name": None}
+        
+        # Capitalize properly
+        print(f"✅ Name validation passed: {name.title()}")
+        return {"name": name.title()}
+    
+    def validate_pincode(
+        self,
+        slot_value: Any,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: DomainDict,
+    ) -> Dict[Text, Any]:
+        """Validate pincode value."""
+        
+        print(f"🔍 Validating pincode: {slot_value}")
+        
+        if not slot_value:
+            print("❌ Pincode validation failed: empty")
+            dispatcher.utter_message(response="utter_invalid_pincode")
+            return {"pincode": None}
+        
+        # Convert to string and remove whitespace
+        pincode = str(slot_value).strip()
+        
+        # Check if it's exactly 6 digits
+        if not re.match(r'^\d{6}$', pincode):
+            print("❌ Pincode validation failed: not 6 digits")
+            dispatcher.utter_message(response="utter_invalid_pincode")
+            return {"pincode": None}
+        
+        # Validation succeeded
+        print(f"✅ Pincode validation passed: {pincode}")
+        return {"pincode": pincode}
+
 class ActionStoreName(Action):
     def name(self) -> str:
         return "action_store_name"
 
     async def run(self, dispatcher, tracker: Tracker, domain):
 
-        # Get the name from the slot (auto-filled from entity)
+        # ✅ Get the validated name from the slot (validated by ValidationAction)
         name = tracker.get_slot("name")
-        print("� Name from slot:", name)
+        print("📝 Name from slot:", name)
 
+        # ✅ If validation failed, name will be None
         if not name:
-            print("❌ Name slot is empty")
+            print("❌ Name slot is empty after validation")
+            # ValidationAction already sent error message
             return []
 
-        name = name.strip()
-
-        # 2️⃣ Resolve phone safely
+        # ✅ Resolve phone safely
         phone = (
             tracker.latest_message.get("metadata", {}).get("phone")
             or tracker.get_slot("phone")
@@ -157,7 +227,7 @@ class ActionStoreName(Action):
             print("❌ Phone missing, aborting")
             return []
 
-        # 3️⃣ Update lead via backend
+        # ✅ Update lead via backend
         update_payload = {
             "phone": phone,
             "updates": {
@@ -173,10 +243,12 @@ class ActionStoreName(Action):
                 )
                 if resp.status_code != 200:
                     print("❌ Lead update failed:", resp.text)
+                else:
+                    print(f"✅ Name '{name}' stored in lead for {phone}")
         except Exception as e:
             print("❌ Error updating lead:", e)
 
-        # 4️⃣ Send acknowledgment
+        # ✅ Send acknowledgment
         if IS_TEST_ENV:
             dispatcher.utter_message(text=f"Nice to meet you, {name}! 😊")
         else:
@@ -190,7 +262,7 @@ class ActionStoreName(Action):
             except Exception as e:
                 print("❌ Error sending acknowledgment:", e)
 
-        # 5️⃣ Set slot so next actions know name exists
+        # ✅ Set slot so next actions know name exists
         return [SlotSet("user_name", name)]
 
 
@@ -755,62 +827,18 @@ class ActionStorePincodeAndShowPricing(Action):
                   tracker: Tracker,
                   domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         
-        # 1️⃣ Extract pincode entity (same pattern as name)
-        pincode = next(tracker.get_latest_entity_values("pincode"), None)
-
-        print(100*"-")
-        print(100*"-")
-        print(f"Extracted pincode entity: {pincode}")
-        print(100*"-")
+        # ✅ Get the validated pincode from the slot (validated by ValidationAction)
+        pincode = tracker.get_slot("pincode")
         
-        # Fallback: if no entity, try to extract from text (6 digits)
+        print(f"📍 Pincode from slot: {pincode}")
+        
+        # ✅ If validation failed, pincode will be None
         if not pincode:
-            user_message = tracker.latest_message.get('text', '').strip()
-            # Simple validation: 6 digits
-            if user_message.isdigit() and len(user_message) == 6:
-                pincode = user_message
-        
-        print(f"📍 Extracted pincode: {pincode}")
-        
-        if not pincode:
-            # 2️⃣ Resolve phone number
-            phone = (
-                tracker.latest_message.get("metadata", {}).get("phone")
-                or tracker.get_slot("phone")
-                or tracker.sender_id
-            )
-            
-            error_payload = {
-                "to": phone,
-                "message": "Please enter a valid 6-digit pincode. 📍"
-            }
-            try:
-                async with httpx.AsyncClient(timeout=10.0) as client:
-                    await client.post(BACKEND_SEND_MESSAGE_URL, json=error_payload)
-            except Exception as e:
-                print(f"❌ Error sending pincode error: {e}")
+            print("❌ Pincode slot is empty after validation")
+            # ValidationAction already sent error message
             return []
         
-        # Validate pincode format
-        if not pincode.isdigit() or len(pincode) != 6:
-            phone = (
-                tracker.latest_message.get("metadata", {}).get("phone")
-                or tracker.get_slot("phone")
-                or tracker.sender_id
-            )
-            
-            error_payload = {
-                "to": phone,
-                "message": "Please enter a valid 6-digit pincode. 📍"
-            }
-            try:
-                async with httpx.AsyncClient(timeout=10.0) as client:
-                    await client.post(BACKEND_SEND_MESSAGE_URL, json=error_payload)
-            except Exception as e:
-                print(f"❌ Error sending validation error: {e}")
-            return []
-        
-        # 3️⃣ Resolve phone number (after validation)
+        # ✅ Resolve phone number
         phone = (
             tracker.latest_message.get("metadata", {}).get("phone")
             or tracker.get_slot("phone")
@@ -825,7 +853,7 @@ class ActionStorePincodeAndShowPricing(Action):
         
         chosen_vehicle = tracker.get_slot("chosen_vehicle")
         
-        # 4️⃣ Update lead via backend (same pattern as name storage)
+        # ✅ Update lead via backend
         update_payload = {
             "phone": phone,
             "updates": {
@@ -846,7 +874,7 @@ class ActionStorePincodeAndShowPricing(Action):
         except Exception as e:
             print(f"❌ Error updating lead with pincode: {e}")
         
-        # 5️⃣ Get ex-showroom price from VEHICLE_DATA
+        # ✅ Get ex-showroom price from VEHICLE_DATA
         ex_showroom_price = None
         for vid, vdata in VEHICLE_DATA.items():
             if vdata["name"] == chosen_vehicle:
@@ -857,19 +885,19 @@ class ActionStorePincodeAndShowPricing(Action):
             print(f"❌ Ex-showroom price not found for {chosen_vehicle}")
             ex_showroom_price = 115000  # Fallback
 
-        # Format price (convert to L for lakhs if > 100000)
+        # Format price
         if ex_showroom_price >= 100000:
             formatted_price = f"₹{ex_showroom_price // 100000}.{ex_showroom_price % 100000 // 10000}L"
         else:
             formatted_price = f"₹{ex_showroom_price:,}"
 
-        # 6️⃣ Send pricing message with dynamic price
+        # ✅ Send pricing message
         pricing_message = f"""
-        📍 Thanks for sharing your pincode!
+📍 Thanks for sharing your pincode!
 
-        💰 The ex-showroom price of **{chosen_vehicle}** starts from **{formatted_price}**.
+💰 The ex-showroom price of **{chosen_vehicle}** starts from **{formatted_price}**.
 
-        Our TVS sales executive will contact you shortly with the **best on-road price & EMI options** available for your area.
+Our TVS sales executive will contact you shortly with the **best on-road price & EMI options** available for your area.
         """.strip()
 
         if IS_TEST_ENV:
@@ -887,8 +915,7 @@ class ActionStorePincodeAndShowPricing(Action):
             except Exception as e:
                 print(f"❌ Error sending pricing: {e}")
 
-        # 7️⃣ Set slot so pincode is available for future actions
-        return [SlotSet("pincode", pincode)]
+        return []
 
 
 class ActionHandlePincodeBasedOnPurpose(Action):

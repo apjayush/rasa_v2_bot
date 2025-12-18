@@ -24,6 +24,11 @@ slots:
     - type: from_entity
       entity: name
 
+  user_name:  # ✅ ADD THIS
+    type: text
+    mappings:
+    - type: custom
+  
   chosen_vehicle:
     type: text
     influence_conversation: true
@@ -43,7 +48,6 @@ slots:
       - type: from_entity
         entity: pincode
 
-
 actions:
   - action_greet_user
   - action_ask_name
@@ -58,6 +62,7 @@ actions:
   - action_talk_to_agent
   - action_ask_pincode
   - action_store_pincode_and_show_pricing
+  - action_validate_slot_mappings  # ✅ ADD THIS
 
 responses:
   utter_goodbye:
@@ -65,6 +70,13 @@ responses:
 
   utter_iamabot:
     - text: "I am a bot, powered by Rasa."
+  
+  # ✅ ADD THESE VALIDATION RESPONSES
+  utter_invalid_name:
+    - text: "I didn't catch that properly. Please type your full name."
+  
+  utter_invalid_pincode:
+    - text: "That doesn't look like a valid pincode. Please enter a 6-digit pincode."
 
 session_config:
   session_expiration_time: 30
