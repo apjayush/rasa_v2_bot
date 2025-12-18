@@ -318,24 +318,50 @@ nlu:
 
 - intent: provide_pincode
   examples: |
-    - My pincode is 560001
-    - It's 110011
-    - 400001
-    - The pincode is 700001
-    - Pincode 600001
-    - 500081
-    - It's 380001
-    - My area pincode is 121001
-    - 560100
-    - 560002
-    - 110002
-    - 400002
-    - 700002
-    - 600002
-    - 500082
-    - 380002
-    - 121002
-    - Pincode is 560003
+    - My pincode is [560001](pincode)
+    - It's [110001](pincode)
+    - [400001](pincode)
+    - Pincode [700001](pincode)
+    - [600001](pincode)
+    - The pincode is [500001](pincode)
+    - [380001](pincode)
+    - [121001](pincode)
+    - [641001](pincode)
+    - [226001](pincode)
+    - [682001](pincode)
+    - [395001](pincode)
+    - [411001](pincode)
+    - [395007](pincode)
+    - [560034](pincode)
+    - [110092](pincode)
+    - [400072](pincode)
+    - [700156](pincode)
+    - [600045](pincode)
+    - [500081](pincode)
+    - [380015](pincode)
+    - [121003](pincode)
+    - [641018](pincode)
+    - [226012](pincode)
+    - [682019](pincode)
+    - [395010](pincode)
+    - [411014](pincode)
+    - [395009](pincode)
+    - [560045](pincode)
+    - [110034](pincode)
+    - [400018](pincode)
+    - [700091](pincode)
+    - [600089](pincode)
+    - [500048](pincode)
+    - [380024](pincode)
+    - [121007](pincode)
+    - [641026](pincode)
+    - [226017](pincode)
+    - [682024](pincode)
+    - [395015](pincode)
+    - [411023](pincode)
+    - [395006](pincode)
+    - [560078](pincode)
+  
 
 
 - intent: get_price_or_EMI

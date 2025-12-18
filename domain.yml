@@ -18,11 +18,11 @@ entities:
   - pincode
 
 slots:
-  user_name:
+  name:
     type: text
-    influence_conversation: true
     mappings:
-      - type: custom
+    - type: from_entity
+      entity: name
 
   chosen_vehicle:
     type: text
@@ -40,7 +40,8 @@ slots:
     type: text
     influence_conversation: false
     mappings:
-      - type: custom
+      - type: from_entity
+        entity: pincode
 
 
 actions:

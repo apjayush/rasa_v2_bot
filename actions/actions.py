@@ -4,8 +4,14 @@ from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.events import SlotSet
 import httpx
 import asyncio
+import os
 # from vehicle_data.vehicle_info import VEHICLE_DATA
 # from ./ import VEHICLE_DATA
+
+# Environment detection
+IS_TEST_ENV = True
+
+print("IS_TEST_ENV =", IS_TEST_ENV)
 
 BACKEND_SLOT_URL = "http://localhost:8000/available-slots"
 BACKEND_BOOK_URL = "http://localhost:8000/book-slot"
@@ -128,36 +134,13 @@ class ActionStoreName(Action):
 
     async def run(self, dispatcher, tracker: Tracker, domain):
 
-        # 1️⃣ Extract name entity (ONLY correct way)
-        name = next(tracker.get_latest_entity_values("name"), None)
-        print("📝 Extracted name:", name)
+        # Get the name from the slot (auto-filled from entity)
+        name = tracker.get_slot("name")
+        print("� Name from slot:", name)
 
-        # 🔥 FALLBACK: If no entity but we just asked for name, treat ANY response as name
         if not name:
-            # Check if the last action was asking for name
-            last_action = tracker.latest_action_name
-            print(f"🔍 Last action was: {last_action}")
-
-            if last_action == "action_ask_name":
-                # We asked for name, so ANY reasonable response could be a name
-                user_text = tracker.latest_message.get('text', '').strip()
-                print(f"💬 User said: '{user_text}'")
-
-                # Basic validation: ignore obvious non-names
-                ignore_patterns = ['yes', 'no', 'ok', 'hello', 'hi', 'bye', 'sure', 'okay']
-                if (len(user_text) > 1 and
-                    len(user_text) < 50 and
-                    user_text.lower() not in ignore_patterns and
-                    not user_text.isdigit()):  # Not just numbers
-
-                    name = user_text
-                    print(f"🔄 FALLBACK: Treating '{user_text}' as name (no entity detected)")
-                else:
-                    print(f"❌ Invalid name input: '{user_text}'")
-                    return []
-            else:
-                print("❌ Name entity missing and not in name collection context")
-                return []
+            print("❌ Name slot is empty")
+            return []
 
         name = name.strip()
 
@@ -194,16 +177,18 @@ class ActionStoreName(Action):
             print("❌ Error updating lead:", e)
 
         # 4️⃣ Send acknowledgment
-        message_payload = {
-            "to": phone,
-            "message": f"Nice to meet you, {name}! 😊"
-        }
-
-        try:
-            async with httpx.AsyncClient(timeout=10.0) as client:
-                await client.post(BACKEND_SEND_MESSAGE_URL, json=message_payload)
-        except Exception as e:
-            print("❌ Error sending acknowledgment:", e)
+        if IS_TEST_ENV:
+            dispatcher.utter_message(text=f"Nice to meet you, {name}! 😊")
+        else:
+            message_payload = {
+                "to": phone,
+                "message": f"Nice to meet you, {name}! 😊"
+            }
+            try:
+                async with httpx.AsyncClient(timeout=10.0) as client:
+                    await client.post(BACKEND_SEND_MESSAGE_URL, json=message_payload)
+            except Exception as e:
+                print("❌ Error sending acknowledgment:", e)
 
         # 5️⃣ Set slot so next actions know name exists
         return [SlotSet("user_name", name)]
@@ -234,18 +219,20 @@ class ActionGreetUser(Action):
             print("❌ Phone not found")
             return []
 
-        # 2️⃣ Call backend to send WhatsApp message
-        payload = {
-            "to": phone_number,
-            "message": "Hi 👋 Welcome to TVS Motors — Built to Perform 🏍️"
-        }
-
-        try:
-            async with httpx.AsyncClient(timeout=10.0) as client:
-                await client.post(BACKEND_SEND_MESSAGE_URL, json=payload)
-            print("✅ Greeting sent via backend")
-        except Exception as e:
-            print(f"❌ Error sending greeting: {e}")
+        # 2️⃣ Send greeting message
+        if IS_TEST_ENV:
+            dispatcher.utter_message(text="Hi 👋 Welcome to TVS Motors — Built to Perform 🏍️")
+        else:
+            payload = {
+                "to": phone_number,
+                "message": "Hi 👋 Welcome to TVS Motors — Built to Perform 🏍️"
+            }
+            try:
+                async with httpx.AsyncClient(timeout=10.0) as client:
+                    await client.post(BACKEND_SEND_MESSAGE_URL, json=payload)
+                print("✅ Greeting sent via backend")
+            except Exception as e:
+                print(f"❌ Error sending greeting: {e}")
 
         # 3️⃣ Store phone in slot (still useful)
         return [SlotSet("phone", phone_number)]
@@ -273,18 +260,20 @@ class ActionAskName(Action):
             print("❌ Phone not found")
             return []
 
-        # 2️⃣ Ask for user's name via backend
-        payload = {
-            "to": phone_number,
-            "message": "Before we continue, may I know your name?"
-        }
-
-        try:
-            async with httpx.AsyncClient(timeout=10.0) as client:
-                await client.post(BACKEND_SEND_MESSAGE_URL, json=payload)
-            print("✅ Name request sent successfully")
-        except Exception as e:
-            print(f"❌ Error asking for name: {e}")
+        # 2️⃣ Ask for user's name
+        if IS_TEST_ENV:
+            dispatcher.utter_message(text="Before we continue, may I know your name?")
+        else:
+            payload = {
+                "to": phone_number,
+                "message": "Before we continue, may I know your name?"
+            }
+            try:
+                async with httpx.AsyncClient(timeout=10.0) as client:
+                    await client.post(BACKEND_SEND_MESSAGE_URL, json=payload)
+                print("✅ Name request sent successfully")
+            except Exception as e:
+                print(f"❌ Error asking for name: {e}")
 
         # 3️⃣ No slot update yet (name not known)
         return []
@@ -336,27 +325,30 @@ class ActionSendBrochure(Action):
         if chosen_vehicle and chosen_vehicle in brochure_data:
             brochure = brochure_data[chosen_vehicle]
             
-            payload = {
-                "to": phone_number,
-                "pdf_url": brochure["pdf_url"],
-                "filename": brochure["filename"],
-                "caption": brochure["caption"]
-            }
-            
-            try:
-                print("Reached brochure sending part")
-                async with httpx.AsyncClient() as client:
-                    response = await client.post(BACKEND_SEND_BROCHURE_URL, json=payload)
-                    response.raise_for_status()
+            if IS_TEST_ENV:
+                dispatcher.utter_message(text=f"✅ {chosen_vehicle} brochure has been sent!")
+            else:
+                payload = {
+                    "to": phone_number,
+                    "pdf_url": brochure["pdf_url"],
+                    "filename": brochure["filename"],
+                    "caption": brochure["caption"]
+                }
                 
-                dispatcher.utter_message(
-                    text=f"✅ {chosen_vehicle} brochure has been sent!"
-                )
-            except Exception as e:
-                print(f"❌ Error sending brochure: {e}")
-                dispatcher.utter_message(
-                    text="Sorry, I couldn't send the brochure at the moment. Please try again later."
-                )
+                try:
+                    print("Reached brochure sending part")
+                    async with httpx.AsyncClient() as client:
+                        response = await client.post(BACKEND_SEND_BROCHURE_URL, json=payload)
+                        response.raise_for_status()
+                    
+                    dispatcher.utter_message(
+                        text=f"✅ {chosen_vehicle} brochure has been sent!"
+                    )
+                except Exception as e:
+                    print(f"❌ Error sending brochure: {e}")
+                    dispatcher.utter_message(
+                        text="Sorry, I couldn't send the brochure at the moment. Please try again later."
+                    )
         
         else:
             # If no vehicle selected, show all brochures as options
@@ -388,21 +380,26 @@ class ActionSendBrochure(Action):
                 }
             ]
             
-            payload = {
-                "to": phone_number,
-                "header": "Select a Vehicle",
-                "body": "📚 Please select a vehicle to receive its brochure:",
-                "button_text": "Choose",
-                "sections": sections
-            }
-            
-            try:
-                async with httpx.AsyncClient(timeout=10.0) as client:
-                    response = await client.post(BACKEND_SEND_LIST_URL, json=payload)
-                    response.raise_for_status()
-            except Exception as e:
-                print(f"❌ Error sending brochure options: {e}")
-                dispatcher.utter_message(text="Sorry, couldn't load brochure options.")
+            if IS_TEST_ENV:
+                list_items = [f"• {row['title']}" for row in sections[0]['rows']]
+                list_text = "\n".join(list_items)
+                dispatcher.utter_message(text=f"Select a Vehicle\n📚 Please select a vehicle to receive its brochure:\n\n{list_text}")
+            else:
+                payload = {
+                    "to": phone_number,
+                    "header": "Select a Vehicle",
+                    "body": "📚 Please select a vehicle to receive its brochure:",
+                    "button_text": "Choose",
+                    "sections": sections
+                }
+                
+                try:
+                    async with httpx.AsyncClient(timeout=10.0) as client:
+                        response = await client.post(BACKEND_SEND_LIST_URL, json=payload)
+                        response.raise_for_status()
+                except Exception as e:
+                    print(f"❌ Error sending brochure options: {e}")
+                    dispatcher.utter_message(text="Sorry, couldn't load brochure options.")
         
         return []
 
@@ -469,26 +466,31 @@ class ActionGreetWithMenu(Action):
             "sections": sections
         }
         
-        try:
-            print("🚀 Sending vehicle menu via backend...")
-            async with httpx.AsyncClient(timeout=10.0) as client:
-                response = await client.post(BACKEND_SEND_LIST_URL, json=payload)
-                response.raise_for_status()
-            
-            print("✅ Vehicle menu sent successfully")
-        
-        except Exception as e:
-            print(f"❌ Error sending vehicle menu: {e}")
-            # Send error message via API instead of dispatcher
-            error_payload = {
-                "to": phone_number,
-                "message": "Sorry, couldn't load vehicle menu. How can I assist you?"
-            }
+        if IS_TEST_ENV:
+            list_items = [f"• {row['title']}" for row in sections[0]['rows']]
+            list_text = "\n".join(list_items)
+            dispatcher.utter_message(text=f"{greeting}\n\nSelect the model you're interested in:\n\n{list_text}")
+        else:
             try:
+                print("🚀 Sending vehicle menu via backend...")
                 async with httpx.AsyncClient(timeout=10.0) as client:
-                    await client.post(BACKEND_SEND_MESSAGE_URL, json=error_payload)
-            except Exception as inner_e:
-                print(f"❌ Fallback error message also failed: {inner_e}")
+                    response = await client.post(BACKEND_SEND_LIST_URL, json=payload)
+                    response.raise_for_status()
+                
+                print("✅ Vehicle menu sent successfully")
+            
+            except Exception as e:
+                print(f"❌ Error sending vehicle menu: {e}")
+                # Send error message via API instead of dispatcher
+                error_payload = {
+                    "to": phone_number,
+                    "message": "Sorry, couldn't load vehicle menu. How can I assist you?"
+                }
+                try:
+                    async with httpx.AsyncClient(timeout=10.0) as client:
+                        await client.post(BACKEND_SEND_MESSAGE_URL, json=error_payload)
+                except Exception as inner_e:
+                    print(f"❌ Fallback error message also failed: {inner_e}")
         
         return []
 
@@ -523,32 +525,40 @@ class ActionTalkToAgent(Action):
         }
         
         try:
-            # Send message to customer via FastAPI
-            print("📤 Sending contact info to customer via FastAPI...")
-            async with httpx.AsyncClient(timeout=10.0) as client:
-                response = await client.post(BACKEND_SEND_MESSAGE_URL, json=customer_payload)
-                response.raise_for_status()
-            print("✅ Contact info sent to customer")
+            # Send message to customer
+            if IS_TEST_ENV:
+                dispatcher.utter_message(text="Connecting you to our agent. Please hold on...")
+            else:
+                async with httpx.AsyncClient(timeout=10.0) as client:
+                    response = await client.post(BACKEND_SEND_MESSAGE_URL, json=customer_payload)
+                    response.raise_for_status()
+                print("✅ Contact info sent to customer")
             
-            # Notify agent via FastAPI
-            print("📢 Notifying agent via FastAPI...")
-            async with httpx.AsyncClient(timeout=10.0) as client:
-                response = await client.post(BACKEND_NOTIFY_AGENT_URL, json=agent_payload)
-                response.raise_for_status()
-            print("✅ Agent notified successfully")
+            # Notify agent via FastAPI (keep as is for prod)
+            if not IS_TEST_ENV:
+                print("📢 Notifying agent via FastAPI...")
+                async with httpx.AsyncClient(timeout=10.0) as client:
+                    response = await client.post(BACKEND_NOTIFY_AGENT_URL, json=agent_payload)
+                    response.raise_for_status()
+                print("✅ Agent notified successfully")
+            else:
+                print("✅ [TEST] Agent notification simulated")
         
         except Exception as e:
             print(f"❌ Error in talk to agent action: {e}")
-            # Send error via API
-            error_payload = {
-                "to": customer_phone,
-                "text": "Sorry, couldn't connect to agent at the moment. Please try again."
-            }
-            try:
-                async with httpx.AsyncClient(timeout=10.0) as client:
-                    await client.post(BACKEND_SEND_MESSAGE_URL, json=error_payload)
-            except Exception as inner_e:
-                print(f"❌ Fallback error message also failed: {inner_e}")
+            # Send error message
+            if IS_TEST_ENV:
+                dispatcher.utter_message(text="Sorry, couldn't connect to agent at the moment. Please try again.")
+            else:
+                error_payload = {
+                    "to": customer_phone,
+                    "text": "Sorry, couldn't connect to agent at the moment. Please try again."
+                }
+                try:
+                    async with httpx.AsyncClient(timeout=10.0) as client:
+                        await client.post(BACKEND_SEND_MESSAGE_URL, json=error_payload)
+                except Exception as inner_e:
+                    print(f"❌ Fallback error message also failed: {inner_e}")
         
         return []
     
@@ -572,33 +582,39 @@ class ActionStoreVehicleChoice(Action):
         print(100*"-")
         
         if not vehicle_id:
-            error_payload = {
-                "to": phone_number,
-                "message": "Sorry, I couldn't identify the vehicle."
-            }
-            try:
-                async with httpx.AsyncClient(timeout=10.0) as client:
-                    await client.post(BACKEND_SEND_MESSAGE_URL, json=error_payload)
-            except Exception as e:
-                print(f"❌ Error sending error message: {e}")
+            if IS_TEST_ENV:
+                dispatcher.utter_message(text="Sorry, I couldn't identify the vehicle.")
+            else:
+                error_payload = {
+                    "to": phone_number,
+                    "message": "Sorry, I couldn't identify the vehicle."
+                }
+                try:
+                    async with httpx.AsyncClient(timeout=10.0) as client:
+                        await client.post(BACKEND_SEND_MESSAGE_URL, json=error_payload)
+                except Exception as e:
+                    print(f"❌ Error sending error message: {e}")
             return []
 
         vehicle_name = VEHICLE_DATA[vehicle_id]['name']
         vehicle_image = VEHICLE_DATA[vehicle_id]['image_url']
 
         # Send only the image first
-        image_payload = {
-            "to": phone_number,
-            "image_url": vehicle_image,
-            # "caption": f"🏍️ {vehicle_name}"
-        }
-        
-        try:
-            async with httpx.AsyncClient(timeout=10.0) as client:
-                await client.post(BACKEND_SEND_IMAGE_URL, json=image_payload)
-            print(f"✅ Sent image for {vehicle_name}")
-        except Exception as e:
-            print(f"❌ Error sending image: {e}")
+        if IS_TEST_ENV:
+            dispatcher.utter_message(text=f"[Image: {vehicle_image}] 🏍️ {vehicle_name}")
+        else:
+            image_payload = {
+                "to": phone_number,
+                "image_url": vehicle_image,
+                # "caption": f"🏍️ {vehicle_name}"
+            }
+            
+            try:
+                async with httpx.AsyncClient(timeout=10.0) as client:
+                    await client.post(BACKEND_SEND_IMAGE_URL, json=image_payload)
+                print(f"✅ Sent image for {vehicle_name}")
+            except Exception as e:
+                print(f"❌ Error sending image: {e}")
         
         # Store the vehicle choice
         return [SlotSet("chosen_vehicle", vehicle_name)]
@@ -632,19 +648,22 @@ class ActionShowVehicleDetails(Action):
         vehicle_spec = VEHICLE_DATA[vehicle_id]['specs']
         
         # Send specs
-        message_payload = {
-            "to": phone_number,
-            "message": vehicle_spec
-        }
+        if IS_TEST_ENV:
+            dispatcher.utter_message(text=vehicle_spec)
+        else:
+            message_payload = {
+                "to": phone_number,
+                "message": vehicle_spec
+            }
+            
+            try:
+                async with httpx.AsyncClient(timeout=10.0) as client:
+                    await client.post(BACKEND_SEND_MESSAGE_URL, json=message_payload)
+                print(f"✅ Sent specs for {chosen_vehicle}")
+            except Exception as e:
+                print(f"❌ Error sending specs: {e}")
         
-        try:
-            async with httpx.AsyncClient(timeout=10.0) as client:
-                await client.post(BACKEND_SEND_MESSAGE_URL, json=message_payload)
-            print(f"✅ Sent specs for {chosen_vehicle}")
-        except Exception as e:
-            print(f"❌ Error sending specs: {e}")
-        
-        # Send action buttons (changed from sections to buttons)
+        # Send action buttons
         buttons = [
             {
                 "id": "get_brochure",
@@ -660,19 +679,23 @@ class ActionShowVehicleDetails(Action):
             }
         ]
         
-        button_payload = {
-            "to": phone_number,
-            "body": f"What would you like to do with {chosen_vehicle}?",
-            "buttons": buttons
-        }
-        
-        try:
-            async with httpx.AsyncClient(timeout=10.0) as client:
-                response = await client.post(BACKEND_SEND_BUTTON_URL, json=button_payload)
-                response.raise_for_status()
-            print(f"✅ Sent action buttons for {chosen_vehicle}")
-        except Exception as e:
-            print(f"❌ Error sending buttons: {e}")
+        if IS_TEST_ENV:
+            button_text = "\n".join([f"• {btn['title']}" for btn in buttons])
+            dispatcher.utter_message(text=f"What would you like to do with {chosen_vehicle}?\n\n{button_text}")
+        else:
+            button_payload = {
+                "to": phone_number,
+                "body": f"What would you like to do with {chosen_vehicle}?",
+                "buttons": buttons
+            }
+            
+            try:
+                async with httpx.AsyncClient(timeout=10.0) as client:
+                    response = await client.post(BACKEND_SEND_BUTTON_URL, json=button_payload)
+                    response.raise_for_status()
+                print(f"✅ Sent action buttons for {chosen_vehicle}")
+            except Exception as e:
+                print(f"❌ Error sending buttons: {e}")
         
         return []
     
@@ -704,17 +727,20 @@ class ActionAskPincode(Action):
         # Ask for pincode
         message = f"To show you the on-road price and EMI options for *{chosen_vehicle}*, please share your pincode. 📍"
         
-        payload = {
-            "to": phone_number,
-            "message": message
-        }
-        
-        try:
-            async with httpx.AsyncClient(timeout=10.0) as client:
-                await client.post(BACKEND_SEND_MESSAGE_URL, json=payload)
-            print(f"✅ Asked for pincode for {chosen_vehicle}")
-        except Exception as e:
-            print(f"❌ Error asking for pincode: {e}")
+        if IS_TEST_ENV:
+            dispatcher.utter_message(text=message)
+        else:
+            payload = {
+                "to": phone_number,
+                "message": message
+            }
+            
+            try:
+                async with httpx.AsyncClient(timeout=10.0) as client:
+                    await client.post(BACKEND_SEND_MESSAGE_URL, json=payload)
+                print(f"✅ Asked for pincode for {chosen_vehicle}")
+            except Exception as e:
+                print(f"❌ Error asking for pincode: {e}")
         
         return []
     
@@ -846,17 +872,301 @@ class ActionStorePincodeAndShowPricing(Action):
         Our TVS sales executive will contact you shortly with the **best on-road price & EMI options** available for your area.
         """.strip()
 
-        payload = {
-            "to": phone,
-            "message": pricing_message
+        if IS_TEST_ENV:
+            dispatcher.utter_message(text=pricing_message)
+        else:
+            payload = {
+                "to": phone,
+                "message": pricing_message
+            }
+            
+            try:
+                async with httpx.AsyncClient(timeout=10.0) as client:
+                    await client.post(BACKEND_SEND_MESSAGE_URL, json=payload)
+                print(f"✅ Sent pricing info for {chosen_vehicle}")
+            except Exception as e:
+                print(f"❌ Error sending pricing: {e}")
+
+        # 7️⃣ Set slot so pincode is available for future actions
+        return [SlotSet("pincode", pincode)]
+
+
+class ActionHandlePincodeBasedOnPurpose(Action):
+    def name(self) -> Text:
+        return "action_handle_pincode_based_on_purpose"
+
+    async def run(self,
+                  dispatcher: CollectingDispatcher,
+                  tracker: Tracker,
+                  domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        # Check the purpose slot
+        pincode_purpose = tracker.get_slot("pincode_purpose")
+
+        print(f"🎯 Handling pincode based on purpose: {pincode_purpose}")
+
+        if pincode_purpose == "pricing":
+            # Call pricing logic
+            return await self._handle_pricing(dispatcher, tracker, domain)
+        elif pincode_purpose == "test_ride":
+            # Call test ride logic
+            return await self._handle_test_ride(dispatcher, tracker, domain)
+        else:
+            # Default to pricing if no purpose set
+            print("⚠️ No pincode purpose set, defaulting to pricing")
+            return await self._handle_pricing(dispatcher, tracker, domain)
+
+    async def _handle_pricing(self, dispatcher, tracker, domain):
+        """Handle pricing flow - copied from ActionStorePincodeAndShowPricing"""
+
+        # 1️⃣ Extract pincode entity
+        pincode = next(tracker.get_latest_entity_values("pincode"), None)
+
+        print(100*"-")
+        print(100*"-")
+        print(f"Extracted pincode entity: {pincode}")
+        print(100*"-")
+
+        # Fallback: if no entity, try to extract from text (6 digits)
+        if not pincode:
+            user_message = tracker.latest_message.get('text', '').strip()
+            if user_message.isdigit() and len(user_message) == 6:
+                pincode = user_message
+
+        print(f"📍 Extracted pincode: {pincode}")
+
+        if not pincode:
+            phone = (
+                tracker.latest_message.get("metadata", {}).get("phone")
+                or tracker.get_slot("phone")
+                or tracker.sender_id
+            )
+
+            await send_message(phone, "Please enter a valid 6-digit pincode. 📍", dispatcher)
+            return []
+
+        # Validate pincode format
+        if not pincode.isdigit() or len(pincode) != 6:
+            phone = (
+                tracker.latest_message.get("metadata", {}).get("phone")
+                or tracker.get_slot("phone")
+                or tracker.sender_id
+            )
+
+            await send_message(phone, "Please enter a valid 6-digit pincode. 📍", dispatcher)
+            return []
+
+        # 3️⃣ Resolve phone number
+        phone = (
+            tracker.latest_message.get("metadata", {}).get("phone")
+            or tracker.get_slot("phone")
+            or tracker.sender_id
+        )
+
+        print(f"📞 Phone resolved as: {phone}")
+
+        if not phone:
+            print("❌ Phone missing, aborting")
+            return []
+
+        chosen_vehicle = tracker.get_slot("chosen_vehicle")
+
+        # 4️⃣ Update lead via backend
+        update_payload = {
+            "phone": phone,
+            "updates": {
+                "pincode": pincode
+            }
         }
 
         try:
             async with httpx.AsyncClient(timeout=10.0) as client:
-                await client.post(BACKEND_SEND_MESSAGE_URL, json=payload)
-            print(f"✅ Sent pricing info for {chosen_vehicle}")
+                resp = await client.post(
+                    BACKEND_LEAD_UPDATE_URL,
+                    json=update_payload
+                )
+                if resp.status_code != 200:
+                    print(f"❌ Lead update failed: {resp.text}")
+                else:
+                    print(f"✅ Pincode {pincode} stored in lead for {phone}")
         except Exception as e:
-            print(f"❌ Error sending pricing: {e}")
+            print(f"❌ Error updating lead with pincode: {e}")
 
-        # 7️⃣ Set slot so pincode is available for future actions
+        # 5️⃣ Get ex-showroom price
+        ex_showroom_price = None
+        for vid, vdata in VEHICLE_DATA.items():
+            if vdata["name"] == chosen_vehicle:
+                ex_showroom_price = vdata.get("ex_showroom_price")
+                break
+
+        if not ex_showroom_price:
+            print(f"❌ Ex-showroom price not found for {chosen_vehicle}")
+            ex_showroom_price = 115000
+
+        # Format price
+        if ex_showroom_price >= 100000:
+            formatted_price = f"₹{ex_showroom_price // 100000}.{ex_showroom_price % 100000 // 10000}L"
+        else:
+            formatted_price = f"₹{ex_showroom_price:,}"
+
+        # 6️⃣ Send pricing message
+        pricing_message = f"""
+        📍 Thanks for sharing your pincode!
+
+        💰 The ex-showroom price of **{chosen_vehicle}** starts from **{formatted_price}**.
+
+        Our TVS sales executive will contact you shortly with the **best on-road price & EMI options** available for your area.
+        """.strip()
+
+        await send_message(phone, pricing_message, dispatcher)
+
+        # 7️⃣ Set slot
         return [SlotSet("pincode", pincode)]
+
+    async def _handle_test_ride(self, dispatcher, tracker, domain):
+        """Handle test ride flow"""
+
+        # 1️⃣ Extract pincode entity
+        pincode = next(tracker.get_latest_entity_values("pincode"), None)
+
+        print(100*"-")
+        print(100*"-")
+        print(f"Extracted pincode entity: {pincode}")
+        print(100*"-")
+
+        # Fallback: if no entity, try to extract from text (6 digits)
+        if not pincode:
+            user_message = tracker.latest_message.get('text', '').strip()
+            if user_message.isdigit() and len(user_message) == 6:
+                pincode = user_message
+
+        print(f"📍 Extracted pincode: {pincode}")
+
+        if not pincode:
+            phone = (
+                tracker.latest_message.get("metadata", {}).get("phone")
+                or tracker.get_slot("phone")
+                or tracker.sender_id
+            )
+
+            await send_message(phone, "Please enter a valid 6-digit pincode for test ride booking. 📍", dispatcher)
+            return []
+
+        # Validate pincode format
+        if not pincode.isdigit() or len(pincode) != 6:
+            phone = (
+                tracker.latest_message.get("metadata", {}).get("phone")
+                or tracker.get_slot("phone")
+                or tracker.sender_id
+            )
+
+            await send_message(phone, "Please enter a valid 6-digit pincode for test ride booking. 📍", dispatcher)
+            return []
+
+        # 3️⃣ Resolve phone number
+        phone = (
+            tracker.latest_message.get("metadata", {}).get("phone")
+            or tracker.get_slot("phone")
+            or tracker.sender_id
+        )
+
+        print(f"📞 Phone resolved as: {phone}")
+
+        if not phone:
+            print("❌ Phone missing, aborting")
+            return []
+
+        chosen_vehicle = tracker.get_slot("chosen_vehicle")
+        user_name = tracker.get_slot("user_name") or "Valued Customer"
+
+        # 4️⃣ Update lead via backend
+        update_payload = {
+            "phone": phone,
+            "updates": {
+                "pincode": pincode
+            }
+        }
+
+        try:
+            async with httpx.AsyncClient(timeout=10.0) as client:
+                resp = await client.post(
+                    BACKEND_LEAD_UPDATE_URL,
+                    json=update_payload
+                )
+                if resp.status_code != 200:
+                    print(f"❌ Lead update failed: {resp.text}")
+                else:
+                    print(f"✅ Pincode {pincode} stored in lead for {phone}")
+        except Exception as e:
+            print(f"❌ Error updating lead with pincode: {e}")
+
+        # 5️⃣ Book test ride via backend
+        test_ride_payload = {
+            "phone": phone,
+            "vehicle": chosen_vehicle,
+            "pincode": pincode,
+            "name": user_name
+        }
+
+        try:
+            async with httpx.AsyncClient(timeout=10.0) as client:
+                resp = await client.post(
+                    BACKEND_BOOK_TEST_RIDE_URL,
+                    json=test_ride_payload
+                )
+                if resp.status_code == 200:
+                    print(f"✅ Test ride booked for {chosen_vehicle} at pincode {pincode}")
+                else:
+                    print(f"❌ Test ride booking failed: {resp.text}")
+        except Exception as e:
+            print(f"❌ Error booking test ride: {e}")
+
+        # 6️⃣ Send confirmation message
+        confirmation_message = f"""
+        🏍️ **Test Ride Booked Successfully!**
+
+        Hi {user_name},
+
+        Your test ride for **{chosen_vehicle}** has been booked!
+
+        📍 **Location:** Based on pincode {pincode}
+        📞 Our executive will contact you within 24 hours to confirm the test ride slot.
+
+        🎯 **What happens next:**
+        • Our sales executive will call you
+        • Confirm the best test ride location near you
+        • Schedule a convenient time slot
+
+        Thank you for choosing TVS Motors! 🚀
+        """.strip()
+
+        await send_message(phone, confirmation_message, dispatcher)
+
+        # 7️⃣ Set slot
+        return [SlotSet("pincode", pincode)]
+
+
+class ActionSetPincodePurposePricing(Action):
+    def name(self) -> Text:
+        return "action_set_pincode_purpose_pricing"
+
+    async def run(self,
+                  dispatcher: CollectingDispatcher,
+                  tracker: Tracker,
+                  domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        print("🎯 Setting pincode purpose to: pricing")
+        return [SlotSet("pincode_purpose", "pricing")]
+
+
+class ActionSetPincodePurposeTestRide(Action):
+    def name(self) -> Text:
+        return "action_set_pincode_purpose_test_ride"
+
+    async def run(self,
+                  dispatcher: CollectingDispatcher,
+                  tracker: Tracker,
+                  domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        print("🎯 Setting pincode purpose to: test_ride")
+        return [SlotSet("pincode_purpose", "test_ride")]
