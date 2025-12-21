@@ -16,6 +16,12 @@ nlu:
     - goodmorning
     - goodevening
     - good afternoon
+    - namaste
+    - namaskaaram
+    - hello hi
+    - hey hi
+    - hi hello
+    - yo
 
 - intent: talk_to_agent
   examples: |
@@ -23,6 +29,24 @@ nlu:
       - connect me to agent
       - speak to human
       - I want to talk to someone
+      - connect me to human
+      - I want to speak to an agent
+      - talk to human
+      - I want to talk to a human
+      - talk to a person
+      - connect me to a person
+      - speak to a person
+      - I want to talk to a person
+      - put me through to an agent
+      - I need to speak to an agent
+      - let me talk to an agent
+      - get me an agent
+      - I want to chat with an agent
+      - connect me to customer support
+      - I want to connect to customer support
+      - I need help from customer support
+      - connect me to customer service
+      - I want to connect to customer service 
       - customer service
       - contact support
       - need help from agent
@@ -44,14 +68,7 @@ nlu:
   examples: |
     - yes
     - y
-    - indeed
-    - of course
-    - that sounds good
-    - correct
-    - yeah
-    - right
-    - that's right
-    - yes that's correct
+    - of
     - yup
     - ok
     - okay
@@ -285,6 +302,36 @@ nlu:
     - [deepak](name) here
     - [anjali](name) speaking
     - [suresh](name) ji
+    - [bose](name)
+    - [amit](name)
+    - [rahul](name)
+    - [priya](name)
+    - [vikas](name)
+    - [sanjay](name)
+    - [kavita](name)
+    - [raj](name)
+    - [neha](name)
+    - [arjun](name)
+    - [pooja](name)
+    - [ravi](name)
+    - [meera](name)
+    - [karan](name)
+    - [simran](name)
+    - [rohan](name)
+    - [ankur](name)
+    - [sneha](name)
+    - [deepak](name)
+    - [anjali](name)
+    - [suresh](name)
+    - [sharma](name)
+    - [kumar](name)
+    - [singh](name)
+    - [patel](name)
+    - [gupta](name)
+    - [reddy](name)
+    - [rao](name)
+    - [nair](name)
+    - [iyer](name)
     
     # 🔥 PRODUCTION ADDITIONS - Regional single names
     - [Abdul](name)
@@ -383,7 +430,8 @@ nlu:
   examples: |
     - show emi
     - price details
-    - what's the price
+    - price
+    - cost
     - emi options
     - on road price
     - financing options
@@ -393,10 +441,10 @@ nlu:
     - price quotation
     - tell me the price
     - how much does it cost
-    - what is the cost
+    - cost
     - how much is the price
     - give me the price
-    - what's the cost
+    - cost
     
     # 🔥 Add more specific examples to avoid ambiguity
     - what is the price of the bike

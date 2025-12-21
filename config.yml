@@ -17,7 +17,7 @@ pipeline:
   - name: CountVectorsFeaturizer
   - name: CountVectorsFeaturizer
     analyzer: char_wb
-    min_ngram: 1
+    min_ngram: 2
     max_ngram: 4
   - name: CRFEntityExtractor
   - name: DIETClassifier

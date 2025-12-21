@@ -8,12 +8,91 @@ rules:
   - action: action_greet_user
   - action: action_ask_name
 
+# PRIMARY PATH
 - rule: Store name and show menu after greeting
   steps:
   - intent: user_name
   - action: action_store_name
   - action: action_greet_with_menu
 
+
+# rules.yml - ADD THIS RULE
+- rule: Store name when classified as goodbye with name entity
+  steps:
+  - intent: goodbye
+    entities:
+    - name
+  - action: action_store_name
+  - action: action_greet_with_menu
+
+# FALLBACK PATHS - Add these!
+- rule: Store name when classified as affirm with name entity
+  steps:
+  - intent: affirm
+    entities:
+    - name
+  - action: action_store_name
+  - action: action_greet_with_menu
+
+- rule: Store name when classified as deny with name entity
+  steps:
+  - intent: deny
+    entities:
+    - name
+  - action: action_store_name
+  - action: action_greet_with_menu
+
+- rule: Store name when classified as greet with name entity
+  steps:
+  - intent: greet
+    entities:
+    - name
+  - action: action_store_name
+  - action: action_greet_with_menu
+
+- rule: Store name when entity is extracted despite fallback
+  steps:
+  - intent: nlu_fallback
+    entities:
+    - name
+  - action: action_store_name
+  - action: action_greet_with_menu
+
+# Same pattern for pincode
+- rule: Show pricing after pincode is provided
+  steps:
+  - intent: provide_pincode
+  - action: action_store_pincode_and_show_pricing
+
+- rule: Store pincode when classified as affirm with pincode entity
+  steps:
+  - intent: affirm
+    entities:
+    - pincode
+  - action: action_store_pincode_and_show_pricing
+
+- rule: Store pincode when classified as deny with pincode entity
+  steps:
+  - intent: deny
+    entities:
+    - pincode
+  - action: action_store_pincode_and_show_pricing
+
+- rule: Store pincode when entity extracted despite fallback
+  steps:
+  - intent: nlu_fallback
+    entities:
+    - pincode
+  - action: action_store_pincode_and_show_pricing
+
+# TRUE FALLBACK - only when NO entities
+- rule: Offer human agent on fallback without entities
+  steps:
+  - intent: nlu_fallback
+    entities: []
+  - action: action_talk_to_agent
+
+# Other rules remain the same
 - rule: Say goodbye anytime the user says goodbye
   steps:
   - intent: goodbye
@@ -40,7 +119,6 @@ rules:
     - intent: brochure_request
     - action: action_send_brochure
 
-
 - rule: Connect to agent when requested
   steps:
     - intent: talk_to_agent
@@ -51,7 +129,7 @@ rules:
   - intent: get_price_or_EMI
   - action: action_ask_pincode
 
-- rule: Show pricing after pincode is provided
+- rule: Book test ride
   steps:
-  - intent: provide_pincode
-  - action: action_store_pincode_and_show_pricing
+  - intent: book_test_ride
+  - action: action_book_test_ride
