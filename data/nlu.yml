@@ -203,8 +203,6 @@ nlu:
     - I go by [Rohan](name)
     - The name is [Sanjay](name)
     - Name's [Kavita](name)
-    - Hi, I'm [Simran](name)
-    - Hello, [Deepak](name)
     - It is [Meera](name)
     
     # Casual/short (name only)
@@ -233,7 +231,6 @@ nlu:
     - [Ms. Reddy](name)
     
     # WhatsApp style lowercase
-    - hi [amit](name)
     - [rahul](name) here
     - its [priya](name)
     - [dintu](name)

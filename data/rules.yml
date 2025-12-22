@@ -42,13 +42,13 @@ rules:
   - action: action_store_name
   - action: action_greet_with_menu
 
-- rule: Store name when classified as greet with name entity
-  steps:
-  - intent: greet
-    entities:
-    - name
-  - action: action_store_name
-  - action: action_greet_with_menu
+# - rule: Store name when classified as greet with name entity
+#   steps:
+#   - intent: greet
+#     entities:
+#     - name
+#   - action: action_store_name
+#   - action: action_greet_with_menu
 
 - rule: Store name when entity is extracted despite fallback
   steps:
