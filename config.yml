@@ -12,14 +12,14 @@ language: en
 
 pipeline:
   - name: WhitespaceTokenizer
-  - name: RegexFeaturizer
+  - name: RegexFeaturizer  # Keep this - provides features
   - name: LexicalSyntacticFeaturizer
   - name: CountVectorsFeaturizer
   - name: CountVectorsFeaturizer
     analyzer: char_wb
     min_ngram: 2
     max_ngram: 4
-  - name: CRFEntityExtractor
+  - name: CRFEntityExtractor  # This learns from context
   - name: DIETClassifier
     epochs: 100
     constrain_similarities: true
@@ -30,6 +30,7 @@ pipeline:
   - name: FallbackClassifier
     threshold: 0.3
     ambiguity_threshold: 0.1
+  # ← RegexEntityExtractor REMOVED
 
 # Configuration for Rasa Core.
 # https://rasa.com/docs/rasa/core/policies/

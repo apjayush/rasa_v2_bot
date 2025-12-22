@@ -186,26 +186,32 @@ nlu:
     - tvs_ntorq_125
     - tvs_ronin_bike
 
+
+- regex: name
+  examples: |
+    - [A-Za-z][a-z]*(?:[\s'-][A-Za-z][a-z]*)*
+
 - intent: user_name
   examples: |
-    # Standard introductions
+    # Formal introductions
     - My name is [Ayush](name)
     - I am [Harsh](name)
-    - It's [Rahul](name)
     - Call me [Karan](name)
     - I'm [Rishav](name)
     - You can call me [Ankur](name)
     - They call me [Vikram](name)
-    - People know me as [Sneha](name)
     - I go by [Rohan](name)
-    - My name's [Amit](name)
+    - The name is [Sanjay](name)
+    - Name's [Kavita](name)
+    - Hi, I'm [Simran](name)
+    - Hello, [Deepak](name)
+    - It is [Meera](name)
     
-    # Very casual/short
+    # Casual/short (name only)
     - [Mukesh Kumar](name)
     - [Santosh Yadav](name)
     - [Priya Singh](name)
     - [Abdul Rahman](name)
-    - [Priyanka Gupta](name)
     - [Ravi](name)
     - [Neha](name) here
     - [Arjun](name) speaking
@@ -213,149 +219,73 @@ nlu:
     
     # Multi-word names
     - [Rajesh Kumar Singh](name)
-    - [Sita Devi Sharma](name)
     - [Mohammed Ali Khan](name)
     - [Lakshmi Narayan Patel](name)
-    - [Suresh Kumar Gupta](name)
     - [Deepak Singh Rathore](name)
-    - [Anjali Kumari](name)
+    - [Sita Devi Sharma](name)
     - [Manish Kumar Jha](name)
     
-    # Variations
-    - The name is [Sanjay](name)
-    - Name's [Kavita](name)
-    - Hi, I'm [Simran](name)
-    - Hello, [Deepak](name)
-    - It is [Meera](name)
-    
-    # Edge cases
+    # With titles
     - [Dr. Sharma](name)
     - [Mr. Patel](name)
     - [A.K. Singh](name)
-    - [Raj](name)
+    - [Mrs. Gupta](name)
+    - [Ms. Reddy](name)
     
-    # Informal/typos
-    - my name [Anil](name)
-    - im [Sunita](name)
-    - name [Gopal](name)
-
-    - [Sharma](name)
-    - [Patel](name)
-    - [Singh](name)
-    - [Kumar](name)
-    - [Gupta](name)
-    - [Yadav](name)
-    - [Jain](name)
-    - [Agarwal](name)
-    - [Verma](name)
-    - [Chauhan](name)
-    - [Mishra](name)
-    - [Tiwari](name)
-    - [Dubey](name)
-    - [Pandey](name)
-    - [Rao](name)
-    - [Nair](name)
-    - [Iyer](name)
-    - [Menon](name)
-    - [Pillai](name)
-    
-    # 🔥 PRODUCTION ADDITIONS - More casual single names
-    - [Rahul](name)
-    - [Priya](name)
-    - [Amit](name)
-    - [Sneha](name)
-    - [Vikram](name)
-    - [Kavita](name)
-    - [Rajesh](name)
-    - [Sunita](name)
-    - [Deepak](name)
-    - [Anjali](name)
-    - [Suresh](name)
-    - [Meera](name)
-    - [Arjun](name)
-    - [Pooja](name)
-    - [Ravi](name)
-    - [Neha](name)
-    - [Karan](name)
-    - [Simran](name)
-    - [Rohan](name)
-    - [Ankur](name)
-    
-    # 🔥 PRODUCTION ADDITIONS - WhatsApp style single names
+    # WhatsApp style lowercase
     - hi [amit](name)
     - [rahul](name) here
     - its [priya](name)
+    - [dintu](name)
     - [vikas](name) bol raha hu
     - naam [sanjay](name)
-    - [kavita](name) hai
-    - [raj](name) speaking
-    - [neha](name) from delhi
-    - [arjun](name) here
-    - [pooja](name) calling
-    - [ravi](name) ji
-    - [meera](name) madam
-    - [karan](name) sir
-    - [simran](name) ka call
-    - [rohan](name) bol
-    - [ankur](name) hai
-    - [sneha](name) from mumbai
-    - [deepak](name) here
-    - [anjali](name) speaking
-    - [suresh](name) ji
-    - [bose](name)
-    - [amit](name)
-    - [rahul](name)
-    - [priya](name)
-    - [vikas](name)
-    - [sanjay](name)
-    - [kavita](name)
-    - [raj](name)
-    - [neha](name)
-    - [arjun](name)
-    - [pooja](name)
-    - [ravi](name)
-    - [meera](name)
-    - [karan](name)
-    - [simran](name)
-    - [rohan](name)
-    - [ankur](name)
-    - [sneha](name)
-    - [deepak](name)
-    - [anjali](name)
-    - [suresh](name)
-    - [sharma](name)
-    - [kumar](name)
-    - [singh](name)
-    - [patel](name)
-    - [gupta](name)
-    - [reddy](name)
-    - [rao](name)
-    - [nair](name)
-    - [iyer](name)
+    - [tappu](name) hai
+    - [bose](name) speaking
+    - m [sunil](name)
+    - im [geeta](name)
+    - [arun](name) hu
+    - mera naam [rita](name) hai
     
-    # 🔥 PRODUCTION ADDITIONS - Regional single names
+    # A-Z coverage (different starting letters)
+    - [Aarav](name)
+    - [Bhavna](name)
+    - [Chirag](name)
+    - [Divya](name)
+    - [Esha](name)
+    - [Farhan](name)
+    - [Gaurav](name)
+    - [Hina](name)
+    - [Ishaan](name)
+    - [Jaya](name)
+    - [Kunal](name)
+    - [Lata](name)
+    - [Mohan](name)
+    - [Nisha](name)
+    - [Om](name)
+    - [Pankaj](name)
+    - [Qadir](name)
+    - [Rashmi](name)
+    - [Sahil](name)
+    - [Tanvi](name)
+    - [Usha](name)
+    - [Varun](name)
+    - [Wasim](name)
+    - [Yash](name)
+    - [Zara](name)
+    
+    # Regional variety - North Indian
     - [Abdul](name)
     - [Mohammed](name)
-    - [Ahmed](name)
     - [Fatima](name)
     - [Ayesha](name)
     - [Salman](name)
     - [Imran](name)
-    - [Zara](name)
-    - [Omar](name)
     - [Noor](name)
     - [Ali](name)
     - [Hassan](name)
     - [Sara](name)
-    - [Yusuf](name)
-    - [Aisha](name)
-    - [Bilal](name)
-    - [Huda](name)
-    - [Khalid](name)
-    - [Layla](name)
-    - [Mustafa](name)
     
-    # 🔥 PRODUCTION ADDITIONS - South Indian single names
+    # Regional variety - South Indian
     - [Venkatesh](name)
     - [Lakshmi](name)
     - [Subramanian](name)
@@ -367,15 +297,39 @@ nlu:
     - [Srinivasan](name)
     - [Anand](name)
     - [Meenakshi](name)
-    - [Krishnan](name)
-    - [Saravanan](name)
-    - [Vijayalakshmi](name)
     - [Balaji](name)
-    - [Divya](name)
-    - [Mohan](name)
-    - [Rekha](name)
-    - [Suresh](name)
-    - [Uma](name)
+    - [Saravanan](name)
+    
+    # Very short names (2-3 letters)
+    - [Aj](name)
+    - [Jo](name)
+    - [Vi](name)
+    - [Sam](name)
+    - [Dev](name)
+    - [Ria](name)
+    - [Jay](name)
+    
+    # Hyphenated names
+    - [Ram-Kumar](name)
+    - [Sita-Devi](name)
+    - [Anil-Kumar](name)
+    
+    # Mixed case variations
+    - [RAHUL](name)
+    - [PrIyA](name)
+    - [AmIt](name)
+    
+    # Informal/typos
+    - [Rahull](name)
+    - [Priiya](name)
+    - [Amitt](name)
+    - [Nehaaa](name)
+    
+    # Names with spaces
+    - [Ravi Shankar](name)
+    - [Amit Kumar](name)
+    - [Priya Sharma](name)
+    - [Sanjay Gupta](name)
 
 
 - intent: provide_pincode

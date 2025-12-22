@@ -12,6 +12,9 @@ import logging.config
 from pathlib import Path
 import yaml 
 
+
+os.makedirs('logs', exist_ok=True)
+
 # Set up logging
 log_config_path = Path("logging.yml")
 if log_config_path.exists():
@@ -40,7 +43,7 @@ async def send_message(phone: str, message: str, dispatcher: CollectingDispatche
 # Environment detection
 IS_TEST_ENV = True
 
-print("IS_TEST_ENV =", IS_TEST_ENV)
+logger.info(f"IS_TEST_ENV = {IS_TEST_ENV}")
 
 BACKEND_SLOT_URL = "http://localhost:8000/available-slots"
 BACKEND_BOOK_URL = "http://localhost:8000/book-slot"
@@ -169,11 +172,11 @@ class ValidatePredefinedSlots(ValidationAction):
     ) -> Dict[Text, Any]:
         """Validate name value."""
         
-        print(f"🔍 Validating name: {slot_value}")
+        logger.debug(f"🔍 Validating name: {slot_value}")
         
         # Check if name exists and has minimum length
         if not slot_value or not isinstance(slot_value, str):
-            print("❌ Name validation failed: empty or not string")
+            logger.warning("❌ Name validation failed: empty or not string")
             dispatcher.utter_message(response="utter_invalid_name")
             return {"name": None}
         
@@ -182,18 +185,18 @@ class ValidatePredefinedSlots(ValidationAction):
         
         # Check minimum length
         if len(name) < 2:
-            print("❌ Name validation failed: too short")
+            logger.warning("❌ Name validation failed: too short")
             dispatcher.utter_message(response="utter_invalid_name")
             return {"name": None}
         
         # Check if contains at least some letters
         if not re.search(r'[a-zA-Z]', name):
-            print("❌ Name validation failed: no letters")
+            logger.warning("❌ Name validation failed: no letters")
             dispatcher.utter_message(response="utter_invalid_name")
             return {"name": None}
         
         # Capitalize properly
-        print(f"✅ Name validation passed: {name.title()}")
+        logger.info(f"✅ Name validation passed: {name.title()}")
         return {"name": name.title()}
     
     def validate_pincode(
@@ -205,10 +208,10 @@ class ValidatePredefinedSlots(ValidationAction):
     ) -> Dict[Text, Any]:
         """Validate pincode value."""
         
-        print(f"🔍 Validating pincode: {slot_value}")
+        logger.debug(f"🔍 Validating pincode: {slot_value}")
         
         if not slot_value:
-            print("❌ Pincode validation failed: empty")
+            logger.warning("❌ Pincode validation failed: empty")
             dispatcher.utter_message(response="utter_invalid_pincode")
             return {"pincode": None}
         
@@ -217,7 +220,7 @@ class ValidatePredefinedSlots(ValidationAction):
         
         # Check if it's exactly 6 digits
         if not re.match(r'^\d{6}$', pincode):
-            print("❌ Pincode validation failed: not 6 digits")
+            logger.warning("❌ Pincode validation failed: not 6 digits")
             dispatcher.utter_message(response="utter_invalid_pincode")
             return {"pincode": None}
         
@@ -247,14 +250,14 @@ class ValidatePredefinedSlots(ValidationAction):
         ]
         
         if pincode not in serviceable_pincodes:
-            print(f"❌ Pincode {pincode} not serviceable")
+            logger.warning(f"❌ Pincode {pincode} not serviceable")
             dispatcher.utter_message(
                 text=f"Sorry, we don't service pincode {pincode} yet. We'll notify you when we expand to your area!"
             )
             return {"pincode": None}
         
         # Validation succeeded
-        print(f"✅ Pincode validation passed: {pincode}")
+        logger.info(f"✅ Pincode validation passed: {pincode}")
         return {"pincode": pincode}
 
 class ActionStoreName(Action):
@@ -265,11 +268,12 @@ class ActionStoreName(Action):
 
         # ✅ Get the validated name from the slot (validated by ValidationAction)
         name = tracker.get_slot("name")
-        print("📝 Name from slot:", name)
+        logger.debug(f"\033[91m📝 Name from slot: {name}\033[0m")
 
         # ✅ If validation failed, name will be None
         if not name:
-            print("❌ Name slot is empty after validation")
+            logger.warning("❌ Name slot is empty after validation")
+            name = "Unknow Customer"
             # ValidationAction already sent error message
             return []
 
@@ -280,10 +284,10 @@ class ActionStoreName(Action):
             or tracker.sender_id
         )
 
-        print("📞 Phone resolved as:", phone)
+        logger.debug(f"📞 Phone resolved as: {phone}")
 
         if not phone:
-            print("❌ Phone missing, aborting")
+            logger.error("❌ Phone missing, aborting")
             return []
 
         # ✅ Update lead via backend
@@ -303,7 +307,7 @@ class ActionStoreName(Action):
                 if resp.status_code != 200:
                     logger.error(f"Lead update failed: {resp.text}")
                 else:
-                    print(f"✅ Name '{name}' stored in lead for {phone}")
+                    logger.info(f"✅ Name '{name}' stored in lead for {phone}")
         except Exception as e:
             logger.exception(f"Error updating lead: {e}")
 
@@ -319,7 +323,7 @@ class ActionStoreName(Action):
                 async with httpx.AsyncClient(timeout=10.0) as client:
                     await client.post(BACKEND_SEND_MESSAGE_URL, json=message_payload)
             except Exception as e:
-                print("❌ Error sending acknowledgment:", e)
+                logger.exception(f"Error sending acknowledgment: {e}")
 
         # ✅ Set slot so next actions know name exists
         return [SlotSet("user_name", name)]
@@ -342,12 +346,10 @@ class ActionGreetUser(Action):
             or tracker.sender_id
         )
 
-        print("-" * 100)
-        print("📞 Phone resolved as:", phone_number)
-        print("-" * 100)
+        logger.debug(f"📞 Phone resolved as: {phone_number}")
 
         if not phone_number:
-            print("❌ Phone not found")
+            logger.error("❌ Phone not found")
             return []
 
         # 2️⃣ Send greeting message
@@ -361,9 +363,9 @@ class ActionGreetUser(Action):
             try:
                 async with httpx.AsyncClient(timeout=10.0) as client:
                     await client.post(BACKEND_SEND_MESSAGE_URL, json=payload)
-                print("✅ Greeting sent via backend")
+                logger.info("✅ Greeting sent via backend")
             except Exception as e:
-                print(f"❌ Error sending greeting: {e}")
+                logger.error(f"❌ Error sending greeting: {e}")
 
         # 3️⃣ Store phone in slot (still useful)
         return [SlotSet("phone", phone_number)]
@@ -388,7 +390,7 @@ class ActionAskName(Action):
         )
 
         if not phone_number:
-            print("❌ Phone not found")
+            logger.error("❌ Phone not found")
             return []
 
         # 2️⃣ Ask for user's name
@@ -402,9 +404,9 @@ class ActionAskName(Action):
             try:
                 async with httpx.AsyncClient(timeout=10.0) as client:
                     await client.post(BACKEND_SEND_MESSAGE_URL, json=payload)
-                print("✅ Name request sent successfully")
+                logger.info("✅ Name request sent successfully")
             except Exception as e:
-                print(f"❌ Error asking for name: {e}")
+                logger.error(f"❌ Error asking for name: {e}")
 
         # 3️⃣ No slot update yet (name not known)
         return []
@@ -426,15 +428,22 @@ class ActionSendBrochure(Action):
         # Check if user has selected a vehicle
         chosen_vehicle = tracker.get_slot("chosen_vehicle")
 
-        print("chosen vehicle:", chosen_vehicle)
+        logger.info(f"chosen vehicle: {chosen_vehicle}")
 
         # Brochure URLs (You need to host these PDFs on a public server or cloud storage)
         brochure_data = {
-            "Apache RTR 160": {
+            "Apache RTR 160 2V": {
                 "pdf_url": "https://www.tvsmotor.com/tvs-apache/-/media/Brand-Pages/Apache/Brochure/TVS-Apache-RTR-160-Brochure_V4.pdf",
                 "filename": "TVS_Apache_RTR_160_Brochure.pdf",
                 "caption": "📄 TVS Apache RTR 160 - Complete Brochure"
             },
+
+            "Apache RTR 160 4V": {
+                "pdf_url": "https://www.tvsmotor.com/tvs-apache/-/media/Brand-Pages/Apache/Brochure/TVS-Apache-RTR-160-4V-Brochure.pdf",
+                "filename": "TVS_Apache_RTR_160_4V_Brochure.pdf",
+                "caption": "📄 TVS Apache RTR 160 4V - Complete Brochure"
+            },
+
             "Apache RTR 200 4V": {
                 "pdf_url": "https://www.tvsmotor.com/tvs-apache/-/media/Brand-Pages/Apache/Brochure/Apache-200-4V-BLUE-Leaflet.pdf",
                 "filename": "TVS_Apache_RTR_200_4V_Brochure.pdf",
@@ -467,7 +476,7 @@ class ActionSendBrochure(Action):
                 }
                 
                 try:
-                    print("Reached brochure sending part")
+                    logger.debug("Reached brochure sending part")
                     async with httpx.AsyncClient() as client:
                         response = await client.post(BACKEND_SEND_BROCHURE_URL, json=payload)
                         response.raise_for_status()
@@ -476,7 +485,7 @@ class ActionSendBrochure(Action):
                         text=f"✅ {chosen_vehicle} brochure has been sent!"
                     )
                 except Exception as e:
-                    print(f"❌ Error sending brochure: {e}")
+                    logger.error(f"❌ Error sending brochure: {e}")
                     dispatcher.utter_message(
                         text="Sorry, I couldn't send the brochure at the moment. Please try again later."
                     )
@@ -529,7 +538,7 @@ class ActionSendBrochure(Action):
                         response = await client.post(BACKEND_SEND_LIST_URL, json=payload)
                         response.raise_for_status()
                 except Exception as e:
-                    print(f"❌ Error sending brochure options: {e}")
+                    logger.error(f"❌ Error sending brochure options: {e}")
                     dispatcher.utter_message(text="Sorry, couldn't load brochure options.")
         
         return []
@@ -544,7 +553,7 @@ class ActionGreetWithMenu(Action):
                   tracker: Tracker,
                   domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         
-        print("🎯 ActionGreetWithMenu TRIGGERED!")
+        logger.info("🎯 ActionGreetWithMenu TRIGGERED!")
         phone_number = tracker.sender_id
         user_name = tracker.get_slot("user_name")
         
@@ -603,15 +612,15 @@ class ActionGreetWithMenu(Action):
             dispatcher.utter_message(text=f"{greeting}\n\nSelect the model you're interested in:\n\n{list_text}")
         else:
             try:
-                print("🚀 Sending vehicle menu via backend...")
+                logger.debug("🚀 Sending vehicle menu via backend...")
                 async with httpx.AsyncClient(timeout=10.0) as client:
                     response = await client.post(BACKEND_SEND_LIST_URL, json=payload)
                     response.raise_for_status()
                 
-                print("✅ Vehicle menu sent successfully")
+                logger.info("✅ Vehicle menu sent successfully")
             
             except Exception as e:
-                print(f"❌ Error sending vehicle menu: {e}")
+                logger.error(f"❌ Error sending vehicle menu: {e}")
                 # Send error message via API instead of dispatcher
                 error_payload = {
                     "to": phone_number,
@@ -621,7 +630,7 @@ class ActionGreetWithMenu(Action):
                     async with httpx.AsyncClient(timeout=10.0) as client:
                         await client.post(BACKEND_SEND_MESSAGE_URL, json=error_payload)
                 except Exception as inner_e:
-                    print(f"❌ Fallback error message also failed: {inner_e}")
+                    logger.error(f"❌ Fallback error message also failed: {inner_e}")
         
         return []
 
@@ -663,20 +672,20 @@ class ActionTalkToAgent(Action):
                 async with httpx.AsyncClient(timeout=10.0) as client:
                     response = await client.post(BACKEND_SEND_MESSAGE_URL, json=customer_payload)
                     response.raise_for_status()
-                print("✅ Contact info sent to customer")
+                logger.info("✅ Contact info sent to customer")
             
             # Notify agent via FastAPI (keep as is for prod)
             if not IS_TEST_ENV:
-                print("📢 Notifying agent via FastAPI...")
+                logger.info("📢 Notifying agent via FastAPI...")
                 async with httpx.AsyncClient(timeout=10.0) as client:
                     response = await client.post(BACKEND_NOTIFY_AGENT_URL, json=agent_payload)
                     response.raise_for_status()
-                print("✅ Agent notified successfully")
+                logger.info("✅ Agent notified successfully")
             else:
-                print("✅ [TEST] Agent notification simulated")
+                logger.info("✅ [TEST] Agent notification simulated")
         
         except Exception as e:
-            print(f"❌ Error in talk to agent action: {e}")
+            logger.error(f"❌ Error in talk to agent action: {e}")
             # Send error message
             if IS_TEST_ENV:
                 dispatcher.utter_message(text="Sorry, couldn't connect to agent at the moment. Please try again.")
@@ -689,7 +698,7 @@ class ActionTalkToAgent(Action):
                     async with httpx.AsyncClient(timeout=10.0) as client:
                         await client.post(BACKEND_SEND_MESSAGE_URL, json=error_payload)
                 except Exception as inner_e:
-                    print(f"❌ Fallback error message also failed: {inner_e}")
+                    logger.error(f"❌ Fallback error message also failed: {inner_e}")
         
         return []
     
@@ -708,9 +717,7 @@ class ActionStoreVehicleChoice(Action):
         user_message = tracker.latest_message.get('text', '').lower().strip()
         vehicle_id = user_message if user_message in VEHICLE_DATA else None
 
-        print(100*"-")
-        print("Vehicle ID:", vehicle_id)
-        print(100*"-")
+        logger.debug(f"Vehicle ID: {vehicle_id}")
         
         if not vehicle_id:
             if IS_TEST_ENV:
@@ -729,6 +736,33 @@ class ActionStoreVehicleChoice(Action):
 
         vehicle_name = VEHICLE_DATA[vehicle_id]['name']
         vehicle_image = VEHICLE_DATA[vehicle_id]['image_url']
+
+        phone = (
+            tracker.latest_message.get("metadata", {}).get("phone")
+            or tracker.get_slot("phone")
+            or tracker.sender_id
+        )
+
+        update_payload = {
+            "phone": phone,
+            "updates": {
+                "interested_in": vehicle_name
+            }
+        }
+
+        try:
+            async with httpx.AsyncClient(timeout=10.0) as client:
+                resp = await client.post(
+                    BACKEND_LEAD_UPDATE_URL,
+                    json=update_payload
+                )
+                if resp.status_code != 200:
+                    print(f"❌ Lead update failed: {resp.text}")
+                else:
+                    print(f"✅ Vehicle of interest {vehicle_name} stored in lead for {phone}")
+
+        except Exception as e:
+            print(f"❌ Error updating lead with pincode: {e}")
 
         # Send only the image first
         if IS_TEST_ENV:
@@ -1273,13 +1307,32 @@ class ActionConfirmDetails(Action):
         )
         
         confirmation_message = f"""
-Let me confirm your details:
-📝 Name: {name}
-📍 Pincode: {pincode}
+            Let me confirm your details:
+            📝 Name: {name}
+            📍 Pincode: {pincode}
 
-Is this correct? (Reply Yes/No)
+            Is this correct? (Reply Yes/No)
         """.strip()
         
         await send_message(phone, confirmation_message, dispatcher)
         
+        return []
+    
+class ActionBookTestRide(Action):
+    def name(self) -> Text:
+        return "action_book_test_ride"
+
+    async def run(self,
+                  dispatcher: CollectingDispatcher,
+                  tracker: Tracker,
+                  domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        phone_number = tracker.sender_id
+        chosen_vehicle = tracker.get_slot("chosen_vehicle")
+        
+        confirmation_message = f"""Thanks for booking a test ride for *{chosen_vehicle}*! Our TVS sales executive will contact you shortly to schedule your test ride. 🏍️
+        """.strip()
+
+        await send_message(phone_number, confirmation_message, dispatcher)
+
         return []
