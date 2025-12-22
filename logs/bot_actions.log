@@ -92410,3 +92410,815 @@
 2025-12-22 11:21:09,763 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
 2025-12-22 11:21:09,764 - actions - INFO - run:310 - ✅ Name 'Oriya' stored in lead for 8529750269
 2025-12-22 11:21:09,918 - actions - INFO - run:556 - 🎯 ActionGreetWithMenu TRIGGERED!
+2025-12-22 13:35:36,351 - actions - DEBUG - run:349 - 📞 Phone resolved as: 919999999999
+2025-12-22 13:35:50,651 - actions - DEBUG - validate_name:175 - 🔍 Validating name: Oriya
+2025-12-22 13:35:50,652 - actions - INFO - validate_name:199 - ✅ Name validation passed: Oriya
+2025-12-22 13:35:50,688 - actions - DEBUG - run:271 - [91m📝 Name from slot: Oriya[0m
+2025-12-22 13:35:50,688 - actions - DEBUG - run:287 - 📞 Phone resolved as: 8529750269
+2025-12-22 13:35:50,703 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 13:35:50,704 - actions - INFO - run:310 - ✅ Name 'Oriya' stored in lead for 8529750269
+2025-12-22 13:35:50,742 - actions - INFO - run:556 - 🎯 ActionGreetWithMenu TRIGGERED!
+2025-12-22 13:36:01,317 - actions - DEBUG - run:720 - Vehicle ID: apache_rtr_160_2v
+2025-12-22 13:36:01,329 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 13:36:28,559 - actions - INFO - run:431 - chosen vehicle: Apache RTR 160 2V
+2025-12-22 13:36:49,576 - actions - INFO - <module>:46 - IS_TEST_ENV = True
+2025-12-22 13:36:49,576 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_store_name'.
+2025-12-22 13:36:49,577 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_greet_user'.
+2025-12-22 13:36:49,577 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_ask_name'.
+2025-12-22 13:36:49,577 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_send_brochure'.
+2025-12-22 13:36:49,577 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_greet_with_menu'.
+2025-12-22 13:36:49,577 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_talk_to_agent'.
+2025-12-22 13:36:49,577 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_store_vehicle_choice'.
+2025-12-22 13:36:49,577 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_show_vehicle_details'.
+2025-12-22 13:36:49,577 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_ask_pincode'.
+2025-12-22 13:36:49,577 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_store_pincode_and_show_pricing'.
+2025-12-22 13:36:49,577 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_handle_pincode_based_on_purpose'.
+2025-12-22 13:36:49,578 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_set_pincode_purpose_pricing'.
+2025-12-22 13:36:49,578 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_set_pincode_purpose_test_ride'.
+2025-12-22 13:36:49,578 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_confirm_details'.
+2025-12-22 13:36:49,578 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_book_test_ride'.
+2025-12-22 13:36:49,578 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_validate_slot_mappings'.
+2025-12-22 13:36:49,584 - rasa_sdk.endpoint - INFO - run:161 - Starting plugins...
+2025-12-22 13:36:49,585 - rasa_sdk.endpoint - INFO - run:167 - Action endpoint is up and running on http://0.0.0.0:5055
+2025-12-22 13:36:52,746 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 13:36:52,747 - actions - INFO - run:450 - ✅ Name 'Oriya' stored in lead for 8529750269
+2025-12-22 13:36:52,747 - actions - INFO - run:457 - chosen vehicle: Apache RTR 160 2V
+2025-12-22 13:37:37,701 - actions - INFO - <module>:46 - IS_TEST_ENV = True
+2025-12-22 13:37:37,701 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_store_name'.
+2025-12-22 13:37:37,702 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_greet_user'.
+2025-12-22 13:37:37,702 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_ask_name'.
+2025-12-22 13:37:37,702 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_send_brochure'.
+2025-12-22 13:37:37,702 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_greet_with_menu'.
+2025-12-22 13:37:37,702 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_talk_to_agent'.
+2025-12-22 13:37:37,702 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_store_vehicle_choice'.
+2025-12-22 13:37:37,702 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_show_vehicle_details'.
+2025-12-22 13:37:37,702 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_ask_pincode'.
+2025-12-22 13:37:37,702 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_store_pincode_and_show_pricing'.
+2025-12-22 13:37:37,702 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_handle_pincode_based_on_purpose'.
+2025-12-22 13:37:37,703 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_set_pincode_purpose_pricing'.
+2025-12-22 13:37:37,703 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_set_pincode_purpose_test_ride'.
+2025-12-22 13:37:37,703 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_confirm_details'.
+2025-12-22 13:37:37,703 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_book_test_ride'.
+2025-12-22 13:37:37,703 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_validate_slot_mappings'.
+2025-12-22 13:37:37,710 - rasa_sdk.endpoint - INFO - run:161 - Starting plugins...
+2025-12-22 13:37:37,710 - rasa_sdk.endpoint - INFO - run:167 - Action endpoint is up and running on http://0.0.0.0:5055
+2025-12-22 13:37:39,643 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 13:37:39,643 - actions - INFO - run:450 - Lead status warm stored in lead for 8529750269
+2025-12-22 13:37:39,643 - actions - INFO - run:457 - chosen vehicle: Apache RTR 160 2V
+2025-12-22 15:00:24,407 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 15:00:24,407 - actions - INFO - run:450 - Lead status warm stored in lead for 8529750269
+2025-12-22 15:00:24,407 - actions - INFO - run:457 - chosen vehicle: Apache RTR 160 2V
+2025-12-22 16:05:27,231 - actions - DEBUG - run:349 - 📞 Phone resolved as: 919999999999
+2025-12-22 16:07:14,740 - actions - INFO - <module>:46 - IS_TEST_ENV = True
+2025-12-22 16:07:14,740 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_store_name'.
+2025-12-22 16:07:14,741 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_greet_user'.
+2025-12-22 16:07:14,741 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_ask_name'.
+2025-12-22 16:07:14,741 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_send_brochure'.
+2025-12-22 16:07:14,741 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_greet_with_menu'.
+2025-12-22 16:07:14,741 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_talk_to_agent'.
+2025-12-22 16:07:14,741 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_store_vehicle_choice'.
+2025-12-22 16:07:14,741 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_show_vehicle_details'.
+2025-12-22 16:07:14,742 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_ask_pincode'.
+2025-12-22 16:07:14,742 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_store_pincode_and_show_pricing'.
+2025-12-22 16:07:14,742 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_handle_pincode_based_on_purpose'.
+2025-12-22 16:07:14,742 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_set_pincode_purpose_pricing'.
+2025-12-22 16:07:14,742 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_set_pincode_purpose_test_ride'.
+2025-12-22 16:07:14,742 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_confirm_details'.
+2025-12-22 16:07:14,742 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_book_test_ride'.
+2025-12-22 16:07:14,742 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_validate_slot_mappings'.
+2025-12-22 16:07:14,748 - rasa_sdk.endpoint - INFO - run:161 - Starting plugins...
+2025-12-22 16:07:14,748 - rasa_sdk.endpoint - INFO - run:167 - Action endpoint is up and running on http://0.0.0.0:5055
+2025-12-22 16:08:15,764 - actions - DEBUG - run:349 - 📞 Phone resolved as: 919999999999
+2025-12-22 16:08:15,870 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 400 Bad Request"
+2025-12-22 16:08:15,870 - actions - ERROR - run:367 - Lead greet update failed
+2025-12-22 16:09:16,951 - actions - INFO - <module>:46 - IS_TEST_ENV = True
+2025-12-22 16:09:16,952 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_store_name'.
+2025-12-22 16:09:16,952 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_greet_user'.
+2025-12-22 16:09:16,952 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_ask_name'.
+2025-12-22 16:09:16,952 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_send_brochure'.
+2025-12-22 16:09:16,952 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_greet_with_menu'.
+2025-12-22 16:09:16,952 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_talk_to_agent'.
+2025-12-22 16:09:16,952 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_store_vehicle_choice'.
+2025-12-22 16:09:16,952 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_show_vehicle_details'.
+2025-12-22 16:09:16,952 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_ask_pincode'.
+2025-12-22 16:09:16,953 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_store_pincode_and_show_pricing'.
+2025-12-22 16:09:16,953 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_handle_pincode_based_on_purpose'.
+2025-12-22 16:09:16,953 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_set_pincode_purpose_pricing'.
+2025-12-22 16:09:16,953 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_set_pincode_purpose_test_ride'.
+2025-12-22 16:09:16,953 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_confirm_details'.
+2025-12-22 16:09:16,953 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_book_test_ride'.
+2025-12-22 16:09:16,953 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_validate_slot_mappings'.
+2025-12-22 16:09:16,959 - rasa_sdk.endpoint - INFO - run:161 - Starting plugins...
+2025-12-22 16:09:16,959 - rasa_sdk.endpoint - INFO - run:167 - Action endpoint is up and running on http://0.0.0.0:5055
+2025-12-22 16:09:19,752 - actions - INFO - <module>:46 - IS_TEST_ENV = True
+2025-12-22 16:09:19,753 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_store_name'.
+2025-12-22 16:09:19,753 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_greet_user'.
+2025-12-22 16:09:19,753 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_ask_name'.
+2025-12-22 16:09:19,753 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_send_brochure'.
+2025-12-22 16:09:19,753 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_greet_with_menu'.
+2025-12-22 16:09:19,753 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_talk_to_agent'.
+2025-12-22 16:09:19,753 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_store_vehicle_choice'.
+2025-12-22 16:09:19,753 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_show_vehicle_details'.
+2025-12-22 16:09:19,754 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_ask_pincode'.
+2025-12-22 16:09:19,754 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_store_pincode_and_show_pricing'.
+2025-12-22 16:09:19,754 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_handle_pincode_based_on_purpose'.
+2025-12-22 16:09:19,754 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_set_pincode_purpose_pricing'.
+2025-12-22 16:09:19,754 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_set_pincode_purpose_test_ride'.
+2025-12-22 16:09:19,754 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_confirm_details'.
+2025-12-22 16:09:19,754 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_book_test_ride'.
+2025-12-22 16:09:19,754 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_validate_slot_mappings'.
+2025-12-22 16:09:19,760 - rasa_sdk.endpoint - INFO - run:161 - Starting plugins...
+2025-12-22 16:09:19,761 - rasa_sdk.endpoint - INFO - run:167 - Action endpoint is up and running on http://0.0.0.0:5055
+2025-12-22 16:09:32,964 - actions - DEBUG - run:349 - 📞 Phone resolved as: 919999999999
+2025-12-22 16:09:33,063 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 400 Bad Request"
+2025-12-22 16:09:33,063 - actions - ERROR - run:369 - Lead greet update failed
+2025-12-22 16:12:26,950 - actions - DEBUG - run:349 - 📞 Phone resolved as: 919999999999
+2025-12-22 16:12:26,960 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 400 Bad Request"
+2025-12-22 16:12:26,960 - actions - ERROR - run:369 - Lead greet update failed
+2025-12-22 16:12:56,097 - actions - DEBUG - run:349 - 📞 Phone resolved as: 919999999999
+2025-12-22 16:12:56,108 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 400 Bad Request"
+2025-12-22 16:12:56,109 - actions - ERROR - run:369 - Lead greet update failed
+2025-12-22 16:14:25,841 - actions - DEBUG - run:349 - 📞 Phone resolved as: 919999999999
+2025-12-22 16:14:25,851 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 400 Bad Request"
+2025-12-22 16:14:25,851 - actions - ERROR - run:369 - Lead greet update failed
+2025-12-22 16:14:46,780 - actions - DEBUG - run:349 - 📞 Phone resolved as: 919999999999
+2025-12-22 16:14:46,788 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 400 Bad Request"
+2025-12-22 16:14:46,788 - actions - ERROR - run:369 - Lead greet update failed
+2025-12-22 16:18:18,059 - actions - DEBUG - run:349 - 📞 Phone resolved as: 919999999999
+2025-12-22 16:18:18,070 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 400 Bad Request"
+2025-12-22 16:18:18,071 - actions - ERROR - run:369 - Lead greet update failed
+2025-12-22 16:20:17,921 - actions - DEBUG - run:349 - 📞 Phone resolved as: 919999999999
+2025-12-22 16:20:17,940 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 16:20:17,941 - actions - INFO - run:371 - ✅ Lead created/retrieved for 919999999999
+2025-12-22 16:27:37,390 - actions - DEBUG - validate_name:175 - 🔍 Validating name: Oriya
+2025-12-22 16:27:37,390 - actions - INFO - validate_name:199 - ✅ Name validation passed: Oriya
+2025-12-22 16:27:37,426 - actions - DEBUG - run:271 - [91m📝 Name from slot: Oriya[0m
+2025-12-22 16:27:37,426 - actions - DEBUG - run:287 - 📞 Phone resolved as: 8529750269
+2025-12-22 16:27:37,444 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 16:27:37,445 - actions - INFO - run:310 - ✅ Name 'Oriya' stored in lead for 8529750269
+2025-12-22 16:27:37,487 - actions - INFO - run:602 - 🎯 ActionGreetWithMenu TRIGGERED!
+2025-12-22 16:28:17,866 - actions - DEBUG - validate_name:175 - 🔍 Validating name: Oriya
+2025-12-22 16:28:17,867 - actions - INFO - validate_name:199 - ✅ Name validation passed: Oriya
+2025-12-22 16:28:17,904 - actions - DEBUG - run:271 - [91m📝 Name from slot: Oriya[0m
+2025-12-22 16:28:17,904 - actions - DEBUG - run:287 - 📞 Phone resolved as: 919999999999
+2025-12-22 16:28:17,918 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 16:28:17,918 - actions - INFO - run:310 - ✅ Name 'Oriya' stored in lead for 919999999999
+2025-12-22 16:28:17,956 - actions - INFO - run:602 - 🎯 ActionGreetWithMenu TRIGGERED!
+2025-12-22 16:28:26,684 - actions - DEBUG - run:766 - Vehicle ID: apache_rtr_160_2v
+2025-12-22 16:28:26,692 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 16:28:37,405 - actions - DEBUG - run:766 - Vehicle ID: apache_rtr_160_2v
+2025-12-22 16:28:37,417 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 16:28:54,625 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 16:28:54,625 - actions - INFO - run:470 - Lead status warm stored in lead for 919999999999
+2025-12-22 16:28:54,626 - actions - INFO - run:477 - chosen vehicle: Apache RTR 160 2V
+2025-12-22 16:29:12,143 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 16:29:12,144 - actions - INFO - run:470 - Lead status warm stored in lead for 919999999999
+2025-12-22 16:29:12,144 - actions - INFO - run:477 - chosen vehicle: Apache RTR 160 2V
+2025-12-22 16:32:34,072 - actions - INFO - <module>:46 - IS_TEST_ENV = True
+2025-12-22 16:32:34,072 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_store_name'.
+2025-12-22 16:32:34,072 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_greet_user'.
+2025-12-22 16:32:34,072 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_ask_name'.
+2025-12-22 16:32:34,072 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_send_brochure'.
+2025-12-22 16:32:34,073 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_greet_with_menu'.
+2025-12-22 16:32:34,073 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_talk_to_agent'.
+2025-12-22 16:32:34,073 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_store_vehicle_choice'.
+2025-12-22 16:32:34,073 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_show_vehicle_details'.
+2025-12-22 16:32:34,073 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_ask_pincode'.
+2025-12-22 16:32:34,073 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_store_pincode_and_show_pricing'.
+2025-12-22 16:32:34,073 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_handle_pincode_based_on_purpose'.
+2025-12-22 16:32:34,073 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_set_pincode_purpose_pricing'.
+2025-12-22 16:32:34,073 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_set_pincode_purpose_test_ride'.
+2025-12-22 16:32:34,074 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_confirm_details'.
+2025-12-22 16:32:34,074 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_book_test_ride'.
+2025-12-22 16:32:34,074 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_validate_slot_mappings'.
+2025-12-22 16:32:34,080 - rasa_sdk.endpoint - INFO - run:161 - Starting plugins...
+2025-12-22 16:32:34,081 - rasa_sdk.endpoint - INFO - run:167 - Action endpoint is up and running on http://0.0.0.0:5055
+2025-12-22 16:32:43,156 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 16:38:57,539 - actions - INFO - <module>:46 - IS_TEST_ENV = True
+2025-12-22 16:38:57,540 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_store_name'.
+2025-12-22 16:38:57,540 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_greet_user'.
+2025-12-22 16:38:57,540 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_ask_name'.
+2025-12-22 16:38:57,540 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_send_brochure'.
+2025-12-22 16:38:57,540 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_greet_with_menu'.
+2025-12-22 16:38:57,540 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_talk_to_agent'.
+2025-12-22 16:38:57,541 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_store_vehicle_choice'.
+2025-12-22 16:38:57,541 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_show_vehicle_details'.
+2025-12-22 16:38:57,541 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_ask_pincode'.
+2025-12-22 16:38:57,541 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_store_pincode_and_show_pricing'.
+2025-12-22 16:38:57,541 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_handle_pincode_based_on_purpose'.
+2025-12-22 16:38:57,541 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_set_pincode_purpose_pricing'.
+2025-12-22 16:38:57,541 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_set_pincode_purpose_test_ride'.
+2025-12-22 16:38:57,541 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_confirm_details'.
+2025-12-22 16:38:57,541 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_book_test_ride'.
+2025-12-22 16:38:57,541 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_validate_slot_mappings'.
+2025-12-22 16:38:57,548 - rasa_sdk.endpoint - INFO - run:161 - Starting plugins...
+2025-12-22 16:38:57,548 - rasa_sdk.endpoint - INFO - run:167 - Action endpoint is up and running on http://0.0.0.0:5055
+2025-12-22 16:39:00,342 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 17:02:24,074 - actions - DEBUG - validate_name:175 - 🔍 Validating name: Raj
+2025-12-22 17:02:24,074 - actions - INFO - validate_name:199 - ✅ Name validation passed: Raj
+2025-12-22 17:02:24,109 - actions - DEBUG - run:271 - [91m📝 Name from slot: Raj[0m
+2025-12-22 17:02:24,109 - actions - DEBUG - run:287 - 📞 Phone resolved as: 8529750269
+2025-12-22 17:02:24,125 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 17:02:24,126 - actions - INFO - run:310 - ✅ Name 'Raj' stored in lead for 8529750269
+2025-12-22 17:02:24,163 - actions - INFO - run:600 - 🎯 ActionGreetWithMenu TRIGGERED!
+2025-12-22 17:08:50,028 - actions - DEBUG - run:764 - Vehicle ID: apache_rtr_160_2v
+2025-12-22 17:08:50,046 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 17:10:53,000 - actions - DEBUG - validate_name:175 - 🔍 Validating name: Bipin Kumar
+2025-12-22 17:10:53,000 - actions - INFO - validate_name:199 - ✅ Name validation passed: Bipin Kumar
+2025-12-22 17:10:53,036 - actions - DEBUG - run:271 - [91m📝 Name from slot: Bipin Kumar[0m
+2025-12-22 17:10:53,036 - actions - DEBUG - run:287 - 📞 Phone resolved as: 8529750269
+2025-12-22 17:10:53,053 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 17:10:53,056 - actions - INFO - run:310 - ✅ Name 'Bipin Kumar' stored in lead for 8529750269
+2025-12-22 17:10:53,093 - actions - INFO - run:600 - 🎯 ActionGreetWithMenu TRIGGERED!
+2025-12-22 17:11:30,277 - actions - DEBUG - validate_name:175 - 🔍 Validating name: Sakshi Kale
+2025-12-22 17:11:30,277 - actions - INFO - validate_name:199 - ✅ Name validation passed: Sakshi Kale
+2025-12-22 17:11:30,314 - actions - DEBUG - run:271 - [91m📝 Name from slot: Sakshi Kale[0m
+2025-12-22 17:11:30,314 - actions - DEBUG - run:287 - 📞 Phone resolved as: 8529750269
+2025-12-22 17:11:30,323 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 17:11:30,324 - actions - INFO - run:310 - ✅ Name 'Sakshi Kale' stored in lead for 8529750269
+2025-12-22 17:11:30,361 - actions - INFO - run:600 - 🎯 ActionGreetWithMenu TRIGGERED!
+2025-12-22 17:12:41,903 - actions - DEBUG - validate_name:175 - 🔍 Validating name: Oriya
+2025-12-22 17:12:41,903 - actions - INFO - validate_name:199 - ✅ Name validation passed: Oriya
+2025-12-22 17:12:41,941 - actions - DEBUG - run:271 - [91m📝 Name from slot: Oriya[0m
+2025-12-22 17:12:41,941 - actions - DEBUG - run:287 - 📞 Phone resolved as: 919999999999
+2025-12-22 17:12:41,951 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 17:12:41,951 - actions - INFO - run:310 - ✅ Name 'Oriya' stored in lead for 919999999999
+2025-12-22 17:12:41,988 - actions - INFO - run:600 - 🎯 ActionGreetWithMenu TRIGGERED!
+2025-12-22 17:13:14,937 - actions - DEBUG - validate_name:175 - 🔍 Validating name: Tejaswini Kale
+2025-12-22 17:13:14,938 - actions - INFO - validate_name:199 - ✅ Name validation passed: Tejaswini Kale
+2025-12-22 17:13:14,972 - actions - DEBUG - run:271 - [91m📝 Name from slot: Tejaswini Kale[0m
+2025-12-22 17:13:14,973 - actions - DEBUG - run:287 - 📞 Phone resolved as: 8529750269
+2025-12-22 17:13:14,982 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 17:13:14,982 - actions - INFO - run:310 - ✅ Name 'Tejaswini Kale' stored in lead for 8529750269
+2025-12-22 17:13:15,019 - actions - INFO - run:600 - 🎯 ActionGreetWithMenu TRIGGERED!
+2025-12-22 17:13:32,984 - actions - DEBUG - validate_name:175 - 🔍 Validating name: Pramod Kamble
+2025-12-22 17:13:32,984 - actions - INFO - validate_name:199 - ✅ Name validation passed: Pramod Kamble
+2025-12-22 17:13:33,019 - actions - DEBUG - run:271 - [91m📝 Name from slot: Pramod Kamble[0m
+2025-12-22 17:13:33,019 - actions - DEBUG - run:287 - 📞 Phone resolved as: 8529750269
+2025-12-22 17:13:33,030 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 17:13:33,031 - actions - INFO - run:310 - ✅ Name 'Pramod Kamble' stored in lead for 8529750269
+2025-12-22 17:13:33,067 - actions - INFO - run:600 - 🎯 ActionGreetWithMenu TRIGGERED!
+2025-12-22 17:14:43,857 - actions - DEBUG - validate_name:175 - 🔍 Validating name: Raj
+2025-12-22 17:14:43,857 - actions - INFO - validate_name:199 - ✅ Name validation passed: Raj
+2025-12-22 17:14:43,893 - actions - DEBUG - run:271 - [91m📝 Name from slot: Raj[0m
+2025-12-22 17:14:43,893 - actions - DEBUG - run:287 - 📞 Phone resolved as: 8529750269
+2025-12-22 17:14:43,906 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 17:14:43,907 - actions - INFO - run:310 - ✅ Name 'Raj' stored in lead for 8529750269
+2025-12-22 17:14:43,944 - actions - INFO - run:600 - 🎯 ActionGreetWithMenu TRIGGERED!
+2025-12-22 17:15:31,485 - actions - DEBUG - validate_name:175 - 🔍 Validating name: Gulzarbagh
+2025-12-22 17:15:31,485 - actions - INFO - validate_name:199 - ✅ Name validation passed: Gulzarbagh
+2025-12-22 17:15:31,521 - actions - DEBUG - run:271 - [91m📝 Name from slot: Gulzarbagh[0m
+2025-12-22 17:15:31,522 - actions - DEBUG - run:287 - 📞 Phone resolved as: 8529750269
+2025-12-22 17:15:31,533 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 17:15:31,534 - actions - INFO - run:310 - ✅ Name 'Gulzarbagh' stored in lead for 8529750269
+2025-12-22 17:15:31,570 - actions - INFO - run:600 - 🎯 ActionGreetWithMenu TRIGGERED!
+2025-12-22 17:15:43,156 - actions - DEBUG - run:271 - [91m📝 Name from slot: Gulzarbagh[0m
+2025-12-22 17:15:43,156 - actions - DEBUG - run:287 - 📞 Phone resolved as: 8529750269
+2025-12-22 17:15:43,167 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 17:15:43,167 - actions - INFO - run:310 - ✅ Name 'Gulzarbagh' stored in lead for 8529750269
+2025-12-22 17:15:43,204 - actions - INFO - run:600 - 🎯 ActionGreetWithMenu TRIGGERED!
+2025-12-22 17:15:51,419 - actions - DEBUG - run:271 - [91m📝 Name from slot: Gulzarbagh[0m
+2025-12-22 17:15:51,419 - actions - DEBUG - run:287 - 📞 Phone resolved as: 8529750269
+2025-12-22 17:15:51,430 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 17:15:51,430 - actions - INFO - run:310 - ✅ Name 'Gulzarbagh' stored in lead for 8529750269
+2025-12-22 17:15:51,471 - actions - INFO - run:600 - 🎯 ActionGreetWithMenu TRIGGERED!
+2025-12-22 17:18:51,327 - actions - DEBUG - validate_name:175 - 🔍 Validating name: Shivam Wankhede
+2025-12-22 17:18:51,328 - actions - INFO - validate_name:199 - ✅ Name validation passed: Shivam Wankhede
+2025-12-22 17:18:51,366 - actions - DEBUG - run:271 - [91m📝 Name from slot: Shivam Wankhede[0m
+2025-12-22 17:18:51,366 - actions - DEBUG - run:287 - 📞 Phone resolved as: 8529750269
+2025-12-22 17:18:51,378 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 17:18:51,379 - actions - INFO - run:310 - ✅ Name 'Shivam Wankhede' stored in lead for 8529750269
+2025-12-22 17:18:51,418 - actions - INFO - run:600 - 🎯 ActionGreetWithMenu TRIGGERED!
+2025-12-22 17:18:59,839 - actions - DEBUG - validate_name:175 - 🔍 Validating name: Shivam Wankhade
+2025-12-22 17:18:59,839 - actions - INFO - validate_name:199 - ✅ Name validation passed: Shivam Wankhade
+2025-12-22 17:18:59,881 - actions - DEBUG - run:271 - [91m📝 Name from slot: Shivam Wankhade[0m
+2025-12-22 17:18:59,882 - actions - DEBUG - run:287 - 📞 Phone resolved as: 8529750269
+2025-12-22 17:18:59,894 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 17:18:59,895 - actions - INFO - run:310 - ✅ Name 'Shivam Wankhade' stored in lead for 8529750269
+2025-12-22 17:18:59,937 - actions - INFO - run:600 - 🎯 ActionGreetWithMenu TRIGGERED!
+2025-12-22 17:19:20,135 - actions - DEBUG - validate_name:175 - 🔍 Validating name: Yash Verma
+2025-12-22 17:19:20,135 - actions - INFO - validate_name:199 - ✅ Name validation passed: Yash Verma
+2025-12-22 17:19:20,174 - actions - DEBUG - run:271 - [91m📝 Name from slot: Yash Verma[0m
+2025-12-22 17:19:20,174 - actions - DEBUG - run:287 - 📞 Phone resolved as: 8529750269
+2025-12-22 17:19:20,184 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 17:19:20,185 - actions - INFO - run:310 - ✅ Name 'Yash Verma' stored in lead for 8529750269
+2025-12-22 17:19:20,223 - actions - INFO - run:600 - 🎯 ActionGreetWithMenu TRIGGERED!
+2025-12-22 17:19:33,236 - actions - DEBUG - validate_name:175 - 🔍 Validating name: Prem Chopra
+2025-12-22 17:19:33,236 - actions - INFO - validate_name:199 - ✅ Name validation passed: Prem Chopra
+2025-12-22 17:19:33,275 - actions - DEBUG - run:271 - [91m📝 Name from slot: Prem Chopra[0m
+2025-12-22 17:19:33,275 - actions - DEBUG - run:287 - 📞 Phone resolved as: 8529750269
+2025-12-22 17:19:33,287 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 17:19:33,287 - actions - INFO - run:310 - ✅ Name 'Prem Chopra' stored in lead for 8529750269
+2025-12-22 17:19:33,326 - actions - INFO - run:600 - 🎯 ActionGreetWithMenu TRIGGERED!
+2025-12-22 17:19:52,319 - actions - DEBUG - validate_name:175 - 🔍 Validating name: Malpani
+2025-12-22 17:19:52,319 - actions - INFO - validate_name:199 - ✅ Name validation passed: Malpani
+2025-12-22 17:19:52,358 - actions - DEBUG - run:271 - [91m📝 Name from slot: Malpani[0m
+2025-12-22 17:19:52,359 - actions - DEBUG - run:287 - 📞 Phone resolved as: 8529750269
+2025-12-22 17:19:52,369 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 17:19:52,369 - actions - INFO - run:310 - ✅ Name 'Malpani' stored in lead for 8529750269
+2025-12-22 17:19:52,409 - actions - INFO - run:600 - 🎯 ActionGreetWithMenu TRIGGERED!
+2025-12-22 17:20:51,891 - actions - DEBUG - validate_name:175 - 🔍 Validating name: Raju Shekhawat
+2025-12-22 17:20:51,891 - actions - INFO - validate_name:199 - ✅ Name validation passed: Raju Shekhawat
+2025-12-22 17:20:51,934 - actions - DEBUG - run:271 - [91m📝 Name from slot: Raju Shekhawat[0m
+2025-12-22 17:20:51,935 - actions - DEBUG - run:287 - 📞 Phone resolved as: 8529750269
+2025-12-22 17:20:51,946 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 17:20:51,946 - actions - INFO - run:310 - ✅ Name 'Raju Shekhawat' stored in lead for 8529750269
+2025-12-22 17:20:51,986 - actions - INFO - run:600 - 🎯 ActionGreetWithMenu TRIGGERED!
+2025-12-22 17:21:06,064 - actions - DEBUG - validate_name:175 - 🔍 Validating name: Bindu Kumari
+2025-12-22 17:21:06,064 - actions - INFO - validate_name:199 - ✅ Name validation passed: Bindu Kumari
+2025-12-22 17:21:06,107 - actions - DEBUG - run:271 - [91m📝 Name from slot: Bindu Kumari[0m
+2025-12-22 17:21:06,107 - actions - DEBUG - run:287 - 📞 Phone resolved as: 8529750269
+2025-12-22 17:21:06,117 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 17:21:06,118 - actions - INFO - run:310 - ✅ Name 'Bindu Kumari' stored in lead for 8529750269
+2025-12-22 17:21:06,164 - actions - INFO - run:600 - 🎯 ActionGreetWithMenu TRIGGERED!
+2025-12-22 17:21:23,149 - actions - DEBUG - validate_name:175 - 🔍 Validating name: Srivastava
+2025-12-22 17:21:23,149 - actions - INFO - validate_name:199 - ✅ Name validation passed: Srivastava
+2025-12-22 17:21:23,190 - actions - DEBUG - run:271 - [91m📝 Name from slot: Srivastava[0m
+2025-12-22 17:21:23,191 - actions - DEBUG - run:287 - 📞 Phone resolved as: 8529750269
+2025-12-22 17:21:23,201 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 17:21:23,202 - actions - INFO - run:310 - ✅ Name 'Srivastava' stored in lead for 8529750269
+2025-12-22 17:21:23,245 - actions - INFO - run:600 - 🎯 ActionGreetWithMenu TRIGGERED!
+2025-12-22 17:25:00,441 - actions - DEBUG - validate_name:175 - 🔍 Validating name: R Kumar
+2025-12-22 17:25:00,441 - actions - INFO - validate_name:199 - ✅ Name validation passed: R Kumar
+2025-12-22 17:25:00,482 - actions - DEBUG - run:271 - [91m📝 Name from slot: R Kumar[0m
+2025-12-22 17:25:00,482 - actions - DEBUG - run:287 - 📞 Phone resolved as: 8529750269
+2025-12-22 17:25:00,502 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 17:25:00,503 - actions - INFO - run:310 - ✅ Name 'R Kumar' stored in lead for 8529750269
+2025-12-22 17:25:00,547 - actions - INFO - run:600 - 🎯 ActionGreetWithMenu TRIGGERED!
+2025-12-22 17:25:06,615 - actions - DEBUG - validate_name:175 - 🔍 Validating name: R Kumar
+2025-12-22 17:25:06,615 - actions - INFO - validate_name:199 - ✅ Name validation passed: R Kumar
+2025-12-22 17:25:06,664 - actions - DEBUG - run:271 - [91m📝 Name from slot: R Kumar[0m
+2025-12-22 17:25:06,665 - actions - DEBUG - run:287 - 📞 Phone resolved as: 8529750269
+2025-12-22 17:25:06,675 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 17:25:06,676 - actions - INFO - run:310 - ✅ Name 'R Kumar' stored in lead for 8529750269
+2025-12-22 17:25:06,720 - actions - INFO - run:600 - 🎯 ActionGreetWithMenu TRIGGERED!
+2025-12-22 17:25:14,610 - actions - DEBUG - validate_name:175 - 🔍 Validating name: Kumar
+2025-12-22 17:25:14,610 - actions - INFO - validate_name:199 - ✅ Name validation passed: Kumar
+2025-12-22 17:25:14,656 - actions - DEBUG - run:271 - [91m📝 Name from slot: Kumar[0m
+2025-12-22 17:25:14,656 - actions - DEBUG - run:287 - 📞 Phone resolved as: 8529750269
+2025-12-22 17:25:16,061 - actions - ERROR - run:312 - Error updating lead: 
+Traceback (most recent call last):
+  File "/home/ayush/Desktop/model_2.0/rasa_v2_bot/venv/lib/python3.8/site-packages/httpx/_transports/default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "/home/ayush/Desktop/model_2.0/rasa_v2_bot/venv/lib/python3.8/site-packages/httpx/_transports/default.py", line 394, in handle_async_request
+    resp = await self._pool.handle_async_request(req)
+  File "/home/ayush/Desktop/model_2.0/rasa_v2_bot/venv/lib/python3.8/site-packages/httpcore/_async/connection_pool.py", line 256, in handle_async_request
+    raise exc from None
+  File "/home/ayush/Desktop/model_2.0/rasa_v2_bot/venv/lib/python3.8/site-packages/httpcore/_async/connection_pool.py", line 236, in handle_async_request
+    response = await connection.handle_async_request(
+  File "/home/ayush/Desktop/model_2.0/rasa_v2_bot/venv/lib/python3.8/site-packages/httpcore/_async/connection.py", line 103, in handle_async_request
+    return await self._connection.handle_async_request(request)
+  File "/home/ayush/Desktop/model_2.0/rasa_v2_bot/venv/lib/python3.8/site-packages/httpcore/_async/http11.py", line 136, in handle_async_request
+    raise exc
+  File "/home/ayush/Desktop/model_2.0/rasa_v2_bot/venv/lib/python3.8/site-packages/httpcore/_async/http11.py", line 106, in handle_async_request
+    ) = await self._receive_response_headers(**kwargs)
+  File "/home/ayush/Desktop/model_2.0/rasa_v2_bot/venv/lib/python3.8/site-packages/httpcore/_async/http11.py", line 177, in _receive_response_headers
+    event = await self._receive_event(timeout=timeout)
+  File "/home/ayush/Desktop/model_2.0/rasa_v2_bot/venv/lib/python3.8/site-packages/httpcore/_async/http11.py", line 217, in _receive_event
+    data = await self._network_stream.read(
+  File "/home/ayush/Desktop/model_2.0/rasa_v2_bot/venv/lib/python3.8/site-packages/httpcore/_backends/anyio.py", line 37, in read
+    return b""
+  File "/home/ayush/.pyenv/versions/3.8.20/lib/python3.8/contextlib.py", line 131, in __exit__
+    self.gen.throw(type, value, traceback)
+  File "/home/ayush/Desktop/model_2.0/rasa_v2_bot/venv/lib/python3.8/site-packages/httpcore/_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ReadError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ayush/Desktop/model_2.0/rasa_v2_bot/actions/actions.py", line 303, in run
+    resp = await client.post(
+  File "/home/ayush/Desktop/model_2.0/rasa_v2_bot/venv/lib/python3.8/site-packages/httpx/_client.py", line 1859, in post
+    return await self.request(
+  File "/home/ayush/Desktop/model_2.0/rasa_v2_bot/venv/lib/python3.8/site-packages/httpx/_client.py", line 1540, in request
+    return await self.send(request, auth=auth, follow_redirects=follow_redirects)
+  File "/home/ayush/Desktop/model_2.0/rasa_v2_bot/venv/lib/python3.8/site-packages/httpx/_client.py", line 1629, in send
+    response = await self._send_handling_auth(
+  File "/home/ayush/Desktop/model_2.0/rasa_v2_bot/venv/lib/python3.8/site-packages/httpx/_client.py", line 1657, in _send_handling_auth
+    response = await self._send_handling_redirects(
+  File "/home/ayush/Desktop/model_2.0/rasa_v2_bot/venv/lib/python3.8/site-packages/httpx/_client.py", line 1694, in _send_handling_redirects
+    response = await self._send_single_request(request)
+  File "/home/ayush/Desktop/model_2.0/rasa_v2_bot/venv/lib/python3.8/site-packages/httpx/_client.py", line 1730, in _send_single_request
+    response = await transport.handle_async_request(request)
+  File "/home/ayush/Desktop/model_2.0/rasa_v2_bot/venv/lib/python3.8/site-packages/httpx/_transports/default.py", line 394, in handle_async_request
+    resp = await self._pool.handle_async_request(req)
+  File "/home/ayush/.pyenv/versions/3.8.20/lib/python3.8/contextlib.py", line 131, in __exit__
+    self.gen.throw(type, value, traceback)
+  File "/home/ayush/Desktop/model_2.0/rasa_v2_bot/venv/lib/python3.8/site-packages/httpx/_transports/default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ReadError
+2025-12-22 17:25:27,071 - actions - DEBUG - validate_name:175 - 🔍 Validating name: Kumar
+2025-12-22 17:25:27,071 - actions - INFO - validate_name:199 - ✅ Name validation passed: Kumar
+2025-12-22 17:25:27,113 - actions - DEBUG - run:271 - [91m📝 Name from slot: Kumar[0m
+2025-12-22 17:25:27,113 - actions - DEBUG - run:287 - 📞 Phone resolved as: 8529750269
+2025-12-22 17:25:27,130 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 17:25:27,130 - actions - INFO - run:310 - ✅ Name 'Kumar' stored in lead for 8529750269
+2025-12-22 17:25:27,174 - actions - INFO - run:600 - 🎯 ActionGreetWithMenu TRIGGERED!
+2025-12-22 17:37:03,598 - actions - DEBUG - validate_name:175 - 🔍 Validating name: Kumar
+2025-12-22 17:37:03,598 - actions - INFO - validate_name:199 - ✅ Name validation passed: Kumar
+2025-12-22 17:37:03,641 - actions - DEBUG - run:271 - [91m📝 Name from slot: Kumar[0m
+2025-12-22 17:37:03,641 - actions - DEBUG - run:287 - 📞 Phone resolved as: 8292253230
+2025-12-22 17:37:03,662 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 17:37:03,662 - actions - INFO - run:310 - ✅ Name 'Kumar' stored in lead for 8292253230
+2025-12-22 17:37:03,702 - actions - INFO - run:600 - 🎯 ActionGreetWithMenu TRIGGERED!
+2025-12-22 17:53:34,257 - actions - INFO - <module>:46 - IS_TEST_ENV = False
+2025-12-22 17:53:34,258 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_store_name'.
+2025-12-22 17:53:34,258 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_greet_user'.
+2025-12-22 17:53:34,258 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_ask_name'.
+2025-12-22 17:53:34,258 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_send_brochure'.
+2025-12-22 17:53:34,259 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_greet_with_menu'.
+2025-12-22 17:53:34,259 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_talk_to_agent'.
+2025-12-22 17:53:34,259 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_store_vehicle_choice'.
+2025-12-22 17:53:34,259 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_show_vehicle_details'.
+2025-12-22 17:53:34,259 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_ask_pincode'.
+2025-12-22 17:53:34,259 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_store_pincode_and_show_pricing'.
+2025-12-22 17:53:34,259 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_handle_pincode_based_on_purpose'.
+2025-12-22 17:53:34,259 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_set_pincode_purpose_pricing'.
+2025-12-22 17:53:34,259 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_set_pincode_purpose_test_ride'.
+2025-12-22 17:53:34,259 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_confirm_details'.
+2025-12-22 17:53:34,260 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_book_test_ride'.
+2025-12-22 17:53:34,260 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_validate_slot_mappings'.
+2025-12-22 17:53:34,266 - rasa_sdk.endpoint - INFO - run:161 - Starting plugins...
+2025-12-22 17:53:34,266 - rasa_sdk.endpoint - INFO - run:167 - Action endpoint is up and running on http://0.0.0.0:5055
+2025-12-22 17:53:51,818 - actions - DEBUG - validate_name:175 - 🔍 Validating name: Hi
+2025-12-22 17:53:51,818 - actions - INFO - validate_name:199 - ✅ Name validation passed: Hi
+2025-12-22 17:53:51,854 - actions - DEBUG - run:271 - [91m📝 Name from slot: Hi[0m
+2025-12-22 17:53:51,854 - actions - DEBUG - run:287 - 📞 Phone resolved as: 918529750269
+2025-12-22 17:53:51,955 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 17:53:51,956 - actions - INFO - run:310 - ✅ Name 'Hi' stored in lead for 918529750269
+2025-12-22 17:53:53,606 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/send-message "HTTP/1.1 200 OK"
+2025-12-22 17:53:53,646 - actions - INFO - run:600 - 🎯 ActionGreetWithMenu TRIGGERED!
+2025-12-22 17:53:53,646 - actions - DEBUG - run:659 - 🚀 Sending vehicle menu via backend...
+2025-12-22 17:53:54,541 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/send-list "HTTP/1.1 200 OK"
+2025-12-22 17:53:54,542 - actions - INFO - run:664 - ✅ Vehicle menu sent successfully
+2025-12-22 17:54:45,704 - actions - DEBUG - run:764 - Vehicle ID: apache_200_4v
+2025-12-22 17:54:45,716 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 17:54:47,322 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/send-image "HTTP/1.1 200 OK"
+2025-12-22 17:54:48,448 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/send-message "HTTP/1.1 200 OK"
+2025-12-22 17:54:49,859 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/send-buttons "HTTP/1.1 200 OK"
+2025-12-22 17:54:56,607 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 17:54:56,607 - actions - INFO - run:468 - Lead status warm stored in lead for 918529750269
+2025-12-22 17:54:56,607 - actions - INFO - run:475 - chosen vehicle: Apache RTR 200 4V
+2025-12-22 17:54:56,608 - actions - DEBUG - run:523 - Reached brochure sending part
+2025-12-22 17:54:58,064 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/send-brochure "HTTP/1.1 200 OK"
+2025-12-22 17:55:07,520 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 17:55:09,334 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/send-message "HTTP/1.1 200 OK"
+2025-12-22 17:55:16,458 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/send-message "HTTP/1.1 200 OK"
+2025-12-22 17:55:25,278 - actions - DEBUG - validate_pincode:211 - 🔍 Validating pincode: 560101
+2025-12-22 17:55:25,278 - actions - WARNING - validate_pincode:253 - ❌ Pincode 560101 not serviceable
+2025-12-22 17:56:01,302 - actions - INFO - <module>:46 - IS_TEST_ENV = True
+2025-12-22 17:56:01,302 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_store_name'.
+2025-12-22 17:56:01,302 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_greet_user'.
+2025-12-22 17:56:01,302 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_ask_name'.
+2025-12-22 17:56:01,302 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_send_brochure'.
+2025-12-22 17:56:01,303 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_greet_with_menu'.
+2025-12-22 17:56:01,303 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_talk_to_agent'.
+2025-12-22 17:56:01,303 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_store_vehicle_choice'.
+2025-12-22 17:56:01,303 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_show_vehicle_details'.
+2025-12-22 17:56:01,303 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_ask_pincode'.
+2025-12-22 17:56:01,303 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_store_pincode_and_show_pricing'.
+2025-12-22 17:56:01,303 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_handle_pincode_based_on_purpose'.
+2025-12-22 17:56:01,304 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_set_pincode_purpose_pricing'.
+2025-12-22 17:56:01,304 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_set_pincode_purpose_test_ride'.
+2025-12-22 17:56:01,304 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_confirm_details'.
+2025-12-22 17:56:01,304 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_book_test_ride'.
+2025-12-22 17:56:01,304 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_validate_slot_mappings'.
+2025-12-22 17:56:01,310 - rasa_sdk.endpoint - INFO - run:161 - Starting plugins...
+2025-12-22 17:56:01,311 - rasa_sdk.endpoint - INFO - run:167 - Action endpoint is up and running on http://0.0.0.0:5055
+2025-12-22 17:56:04,087 - actions - DEBUG - run:349 - 📞 Phone resolved as: 919999999999
+2025-12-22 17:56:04,185 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 17:56:04,186 - actions - INFO - run:369 - ✅ Lead created/retrieved for 919999999999
+2025-12-22 17:59:58,685 - actions - DEBUG - validate_name:175 - 🔍 Validating name: Hi
+2025-12-22 17:59:58,686 - actions - INFO - validate_name:199 - ✅ Name validation passed: Hi
+2025-12-22 17:59:58,723 - actions - DEBUG - run:271 - [91m📝 Name from slot: Hi[0m
+2025-12-22 17:59:58,723 - actions - DEBUG - run:287 - 📞 Phone resolved as: 919999999999
+2025-12-22 17:59:58,734 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 17:59:58,734 - actions - INFO - run:310 - ✅ Name 'Hi' stored in lead for 919999999999
+2025-12-22 17:59:58,769 - actions - INFO - run:600 - 🎯 ActionGreetWithMenu TRIGGERED!
+2025-12-22 18:00:20,916 - actions - DEBUG - validate_name:175 - 🔍 Validating name: Hi
+2025-12-22 18:00:20,916 - actions - INFO - validate_name:199 - ✅ Name validation passed: Hi
+2025-12-22 18:00:20,955 - actions - DEBUG - run:271 - [91m📝 Name from slot: Hi[0m
+2025-12-22 18:00:20,955 - actions - DEBUG - run:287 - 📞 Phone resolved as: 919999999999
+2025-12-22 18:00:20,966 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 18:00:20,967 - actions - INFO - run:310 - ✅ Name 'Hi' stored in lead for 919999999999
+2025-12-22 18:00:21,007 - actions - INFO - run:600 - 🎯 ActionGreetWithMenu TRIGGERED!
+2025-12-22 18:19:48,485 - actions - DEBUG - validate_name:175 - 🔍 Validating name: Hi
+2025-12-22 18:19:48,486 - actions - INFO - validate_name:199 - ✅ Name validation passed: Hi
+2025-12-22 18:19:48,531 - actions - DEBUG - run:271 - [91m📝 Name from slot: Hi[0m
+2025-12-22 18:19:48,531 - actions - DEBUG - run:287 - 📞 Phone resolved as: 919999999999
+2025-12-22 18:19:48,550 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 18:19:48,550 - actions - INFO - run:310 - ✅ Name 'Hi' stored in lead for 919999999999
+2025-12-22 18:19:48,589 - actions - INFO - run:600 - 🎯 ActionGreetWithMenu TRIGGERED!
+2025-12-22 18:23:28,443 - actions - DEBUG - validate_name:175 - 🔍 Validating name: Hi
+2025-12-22 18:23:28,443 - actions - INFO - validate_name:199 - ✅ Name validation passed: Hi
+2025-12-22 18:23:28,489 - actions - DEBUG - run:271 - [91m📝 Name from slot: Hi[0m
+2025-12-22 18:23:28,490 - actions - DEBUG - run:287 - 📞 Phone resolved as: 919999999999
+2025-12-22 18:23:28,505 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 18:23:28,506 - actions - INFO - run:310 - ✅ Name 'Hi' stored in lead for 919999999999
+2025-12-22 18:23:28,551 - actions - INFO - run:600 - 🎯 ActionGreetWithMenu TRIGGERED!
+2025-12-22 18:24:10,779 - actions - DEBUG - validate_name:175 - 🔍 Validating name: Hi
+2025-12-22 18:24:10,779 - actions - INFO - validate_name:199 - ✅ Name validation passed: Hi
+2025-12-22 18:24:10,819 - actions - DEBUG - run:271 - [91m📝 Name from slot: Hi[0m
+2025-12-22 18:24:10,819 - actions - DEBUG - run:287 - 📞 Phone resolved as: 919999999999
+2025-12-22 18:24:10,839 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 18:24:10,839 - actions - INFO - run:310 - ✅ Name 'Hi' stored in lead for 919999999999
+2025-12-22 18:24:10,882 - actions - INFO - run:600 - 🎯 ActionGreetWithMenu TRIGGERED!
+2025-12-22 18:25:20,587 - actions - DEBUG - validate_name:175 - 🔍 Validating name: Hi
+2025-12-22 18:25:20,587 - actions - INFO - validate_name:199 - ✅ Name validation passed: Hi
+2025-12-22 18:25:20,635 - actions - DEBUG - run:271 - [91m📝 Name from slot: Hi[0m
+2025-12-22 18:25:20,635 - actions - DEBUG - run:287 - 📞 Phone resolved as: 919999999999
+2025-12-22 18:25:20,646 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 18:25:20,647 - actions - INFO - run:310 - ✅ Name 'Hi' stored in lead for 919999999999
+2025-12-22 18:25:20,695 - actions - INFO - run:600 - 🎯 ActionGreetWithMenu TRIGGERED!
+2025-12-22 18:33:43,641 - actions - DEBUG - validate_name:175 - 🔍 Validating name: Hi
+2025-12-22 18:33:43,641 - actions - INFO - validate_name:199 - ✅ Name validation passed: Hi
+2025-12-22 18:33:43,688 - actions - DEBUG - run:349 - 📞 Phone resolved as: 919999999999
+2025-12-22 18:33:43,709 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 18:33:43,709 - actions - INFO - run:369 - ✅ Lead created/retrieved for 919999999999
+2025-12-22 18:33:52,437 - actions - DEBUG - run:349 - 📞 Phone resolved as: 919999999999
+2025-12-22 18:33:52,448 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 18:33:52,449 - actions - INFO - run:369 - ✅ Lead created/retrieved for 919999999999
+2025-12-22 18:34:01,276 - actions - DEBUG - validate_name:175 - 🔍 Validating name: kali
+2025-12-22 18:34:01,276 - actions - INFO - validate_name:199 - ✅ Name validation passed: Kali
+2025-12-22 18:34:01,318 - actions - DEBUG - run:271 - [91m📝 Name from slot: Kali[0m
+2025-12-22 18:34:01,319 - actions - DEBUG - run:287 - 📞 Phone resolved as: 919999999999
+2025-12-22 18:34:01,329 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 18:34:01,329 - actions - INFO - run:310 - ✅ Name 'Kali' stored in lead for 919999999999
+2025-12-22 18:34:01,371 - actions - INFO - run:600 - 🎯 ActionGreetWithMenu TRIGGERED!
+2025-12-22 18:34:06,954 - actions - DEBUG - run:349 - 📞 Phone resolved as: 919999999999
+2025-12-22 18:34:06,969 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 18:34:06,969 - actions - INFO - run:369 - ✅ Lead created/retrieved for 919999999999
+2025-12-22 18:34:18,708 - actions - DEBUG - validate_name:175 - 🔍 Validating name: Basavaraj
+2025-12-22 18:34:18,708 - actions - INFO - validate_name:199 - ✅ Name validation passed: Basavaraj
+2025-12-22 18:34:18,748 - actions - DEBUG - run:271 - [91m📝 Name from slot: Basavaraj[0m
+2025-12-22 18:34:18,748 - actions - DEBUG - run:287 - 📞 Phone resolved as: 919999999999
+2025-12-22 18:34:18,759 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 18:34:18,760 - actions - INFO - run:310 - ✅ Name 'Basavaraj' stored in lead for 919999999999
+2025-12-22 18:34:18,801 - actions - INFO - run:600 - 🎯 ActionGreetWithMenu TRIGGERED!
+2025-12-22 18:34:27,836 - actions - DEBUG - validate_name:175 - 🔍 Validating name: Trivedi
+2025-12-22 18:34:27,836 - actions - INFO - validate_name:199 - ✅ Name validation passed: Trivedi
+2025-12-22 18:34:27,878 - actions - DEBUG - run:271 - [91m📝 Name from slot: Trivedi[0m
+2025-12-22 18:34:27,878 - actions - DEBUG - run:287 - 📞 Phone resolved as: 919999999999
+2025-12-22 18:34:27,891 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 18:34:27,892 - actions - INFO - run:310 - ✅ Name 'Trivedi' stored in lead for 919999999999
+2025-12-22 18:34:27,934 - actions - INFO - run:600 - 🎯 ActionGreetWithMenu TRIGGERED!
+2025-12-22 18:34:34,861 - actions - DEBUG - validate_name:175 - 🔍 Validating name: Rachuri
+2025-12-22 18:34:34,861 - actions - INFO - validate_name:199 - ✅ Name validation passed: Rachuri
+2025-12-22 18:34:34,907 - actions - DEBUG - run:271 - [91m📝 Name from slot: Rachuri[0m
+2025-12-22 18:34:34,907 - actions - DEBUG - run:287 - 📞 Phone resolved as: 919999999999
+2025-12-22 18:34:34,919 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 18:34:34,919 - actions - INFO - run:310 - ✅ Name 'Rachuri' stored in lead for 919999999999
+2025-12-22 18:34:34,966 - actions - INFO - run:600 - 🎯 ActionGreetWithMenu TRIGGERED!
+2025-12-22 18:34:47,368 - actions - DEBUG - validate_name:175 - 🔍 Validating name: Amy
+2025-12-22 18:34:47,368 - actions - INFO - validate_name:199 - ✅ Name validation passed: Amy
+2025-12-22 18:34:47,411 - actions - DEBUG - run:271 - [91m📝 Name from slot: Amy[0m
+2025-12-22 18:34:47,411 - actions - DEBUG - run:287 - 📞 Phone resolved as: 919999999999
+2025-12-22 18:34:47,423 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 18:34:47,424 - actions - INFO - run:310 - ✅ Name 'Amy' stored in lead for 919999999999
+2025-12-22 18:34:47,466 - actions - INFO - run:600 - 🎯 ActionGreetWithMenu TRIGGERED!
+2025-12-22 18:34:53,461 - actions - DEBUG - validate_name:175 - 🔍 Validating name: Am
+2025-12-22 18:34:53,461 - actions - INFO - validate_name:199 - ✅ Name validation passed: Am
+2025-12-22 18:34:53,504 - actions - DEBUG - run:271 - [91m📝 Name from slot: Am[0m
+2025-12-22 18:34:53,504 - actions - DEBUG - run:287 - 📞 Phone resolved as: 919999999999
+2025-12-22 18:34:53,514 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 18:34:53,515 - actions - INFO - run:310 - ✅ Name 'Am' stored in lead for 919999999999
+2025-12-22 18:34:53,558 - actions - INFO - run:600 - 🎯 ActionGreetWithMenu TRIGGERED!
+2025-12-22 18:34:59,901 - actions - DEBUG - run:349 - 📞 Phone resolved as: 919999999999
+2025-12-22 18:34:59,912 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 18:34:59,913 - actions - INFO - run:369 - ✅ Lead created/retrieved for 919999999999
+2025-12-22 18:35:16,991 - actions - DEBUG - validate_name:175 - 🔍 Validating name: Ayush
+2025-12-22 18:35:16,991 - actions - INFO - validate_name:199 - ✅ Name validation passed: Ayush
+2025-12-22 18:35:17,035 - actions - DEBUG - run:271 - [91m📝 Name from slot: Ayush[0m
+2025-12-22 18:35:17,036 - actions - DEBUG - run:287 - 📞 Phone resolved as: 919999999999
+2025-12-22 18:35:17,045 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 18:35:17,045 - actions - INFO - run:310 - ✅ Name 'Ayush' stored in lead for 919999999999
+2025-12-22 18:35:17,092 - actions - INFO - run:600 - 🎯 ActionGreetWithMenu TRIGGERED!
+2025-12-22 18:37:21,117 - actions - DEBUG - validate_name:175 - 🔍 Validating name: Ayush
+2025-12-22 18:37:21,117 - actions - INFO - validate_name:199 - ✅ Name validation passed: Ayush
+2025-12-22 18:37:21,169 - actions - DEBUG - run:271 - [91m📝 Name from slot: Ayush[0m
+2025-12-22 18:37:21,169 - actions - DEBUG - run:287 - 📞 Phone resolved as: 919999999999
+2025-12-22 18:37:21,183 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 18:37:21,183 - actions - INFO - run:310 - ✅ Name 'Ayush' stored in lead for 919999999999
+2025-12-22 18:37:21,229 - actions - INFO - run:600 - 🎯 ActionGreetWithMenu TRIGGERED!
+2025-12-22 18:37:28,243 - actions - DEBUG - run:349 - 📞 Phone resolved as: 919999999999
+2025-12-22 18:37:28,255 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 18:37:28,255 - actions - INFO - run:369 - ✅ Lead created/retrieved for 919999999999
+2025-12-22 18:37:35,991 - actions - DEBUG - validate_name:175 - 🔍 Validating name: Hi
+2025-12-22 18:37:35,991 - actions - INFO - validate_name:199 - ✅ Name validation passed: Hi
+2025-12-22 18:37:36,037 - actions - DEBUG - run:349 - 📞 Phone resolved as: 919999999999
+2025-12-22 18:37:36,047 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 18:37:36,048 - actions - INFO - run:369 - ✅ Lead created/retrieved for 919999999999
+2025-12-22 18:37:44,167 - actions - DEBUG - validate_name:175 - 🔍 Validating name: Karan
+2025-12-22 18:37:44,167 - actions - INFO - validate_name:199 - ✅ Name validation passed: Karan
+2025-12-22 18:37:44,214 - actions - DEBUG - run:271 - [91m📝 Name from slot: Karan[0m
+2025-12-22 18:37:44,214 - actions - DEBUG - run:287 - 📞 Phone resolved as: 919999999999
+2025-12-22 18:37:44,224 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 18:37:44,225 - actions - INFO - run:310 - ✅ Name 'Karan' stored in lead for 919999999999
+2025-12-22 18:37:44,271 - actions - INFO - run:600 - 🎯 ActionGreetWithMenu TRIGGERED!
+2025-12-22 18:41:45,273 - actions - DEBUG - validate_name:175 - 🔍 Validating name: RR
+2025-12-22 18:41:45,273 - actions - INFO - validate_name:199 - ✅ Name validation passed: Rr
+2025-12-22 18:41:45,320 - actions - DEBUG - run:271 - [91m📝 Name from slot: Rr[0m
+2025-12-22 18:41:45,320 - actions - DEBUG - run:287 - 📞 Phone resolved as: 919999999999
+2025-12-22 18:41:45,330 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 18:41:45,331 - actions - INFO - run:310 - ✅ Name 'Rr' stored in lead for 919999999999
+2025-12-22 18:41:45,377 - actions - INFO - run:600 - 🎯 ActionGreetWithMenu TRIGGERED!
+2025-12-22 18:41:55,405 - actions - DEBUG - validate_name:175 - 🔍 Validating name: Aryan
+2025-12-22 18:41:55,405 - actions - INFO - validate_name:199 - ✅ Name validation passed: Aryan
+2025-12-22 18:41:55,451 - actions - DEBUG - run:271 - [91m📝 Name from slot: Aryan[0m
+2025-12-22 18:41:55,451 - actions - DEBUG - run:287 - 📞 Phone resolved as: 919999999999
+2025-12-22 18:41:55,465 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 18:41:55,466 - actions - INFO - run:310 - ✅ Name 'Aryan' stored in lead for 919999999999
+2025-12-22 18:41:55,510 - actions - INFO - run:600 - 🎯 ActionGreetWithMenu TRIGGERED!
+2025-12-22 18:42:04,909 - actions - DEBUG - validate_name:175 - 🔍 Validating name: MS
+2025-12-22 18:42:04,909 - actions - INFO - validate_name:199 - ✅ Name validation passed: Ms
+2025-12-22 18:42:04,954 - actions - DEBUG - run:271 - [91m📝 Name from slot: Ms[0m
+2025-12-22 18:42:04,954 - actions - DEBUG - run:287 - 📞 Phone resolved as: 919999999999
+2025-12-22 18:42:04,963 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 18:42:04,964 - actions - INFO - run:310 - ✅ Name 'Ms' stored in lead for 919999999999
+2025-12-22 18:42:05,010 - actions - INFO - run:600 - 🎯 ActionGreetWithMenu TRIGGERED!
+2025-12-22 18:42:18,999 - actions - DEBUG - validate_name:175 - 🔍 Validating name: Virat Kohli
+2025-12-22 18:42:18,999 - actions - INFO - validate_name:199 - ✅ Name validation passed: Virat Kohli
+2025-12-22 18:42:19,046 - actions - DEBUG - run:271 - [91m📝 Name from slot: Virat Kohli[0m
+2025-12-22 18:42:19,046 - actions - DEBUG - run:287 - 📞 Phone resolved as: 919999999999
+2025-12-22 18:42:19,058 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 18:42:19,059 - actions - INFO - run:310 - ✅ Name 'Virat Kohli' stored in lead for 919999999999
+2025-12-22 18:42:19,104 - actions - INFO - run:600 - 🎯 ActionGreetWithMenu TRIGGERED!
+2025-12-22 18:42:30,514 - actions - DEBUG - validate_name:175 - 🔍 Validating name: Murlitharam
+2025-12-22 18:42:30,514 - actions - INFO - validate_name:199 - ✅ Name validation passed: Murlitharam
+2025-12-22 18:42:30,562 - actions - DEBUG - run:271 - [91m📝 Name from slot: Murlitharam[0m
+2025-12-22 18:42:30,563 - actions - DEBUG - run:287 - 📞 Phone resolved as: 919999999999
+2025-12-22 18:42:30,574 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 18:42:30,575 - actions - INFO - run:310 - ✅ Name 'Murlitharam' stored in lead for 919999999999
+2025-12-22 18:42:30,621 - actions - INFO - run:600 - 🎯 ActionGreetWithMenu TRIGGERED!
+2025-12-22 18:42:39,033 - actions - DEBUG - validate_name:175 - 🔍 Validating name: Bhumi Padnekar
+2025-12-22 18:42:39,033 - actions - INFO - validate_name:199 - ✅ Name validation passed: Bhumi Padnekar
+2025-12-22 18:42:39,081 - actions - DEBUG - run:271 - [91m📝 Name from slot: Bhumi Padnekar[0m
+2025-12-22 18:42:39,081 - actions - DEBUG - run:287 - 📞 Phone resolved as: 919999999999
+2025-12-22 18:42:39,093 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 18:42:39,093 - actions - INFO - run:310 - ✅ Name 'Bhumi Padnekar' stored in lead for 919999999999
+2025-12-22 18:42:39,142 - actions - INFO - run:600 - 🎯 ActionGreetWithMenu TRIGGERED!
+2025-12-22 18:42:48,866 - actions - DEBUG - validate_name:175 - 🔍 Validating name: Rishav
+2025-12-22 18:42:48,867 - actions - INFO - validate_name:199 - ✅ Name validation passed: Rishav
+2025-12-22 18:42:48,912 - actions - DEBUG - run:271 - [91m📝 Name from slot: Rishav[0m
+2025-12-22 18:42:48,913 - actions - DEBUG - run:287 - 📞 Phone resolved as: 919999999999
+2025-12-22 18:42:48,923 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 18:42:48,923 - actions - INFO - run:310 - ✅ Name 'Rishav' stored in lead for 919999999999
+2025-12-22 18:42:48,969 - actions - INFO - run:600 - 🎯 ActionGreetWithMenu TRIGGERED!
+2025-12-22 18:42:55,454 - actions - DEBUG - validate_name:175 - 🔍 Validating name: Rishav
+2025-12-22 18:42:55,455 - actions - INFO - validate_name:199 - ✅ Name validation passed: Rishav
+2025-12-22 18:42:55,503 - actions - DEBUG - run:271 - [91m📝 Name from slot: Rishav[0m
+2025-12-22 18:42:55,504 - actions - DEBUG - run:287 - 📞 Phone resolved as: 919999999999
+2025-12-22 18:42:55,517 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 18:42:55,517 - actions - INFO - run:310 - ✅ Name 'Rishav' stored in lead for 919999999999
+2025-12-22 18:42:55,565 - actions - INFO - run:600 - 🎯 ActionGreetWithMenu TRIGGERED!
+2025-12-22 18:43:03,296 - actions - DEBUG - validate_name:175 - 🔍 Validating name: Rishav
+2025-12-22 18:43:03,296 - actions - INFO - validate_name:199 - ✅ Name validation passed: Rishav
+2025-12-22 18:43:03,344 - actions - DEBUG - run:271 - [91m📝 Name from slot: Rishav[0m
+2025-12-22 18:43:03,344 - actions - DEBUG - run:287 - 📞 Phone resolved as: 919999999999
+2025-12-22 18:43:03,355 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 18:43:03,355 - actions - INFO - run:310 - ✅ Name 'Rishav' stored in lead for 919999999999
+2025-12-22 18:43:03,403 - actions - INFO - run:600 - 🎯 ActionGreetWithMenu TRIGGERED!
+2025-12-22 18:48:14,026 - actions - DEBUG - validate_name:175 - 🔍 Validating name: Hi
+2025-12-22 18:48:14,026 - actions - INFO - validate_name:199 - ✅ Name validation passed: Hi
+2025-12-22 18:48:14,060 - actions - DEBUG - run:349 - 📞 Phone resolved as: 918292253230
+2025-12-22 18:48:14,079 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 18:48:14,080 - actions - INFO - run:369 - ✅ Lead created/retrieved for 918292253230
+2025-12-22 18:48:39,453 - actions - INFO - <module>:46 - IS_TEST_ENV = False
+2025-12-22 18:48:39,453 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_store_name'.
+2025-12-22 18:48:39,453 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_greet_user'.
+2025-12-22 18:48:39,453 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_ask_name'.
+2025-12-22 18:48:39,453 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_send_brochure'.
+2025-12-22 18:48:39,454 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_greet_with_menu'.
+2025-12-22 18:48:39,454 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_talk_to_agent'.
+2025-12-22 18:48:39,454 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_store_vehicle_choice'.
+2025-12-22 18:48:39,454 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_show_vehicle_details'.
+2025-12-22 18:48:39,454 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_ask_pincode'.
+2025-12-22 18:48:39,454 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_store_pincode_and_show_pricing'.
+2025-12-22 18:48:39,454 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_handle_pincode_based_on_purpose'.
+2025-12-22 18:48:39,454 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_set_pincode_purpose_pricing'.
+2025-12-22 18:48:39,454 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_set_pincode_purpose_test_ride'.
+2025-12-22 18:48:39,454 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_confirm_details'.
+2025-12-22 18:48:39,455 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_book_test_ride'.
+2025-12-22 18:48:39,455 - rasa_sdk.executor - INFO - register_function:204 - Registered function for 'action_validate_slot_mappings'.
+2025-12-22 18:48:39,461 - rasa_sdk.endpoint - INFO - run:161 - Starting plugins...
+2025-12-22 18:48:39,462 - rasa_sdk.endpoint - INFO - run:167 - Action endpoint is up and running on http://0.0.0.0:5055
+2025-12-22 18:49:05,475 - actions - DEBUG - validate_name:175 - 🔍 Validating name: Hi
+2025-12-22 18:49:05,475 - actions - INFO - validate_name:199 - ✅ Name validation passed: Hi
+2025-12-22 18:49:05,517 - actions - DEBUG - run:349 - 📞 Phone resolved as: 918292253230
+2025-12-22 18:49:05,633 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 18:49:05,633 - actions - INFO - run:369 - ✅ Lead created/retrieved for 918292253230
+2025-12-22 18:49:06,870 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/send-message "HTTP/1.1 200 OK"
+2025-12-22 18:49:06,871 - actions - INFO - run:384 - ✅ Greeting sent via backend
+2025-12-22 18:49:07,897 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/send-message "HTTP/1.1 200 OK"
+2025-12-22 18:49:07,898 - actions - INFO - run:425 - ✅ Name request sent successfully
+2025-12-22 18:49:16,773 - actions - DEBUG - validate_name:175 - 🔍 Validating name: Raj
+2025-12-22 18:49:16,773 - actions - INFO - validate_name:199 - ✅ Name validation passed: Raj
+2025-12-22 18:49:16,808 - actions - DEBUG - run:271 - [91m📝 Name from slot: Raj[0m
+2025-12-22 18:49:16,809 - actions - DEBUG - run:287 - 📞 Phone resolved as: 918292253230
+2025-12-22 18:49:16,818 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 18:49:16,819 - actions - INFO - run:310 - ✅ Name 'Raj' stored in lead for 918292253230
+2025-12-22 18:49:17,814 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/send-message "HTTP/1.1 200 OK"
+2025-12-22 18:49:17,850 - actions - INFO - run:600 - 🎯 ActionGreetWithMenu TRIGGERED!
+2025-12-22 18:49:17,851 - actions - DEBUG - run:659 - 🚀 Sending vehicle menu via backend...
+2025-12-22 18:49:18,874 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/send-list "HTTP/1.1 200 OK"
+2025-12-22 18:49:18,875 - actions - INFO - run:664 - ✅ Vehicle menu sent successfully
+2025-12-22 18:49:26,330 - actions - DEBUG - run:764 - Vehicle ID: apache_200_4v
+2025-12-22 18:49:26,342 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 18:49:27,430 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/send-image "HTTP/1.1 200 OK"
+2025-12-22 18:49:28,539 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/send-message "HTTP/1.1 200 OK"
+2025-12-22 18:49:29,942 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/send-buttons "HTTP/1.1 200 OK"
+2025-12-22 18:49:38,954 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 18:49:38,955 - actions - INFO - run:468 - Lead status warm stored in lead for 918292253230
+2025-12-22 18:49:38,955 - actions - INFO - run:475 - chosen vehicle: Apache RTR 200 4V
+2025-12-22 18:49:38,955 - actions - DEBUG - run:523 - Reached brochure sending part
+2025-12-22 18:49:40,457 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/send-brochure "HTTP/1.1 200 OK"
+2025-12-22 18:49:45,222 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 18:49:46,593 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/send-message "HTTP/1.1 200 OK"
+2025-12-22 18:49:51,925 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/send-message "HTTP/1.1 200 OK"
+2025-12-22 18:50:03,676 - actions - DEBUG - validate_pincode:211 - 🔍 Validating pincode: 560100
+2025-12-22 18:50:03,676 - actions - INFO - validate_pincode:260 - ✅ Pincode validation passed: 560100
+2025-12-22 18:50:03,727 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 18:50:05,226 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/send-message "HTTP/1.1 200 OK"
+2025-12-22 19:07:06,639 - actions - DEBUG - run:349 - 📞 Phone resolved as: 916203734905
+2025-12-22 19:07:06,659 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 19:07:06,660 - actions - INFO - run:369 - ✅ Lead created/retrieved for 916203734905
+2025-12-22 19:07:07,987 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/send-message "HTTP/1.1 200 OK"
+2025-12-22 19:07:07,988 - actions - INFO - run:384 - ✅ Greeting sent via backend
+2025-12-22 19:07:09,865 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/send-message "HTTP/1.1 200 OK"
+2025-12-22 19:07:09,866 - actions - INFO - run:425 - ✅ Name request sent successfully
+2025-12-22 19:07:18,337 - actions - DEBUG - validate_name:175 - 🔍 Validating name: vivek
+2025-12-22 19:07:18,337 - actions - INFO - validate_name:199 - ✅ Name validation passed: Vivek
+2025-12-22 19:07:18,372 - actions - DEBUG - run:271 - [91m📝 Name from slot: Vivek[0m
+2025-12-22 19:07:18,372 - actions - DEBUG - run:287 - 📞 Phone resolved as: 916203734905
+2025-12-22 19:07:18,382 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 19:07:18,383 - actions - INFO - run:310 - ✅ Name 'Vivek' stored in lead for 916203734905
+2025-12-22 19:07:19,921 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/send-message "HTTP/1.1 200 OK"
+2025-12-22 19:07:19,961 - actions - INFO - run:600 - 🎯 ActionGreetWithMenu TRIGGERED!
+2025-12-22 19:07:19,962 - actions - DEBUG - run:659 - 🚀 Sending vehicle menu via backend...
+2025-12-22 19:07:21,612 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/send-list "HTTP/1.1 200 OK"
+2025-12-22 19:07:21,613 - actions - INFO - run:664 - ✅ Vehicle menu sent successfully
+2025-12-22 19:07:30,622 - actions - DEBUG - run:764 - Vehicle ID: apache_rtr_160_2v
+2025-12-22 19:07:30,636 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 19:07:32,193 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/send-image "HTTP/1.1 200 OK"
+2025-12-22 19:07:33,684 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/send-message "HTTP/1.1 200 OK"
+2025-12-22 19:07:34,844 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/send-buttons "HTTP/1.1 200 OK"
+2025-12-22 19:07:43,797 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 19:07:45,405 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/send-message "HTTP/1.1 200 OK"
+2025-12-22 19:08:17,715 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 19:08:17,715 - actions - INFO - run:468 - Lead status warm stored in lead for 916203734905
+2025-12-22 19:08:17,715 - actions - INFO - run:475 - chosen vehicle: Apache RTR 160 2V
+2025-12-22 19:08:17,716 - actions - DEBUG - run:523 - Reached brochure sending part
+2025-12-22 19:08:19,316 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/send-brochure "HTTP/1.1 200 OK"
+2025-12-22 19:09:04,595 - actions - DEBUG - run:764 - Vehicle ID: tvs_ronin_bike
+2025-12-22 19:09:04,605 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 19:09:05,766 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/send-image "HTTP/1.1 200 OK"
+2025-12-22 19:09:06,844 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/send-message "HTTP/1.1 200 OK"
+2025-12-22 19:09:08,268 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/send-buttons "HTTP/1.1 200 OK"
+2025-12-22 19:09:15,615 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/send-message "HTTP/1.1 200 OK"
+2025-12-22 19:09:29,328 - actions - DEBUG - validate_pincode:211 - 🔍 Validating pincode: 800006
+2025-12-22 19:09:29,328 - actions - WARNING - validate_pincode:253 - ❌ Pincode 800006 not serviceable
+2025-12-22 19:09:38,015 - actions - DEBUG - validate_pincode:211 - 🔍 Validating pincode: 801503
+2025-12-22 19:09:38,015 - actions - WARNING - validate_pincode:253 - ❌ Pincode 801503 not serviceable
+2025-12-22 19:12:01,403 - actions - DEBUG - run:764 - Vehicle ID: tvs_jupiter
+2025-12-22 19:12:01,417 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 19:12:03,003 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/send-image "HTTP/1.1 200 OK"
+2025-12-22 19:12:03,945 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/send-message "HTTP/1.1 200 OK"
+2025-12-22 19:12:04,939 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/send-buttons "HTTP/1.1 200 OK"
+2025-12-22 19:12:10,469 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 19:12:10,470 - actions - INFO - run:468 - Lead status warm stored in lead for 916203734905
+2025-12-22 19:12:10,470 - actions - INFO - run:475 - chosen vehicle: TVS Jupiter
+2025-12-22 19:12:10,470 - actions - DEBUG - run:523 - Reached brochure sending part
+2025-12-22 19:12:11,722 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/send-brochure "HTTP/1.1 200 OK"
+2025-12-22 19:15:10,341 - actions - DEBUG - run:764 - Vehicle ID: apache_rtr_160_2v
+2025-12-22 19:15:10,351 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 19:15:11,489 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/send-image "HTTP/1.1 200 OK"
+2025-12-22 19:15:12,898 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/send-message "HTTP/1.1 200 OK"
+2025-12-22 19:15:14,019 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/send-buttons "HTTP/1.1 200 OK"
+2025-12-22 19:15:17,248 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 19:15:17,248 - actions - INFO - run:468 - Lead status warm stored in lead for 916203734905
+2025-12-22 19:15:17,248 - actions - INFO - run:475 - chosen vehicle: Apache RTR 160 2V
+2025-12-22 19:15:17,248 - actions - DEBUG - run:523 - Reached brochure sending part
+2025-12-22 19:15:18,532 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/send-brochure "HTTP/1.1 200 OK"
+2025-12-22 19:18:30,919 - actions - DEBUG - run:764 - Vehicle ID: apache_rtr_310
+2025-12-22 19:18:30,928 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 19:18:32,105 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/send-image "HTTP/1.1 200 OK"
+2025-12-22 19:18:33,529 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/send-message "HTTP/1.1 200 OK"
+2025-12-22 19:18:35,069 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/send-buttons "HTTP/1.1 200 OK"
+2025-12-22 19:21:32,111 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/send-message "HTTP/1.1 200 OK"
+2025-12-22 19:21:50,396 - actions - DEBUG - validate_pincode:211 - 🔍 Validating pincode: 800006
+2025-12-22 19:21:50,396 - actions - WARNING - validate_pincode:253 - ❌ Pincode 800006 not serviceable
+2025-12-22 19:22:30,538 - actions - DEBUG - validate_pincode:211 - 🔍 Validating pincode: 560001
+2025-12-22 19:22:30,539 - actions - INFO - validate_pincode:260 - ✅ Pincode validation passed: 560001
+2025-12-22 19:22:30,590 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 19:22:31,847 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/send-message "HTTP/1.1 200 OK"
+2025-12-22 19:23:38,272 - actions - DEBUG - run:764 - Vehicle ID: tvs_jupiter
+2025-12-22 19:23:38,284 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 19:23:40,113 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/send-image "HTTP/1.1 200 OK"
+2025-12-22 19:23:41,653 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/send-message "HTTP/1.1 200 OK"
+2025-12-22 19:23:43,006 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/send-buttons "HTTP/1.1 200 OK"
+2025-12-22 19:24:03,778 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/update_lead "HTTP/1.1 200 OK"
+2025-12-22 19:24:03,779 - actions - INFO - run:468 - Lead status warm stored in lead for 916203734905
+2025-12-22 19:24:03,779 - actions - INFO - run:475 - chosen vehicle: TVS Jupiter
+2025-12-22 19:24:03,779 - actions - DEBUG - run:523 - Reached brochure sending part
+2025-12-22 19:24:05,116 - httpx - INFO - _send_single_request:1740 - HTTP Request: POST http://localhost:8000/send-brochure "HTTP/1.1 200 OK"

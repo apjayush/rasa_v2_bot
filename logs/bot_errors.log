@@ -1,0 +1,59 @@
+2025-12-22 16:08:15,870 - actions - ERROR - run:367 - Lead greet update failed
+2025-12-22 16:09:33,063 - actions - ERROR - run:369 - Lead greet update failed
+2025-12-22 16:12:26,960 - actions - ERROR - run:369 - Lead greet update failed
+2025-12-22 16:12:56,109 - actions - ERROR - run:369 - Lead greet update failed
+2025-12-22 16:14:25,851 - actions - ERROR - run:369 - Lead greet update failed
+2025-12-22 16:14:46,788 - actions - ERROR - run:369 - Lead greet update failed
+2025-12-22 16:18:18,071 - actions - ERROR - run:369 - Lead greet update failed
+2025-12-22 17:25:16,061 - actions - ERROR - run:312 - Error updating lead: 
+Traceback (most recent call last):
+  File "/home/ayush/Desktop/model_2.0/rasa_v2_bot/venv/lib/python3.8/site-packages/httpx/_transports/default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "/home/ayush/Desktop/model_2.0/rasa_v2_bot/venv/lib/python3.8/site-packages/httpx/_transports/default.py", line 394, in handle_async_request
+    resp = await self._pool.handle_async_request(req)
+  File "/home/ayush/Desktop/model_2.0/rasa_v2_bot/venv/lib/python3.8/site-packages/httpcore/_async/connection_pool.py", line 256, in handle_async_request
+    raise exc from None
+  File "/home/ayush/Desktop/model_2.0/rasa_v2_bot/venv/lib/python3.8/site-packages/httpcore/_async/connection_pool.py", line 236, in handle_async_request
+    response = await connection.handle_async_request(
+  File "/home/ayush/Desktop/model_2.0/rasa_v2_bot/venv/lib/python3.8/site-packages/httpcore/_async/connection.py", line 103, in handle_async_request
+    return await self._connection.handle_async_request(request)
+  File "/home/ayush/Desktop/model_2.0/rasa_v2_bot/venv/lib/python3.8/site-packages/httpcore/_async/http11.py", line 136, in handle_async_request
+    raise exc
+  File "/home/ayush/Desktop/model_2.0/rasa_v2_bot/venv/lib/python3.8/site-packages/httpcore/_async/http11.py", line 106, in handle_async_request
+    ) = await self._receive_response_headers(**kwargs)
+  File "/home/ayush/Desktop/model_2.0/rasa_v2_bot/venv/lib/python3.8/site-packages/httpcore/_async/http11.py", line 177, in _receive_response_headers
+    event = await self._receive_event(timeout=timeout)
+  File "/home/ayush/Desktop/model_2.0/rasa_v2_bot/venv/lib/python3.8/site-packages/httpcore/_async/http11.py", line 217, in _receive_event
+    data = await self._network_stream.read(
+  File "/home/ayush/Desktop/model_2.0/rasa_v2_bot/venv/lib/python3.8/site-packages/httpcore/_backends/anyio.py", line 37, in read
+    return b""
+  File "/home/ayush/.pyenv/versions/3.8.20/lib/python3.8/contextlib.py", line 131, in __exit__
+    self.gen.throw(type, value, traceback)
+  File "/home/ayush/Desktop/model_2.0/rasa_v2_bot/venv/lib/python3.8/site-packages/httpcore/_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ReadError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ayush/Desktop/model_2.0/rasa_v2_bot/actions/actions.py", line 303, in run
+    resp = await client.post(
+  File "/home/ayush/Desktop/model_2.0/rasa_v2_bot/venv/lib/python3.8/site-packages/httpx/_client.py", line 1859, in post
+    return await self.request(
+  File "/home/ayush/Desktop/model_2.0/rasa_v2_bot/venv/lib/python3.8/site-packages/httpx/_client.py", line 1540, in request
+    return await self.send(request, auth=auth, follow_redirects=follow_redirects)
+  File "/home/ayush/Desktop/model_2.0/rasa_v2_bot/venv/lib/python3.8/site-packages/httpx/_client.py", line 1629, in send
+    response = await self._send_handling_auth(
+  File "/home/ayush/Desktop/model_2.0/rasa_v2_bot/venv/lib/python3.8/site-packages/httpx/_client.py", line 1657, in _send_handling_auth
+    response = await self._send_handling_redirects(
+  File "/home/ayush/Desktop/model_2.0/rasa_v2_bot/venv/lib/python3.8/site-packages/httpx/_client.py", line 1694, in _send_handling_redirects
+    response = await self._send_single_request(request)
+  File "/home/ayush/Desktop/model_2.0/rasa_v2_bot/venv/lib/python3.8/site-packages/httpx/_client.py", line 1730, in _send_single_request
+    response = await transport.handle_async_request(request)
+  File "/home/ayush/Desktop/model_2.0/rasa_v2_bot/venv/lib/python3.8/site-packages/httpx/_transports/default.py", line 394, in handle_async_request
+    resp = await self._pool.handle_async_request(req)
+  File "/home/ayush/.pyenv/versions/3.8.20/lib/python3.8/contextlib.py", line 131, in __exit__
+    self.gen.throw(type, value, traceback)
+  File "/home/ayush/Desktop/model_2.0/rasa_v2_bot/venv/lib/python3.8/site-packages/httpx/_transports/default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ReadError
