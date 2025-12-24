@@ -41,15 +41,13 @@ async def send_message(phone: str, message: str, dispatcher: CollectingDispatche
 # from ./ import VEHICLE_DATA
 
 # Environment detection
-IS_TEST_ENV = True
+IS_TEST_ENV = False
 
 logger.info(f"IS_TEST_ENV = {IS_TEST_ENV}")
 
-BACKEND_SLOT_URL = "http://localhost:8000/available-slots"
-BACKEND_BOOK_URL = "http://localhost:8000/book-slot"
 BACKEND_SEND_LIST_URL = "http://localhost:8000/send-list"
 BACKEND_SEND_BROCHURE_URL = "http://localhost:8000/send-brochure"
-BACKEND_BOOK_TEST_RIDE_URL = "http://localhost:8000/book-test-ride"
+# BACKEND_BOOK_TEST_RIDE_URL = "http://localhost:8000/book-test-ride"
 BACKEND_SEND_MESSAGE_URL = "http://localhost:8000/send-message"
 BACKEND_NOTIFY_AGENT_URL = "http://localhost:8000/notify-agent"
 BACKEND_SEND_IMAGE_URL = "http://localhost:8000/send-image"
@@ -351,6 +349,24 @@ class ActionGreetUser(Action):
         if not phone_number:
             logger.error("❌ Phone not found")
             return []
+        
+
+        update_payload = {
+            "phone": phone_number
+        }
+
+        try:
+            async with httpx.AsyncClient(timeout=10.0) as client:
+                resp = await client.post(
+                    BACKEND_LEAD_UPDATE_URL,
+                    json=update_payload
+                )
+                if resp.status_code != 200:
+                    logger.error(f"Lead greet update failed")
+                else:
+                    logger.info(f"✅ Lead created/retrieved for {phone_number}")
+        except Exception as e:
+            logger.exception(f"Error updating lead: {e}")
 
         # 2️⃣ Send greeting message
         if IS_TEST_ENV:
@@ -422,9 +438,35 @@ class ActionSendBrochure(Action):
                   tracker: Tracker,
                   domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         
-        # Get user's phone number
-        phone_number = tracker.sender_id
+        name = tracker.get_slot("name")
         
+        # Get user's phone number
+        phone_number = (
+            tracker.latest_message.get("metadata", {}).get("phone")
+            or tracker.get_slot("phone")
+            or tracker.sender_id
+        )
+
+        update_payload = {
+            "phone": phone_number,
+            "updates": {
+                "lead_status": "warm"
+            }
+        }
+
+        try:
+            async with httpx.AsyncClient(timeout=10.0) as client:
+                resp = await client.post(
+                    BACKEND_LEAD_UPDATE_URL,
+                    json=update_payload
+                )
+                if resp.status_code != 200:
+                    logger.error(f"Lead update failed: {resp.text}")
+                else:
+                    logger.info(f"Lead status warm stored in lead for {phone_number}")
+        except Exception as e:
+            logger.exception(f"Error updating lead: {e}")
+
         # Check if user has selected a vehicle
         chosen_vehicle = tracker.get_slot("chosen_vehicle")
 
@@ -1291,32 +1333,6 @@ class ActionSetPincodePurposeTestRide(Action):
         print("🎯 Setting pincode purpose to: test_ride")
         return [SlotSet("pincode_purpose", "test_ride")]
 
-
-class ActionConfirmDetails(Action):
-    def name(self) -> Text:
-        return "action_confirm_details"
-
-    async def run(self, dispatcher, tracker: Tracker, domain):
-        name = tracker.get_slot("user_name") or tracker.get_slot("name")
-        pincode = tracker.get_slot("pincode")
-        
-        phone = (
-            tracker.latest_message.get("metadata", {}).get("phone")
-            or tracker.get_slot("phone")
-            or tracker.sender_id
-        )
-        
-        confirmation_message = f"""
-            Let me confirm your details:
-            📝 Name: {name}
-            📍 Pincode: {pincode}
-
-            Is this correct? (Reply Yes/No)
-        """.strip()
-        
-        await send_message(phone, confirmation_message, dispatcher)
-        
-        return []
     
 class ActionBookTestRide(Action):
     def name(self) -> Text:
@@ -1333,6 +1349,40 @@ class ActionBookTestRide(Action):
         confirmation_message = f"""Thanks for booking a test ride for *{chosen_vehicle}*! Our TVS sales executive will contact you shortly to schedule your test ride. 🏍️
         """.strip()
 
-        await send_message(phone_number, confirmation_message, dispatcher)
+        update_payload = {
+            "phone": phone_number,
+            "updates": {
+                "lead_status": "hot"
+            }
+        }
+
+        try:
+            async with httpx.AsyncClient(timeout=10.0) as client:
+                resp = await client.post(
+                    BACKEND_LEAD_UPDATE_URL,
+                    json=update_payload
+                )
+                if resp.status_code != 200:
+                    print(f"❌ Lead update failed: {resp.text}")
+                else:
+                    print(f"✅ Lead status updated to hot for {phone_number}")
+        except Exception as e:
+            print(f"❌ Error updating lead status: {e}")
+
+        if IS_TEST_ENV:
+            await send_message(phone_number, confirmation_message, dispatcher)
+        else:
+            payload = {
+                "to": phone_number,
+                "message": confirmation_message
+            }
+            
+            try:
+                async with httpx.AsyncClient(timeout=10.0) as client:
+                    await client.post(BACKEND_SEND_MESSAGE_URL, json=payload)
+                print(f"✅ Sent test ride confirmation for {chosen_vehicle}")
+            except Exception as e:
+                print(f"❌ Error sending test ride confirmation: {e}")
+            
 
         return []
