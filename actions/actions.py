@@ -41,18 +41,26 @@ async def send_message(phone: str, message: str, dispatcher: CollectingDispatche
 # from ./ import VEHICLE_DATA
 
 # Environment detection
-IS_TEST_ENV = False
+# IS_TEST_ENV = False
 
-logger.info(f"IS_TEST_ENV = {IS_TEST_ENV}")
+BACKEND_BASE_URL = os.getenv(
+    "BACKEND_BASE_URL",
+    "http://incoweb-api:8000"
+)
 
-BACKEND_SEND_LIST_URL = "http://localhost:8000/send-list"
-BACKEND_SEND_BROCHURE_URL = "http://localhost:8000/send-brochure"
-# BACKEND_BOOK_TEST_RIDE_URL = "http://localhost:8000/book-test-ride"
-BACKEND_SEND_MESSAGE_URL = "http://localhost:8000/send-message"
-BACKEND_NOTIFY_AGENT_URL = "http://localhost:8000/notify-agent"
-BACKEND_SEND_IMAGE_URL = "http://localhost:8000/send-image"
-BACKEND_LEAD_UPDATE_URL = "http://localhost:8000/update_lead"
-BACKEND_SEND_BUTTON_URL = "http://localhost:8000/send-buttons"
+
+logger.info(f"BACKEND_BASE_URL = {BACKEND_BASE_URL}")
+
+# logger.info(f"IS_TEST_ENV = {IS_TEST_ENV}")
+
+BACKEND_SEND_LIST_URL = f"{BACKEND_BASE_URL}/send-list"
+BACKEND_SEND_BROCHURE_URL = f"{BACKEND_BASE_URL}/send-brochure"
+# BACKEND_BOOK_TEST_RIDE_URL = f"{BACKEND_BASE_URL}/book-test-ride"
+BACKEND_SEND_MESSAGE_URL = f"{BACKEND_BASE_URL}/send-message"
+BACKEND_NOTIFY_AGENT_URL = f"{BACKEND_BASE_URL}/notify-agent"
+BACKEND_SEND_IMAGE_URL = f"{BACKEND_BASE_URL}/send-image"
+BACKEND_LEAD_UPDATE_URL = f"{BACKEND_BASE_URL}/update_lead"
+BACKEND_SEND_BUTTON_URL = f"{BACKEND_BASE_URL}/send-buttons"
 
 
 VEHICLE_DATA = {
@@ -1028,12 +1036,12 @@ class ActionStorePincodeAndShowPricing(Action):
 
         # ✅ Send pricing message
         pricing_message = f"""
-📍 Thanks for sharing your pincode!
+        📍 Thanks for sharing your pincode!
 
-💰 The ex-showroom price of **{chosen_vehicle}** starts from **{formatted_price}**.
+        💰 The ex-showroom price of **{chosen_vehicle}** starts from **{formatted_price}**.
 
-Our TVS sales executive will contact you shortly with the **best on-road price & EMI options** available for your area.
-        """.strip()
+        Our TVS sales executive will contact you shortly with the **best on-road price & EMI options** available for your area.
+                """.strip()
 
         if IS_TEST_ENV:
             dispatcher.utter_message(text=pricing_message)

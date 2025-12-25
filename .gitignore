@@ -1,0 +1,14 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+# models/  # ✅ COMMENT THIS OUT to include trained models
+logs/
+.rasa/
+*.log
+.DS_Store
+.env

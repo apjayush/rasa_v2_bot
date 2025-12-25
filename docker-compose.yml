@@ -1,0 +1,41 @@
+version: "3.8"
+
+services:
+  rasa:
+    image: rasa/rasa:3.6.20
+    container_name: rasa-server
+    restart: unless-stopped
+    volumes:
+      - .:/app
+    command: >
+      run
+      --enable-api
+      --cors "*"
+      --endpoints endpoints.yml
+      --debug
+    ports:
+      - "5005:5005"
+    depends_on:
+      - actions
+    networks:
+      - incoweb_backend_default
+
+  actions:
+    image: rasa/rasa-sdk:3.6.2
+    container_name: rasa-actions
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - ./actions:/app/actions
+      - ./requirements.txt:/app/requirements.txt
+    command: >
+      bash -c "pip install -r requirements.txt && start --actions actions"
+    ports:
+      - "5055:5055"
+    networks:
+      - incoweb_backend_default
+
+networks:
+  incoweb_backend_default:
+    external: true
